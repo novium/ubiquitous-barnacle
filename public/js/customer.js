@@ -52,7 +52,7 @@ var vm = new Vue({
   },
   mounted: function () {
     // set up the map
-    this.map = L.map('my-map').setView([59.8415,17.648], 16);
+    this.map = L.map('my-map').setView([59.8415,17.648], 13);
 
     // create the tile layer with correct attribution
     var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
@@ -63,18 +63,21 @@ var vm = new Vue({
     }).addTo(this.map);
     this.map.on('click', this.handleClick);
 
-    var searchControl = L.esri.Geocoding.geosearch().addTo(this.map);
- 
-    // create an empty layer group to store the results and add it to the map
-    var results = L.layerGroup().addTo(this.map);
- 
-    // listen for the results event and add every result to the map
-    searchControl.on("results", function(data) {
-        results.clearLayers();
-        for (var i = data.results.length - 1; i >= 0; i--) {
-            results.addLayer(L.marker(data.results[i].latlng));
-        }
-    });
+    var searchDestControl = L.esri.Geocoding.geosearch({allowMultipleResults: false, zoomToResult: false, placeholder: "Destination"}).addTo(this.map);
+    var searchFromControl = L.esri.Geocoding.geosearch({allowMultipleResults: false, zoomToResult: false, placeholder: "From"});
+    // listen for the results event and add the result to the map
+    searchDestControl.on("results", function(data) {
+        this.destMarker = L.marker(data.latlng, {draggable: true}).addTo(this.map);
+        this.destMarker.on("drag", this.moveMarker);
+        searchFromControl.addTo(this.map);
+    }.bind(this));
+
+    // listen for the results event and add the result to the map
+    searchFromControl.on("results", function(data) {
+        this.fromMarker = L.marker(data.latlng, {icon: this.fromIcon, draggable: true}).addTo(this.map);
+        this.fromMarker.on("drag", this.moveMarker);
+        this.connectMarkers = L.polyline([this.fromMarker.getLatLng(), this.destMarker.getLatLng()], {color: 'blue'}).addTo(this.map);
+    }.bind(this));
   },
   methods: {
     putTaxiMarker: function (taxi) {
@@ -97,7 +100,7 @@ var vm = new Vue({
       }
       // second click sets pickup location
       else if (this.fromMarker === null) {
-        this.fromMarker = L.marker([event.latlng.lat, event.latlng.lng], {icon: this.fromIcon, draggable: true}).addTo(this.map);
+        this.fromMarker = L.marker(event.latlng, {icon: this.fromIcon, draggable: true}).addTo(this.map);
         this.fromMarker.on("drag", this.moveMarker);
         this.connectMarkers = L.polyline([this.fromMarker.getLatLng(), this.destMarker.getLatLng()], {color: 'blue'}).addTo(this.map);
       }

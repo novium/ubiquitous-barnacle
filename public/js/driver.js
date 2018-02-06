@@ -43,7 +43,7 @@ var vm = new Vue({
   },
   mounted: function () {
     // set up the map
-    this.map = L.map('my-map').setView([59.8415,17.648], 16);
+    this.map = L.map('my-map').setView([59.8415,17.648], 13);
 
     // create the tile layer with correct attribution
     var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
