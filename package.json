@@ -1,18 +1,19 @@
 {
-  "name": "very-taxi-skeleton",
+  "name": "ubiquitous-barnacle",
   "version": "0.0.1",
   "description": "Stub for taxi service",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "author": "Mikael Laaksoharju",
-  "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.0.0",
+    "esri-leaflet-geocoder": "^2.2.8",
     "express": "^4.16.2",
-    "socket.io": "^2.0.4",
-    "vue": "^2.5.2",
     "leaflet": "^1.3.1",
-    "esri-leaflet-geocoder": "^2.2.8"
+    "normalize.css": "^7.0.0",
+    "socket.io": "^2.0.4",
+    "vue": "^2.5.2"
   }
 }
