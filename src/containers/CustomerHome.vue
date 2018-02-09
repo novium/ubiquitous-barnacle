@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <Map />
+    <Map ref="map" />
   </div>
 </template>
 
@@ -8,6 +8,21 @@
   import Map from '../components/Map.vue'
 
   export default {
+    beforeCreate() {
+
+    },
+
+    mounted() {
+      this.$refs.map.$on('click', this.mapClick);
+    },
+
+    methods: {
+      mapClick(lngLat) {
+        this.$refs.map.clearMarkers();
+        this.$refs.map.addMarker(lngLat.lngLat);
+      }
+    },
+
     components: {
       Map
     }
