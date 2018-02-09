@@ -8,35 +8,12 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
- 
+
 // Pick arbitrary port for server
 var port = 3000;
 app.set('port', (process.env.PORT || port));
 
-// Serve static assets from public/
-app.use(express.static(path.join(__dirname, 'public/')));
-// Serve vue from node_modules as vue/
-app.use('/vue', express.static(path.join(__dirname, '/node_modules/vue/dist/')));
-// Serve leaflet from node_modules as leflet/
-app.use('/leaflet', express.static(path.join(__dirname, '/node_modules/leaflet/dist/')));
-// Serve esri leaflet geocoder from node_modules as esri-leaflet/
-app.use('/esri-leaflet', express.static(path.join(__dirname, '/node_modules/esri-leaflet/dist/')));
-// Serve esri leaflet geocoder from node_modules as esri-leaflet-geocoder/
-app.use('/esri-leaflet-geocoder', express.static(path.join(__dirname, '/node_modules/esri-leaflet-geocoder/dist/')));
-// Serve index.html directly as root page
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'views/customer.html'));
-});
-// Serve driver.html as /driver
-app.get('/driver', function (req, res) {
-  res.sendFile(path.join(__dirname, 'views/driver.html'));
-});
-// Serve dispatcher.html as /dispatcher
-app.get('/dispatcher', function (req, res) {
-  res.sendFile(path.join(__dirname, 'views/dispatcher.html'));
-});
-
-// Store data in an object to keep the global namespace clean and 
+// Store data in an object to keep the global namespace clean and
 // prepare for multiple instances of data if necessary
 function Data() {
   this.orders = {};
@@ -68,7 +45,7 @@ Data.prototype.finishOrder = function (orderId) {
 };
 
 /*
-  Only needs to know orderId. The rest is up to the client to decide 
+  Only needs to know orderId. The rest is up to the client to decide
 */
 Data.prototype.updateOrderDetails = function (order) {
   for (var key in order) {
