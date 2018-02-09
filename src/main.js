@@ -1,17 +1,22 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import BootstrapVue from 'bootstrap-vue';
 
 window.mapboxgl = require('mapbox-gl');
 mapboxgl.accessToken = 'pk.eyJ1Ijoibm92aXVtIiwiYSI6ImNpeGFmMzl5MzAwMTkydG54Nmw0N3Z6eGoifQ.awDpSy43luwX5rm1W8RSKA';
 
-import App from './App.vue'
+import App from './App.vue';
 
-import Customer from './containers/Customer.vue'
-import CustomerHome from './containers/CustomerHome.vue'
+import Customer from './containers/Customer.vue';
+import CustomerHome from './containers/CustomerHome.vue';
 
-import Home from './components/Home.vue'
+import Dispatcher from './containers/Dispatcher.vue';
+import DispatcherHome from './containers/DispatcherHome.vue';
 
-Vue.use(VueRouter)
+import Home from './components/Home.vue';
+
+Vue.use(VueRouter);
 
 
 const routes = [
@@ -20,16 +25,20 @@ const routes = [
     children: [
       { path: '', component: CustomerHome }
     ]
-  }
-]
+  },
+  { path: '/dispatcher', component: Dispatcher,
+    children: [
+      { path: '', component: DispatcherHome }
+    ]}
+];
 
 const router = new VueRouter({
   routes
-})
+});
 
 
 new Vue({
   el: '#app',
   router,
   render: h => h(App)
-})
+});
