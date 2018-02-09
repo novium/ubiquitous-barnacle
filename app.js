@@ -25,7 +25,7 @@ function Data() {
 Data.prototype.getOrderNumber = function () {
   this.currentOrderNumber += 1;
   return this.currentOrderNumber;
-}
+};
 
 /*
   Adds an order to to the queue
@@ -121,7 +121,7 @@ io.on('connection', function (socket) {
   socket.on('orderAccepted', function(order) {
     data.updateOrderDetails(order);
     io.emit('orderAccepted', order );
-  })
+  });
 });
 
 var server = http.listen(app.get('port'), function () {

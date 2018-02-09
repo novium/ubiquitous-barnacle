@@ -10,7 +10,7 @@
 
     methods: {
       init() {
-        return map = new mapboxgl.Map({
+        return new mapboxgl.Map({
           container: 'map',
           style: 'mapbox://styles/mapbox/streets-v10'
         });
