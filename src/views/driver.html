@@ -16,14 +16,21 @@
   <body>
     <div id="page">
       <div id="my-map">
-        <h3 id="driverInfo">
+      <div id="driverBox">
+      <h3 id="driverName">
 	    TAXI DRIVER # {{ taxiId }}
-	  </h3>
+      </h3>
+      <div>
+      <button class="btn Sig" name="buttonSig" Style v-on:click="optionPopup">Sign out</button>  
+      </div>
+          </div>
+     <button class="btn Opt" name="buttonOpt" Style v-on:click="optionPopup">Option</button>
+      
       </div>
 
       <!--Bar where current job, next job and outside conditions aswell as clock shows-->
       <div class="orderBar">
-        <div class="column left">
+        <div class="column leftleft">
         <ul>
         
         
@@ -38,11 +45,11 @@
                   {{ item }}
                 </li>
               </ul>
-              <button v-on:click="finishOrder(order.orderId)">FINISH</button>
+              <button class="btn Fin" name="buttonFin" v-on:click="finishOrder(order.orderId)">Finish job</button>
             </div>
           </ul>
         </div>
-        <div class="column middle">
+        <div class="column left">
         <ul>
         
      
@@ -57,21 +64,41 @@
                   {{ item }}
                 </li>
               </ul>
-              <button v-on:click="acceptOrder(order)">ACCEPT</button>
-              <button v-on:click="declineOrder(order)">DECLINE</button>
+              <button class="btn Sta" name="buttonSta" v-on:click="StartNextOrder(order.orderId)">Start job</button>
             </div>
           </ul>
         </div>
         <div class="column right">
           <ul>
+          <h2>
+          Trip info
+          </h2>
             #clock time untill arrival 
             time to destination etc
 
           </ul>
         </div>
+        <div class="column rightright">
+        <ul>
+        <h2>
+        Job request
+        </h2>
+     
+            <div v-for="order in orders" v-if="order.taxiId == taxiId">
+              # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
+              <ul>
+                <li v-for="item in order.orderItems">
+                  {{ item }}
+                </li>
+              </ul>
+              <button class="btn Acc" name="buttonAcc" v-on:click="acceptOrder(order)">Accept</button>
+              <button class="btn Dec" name="buttonDec" v-on:click="declineOrder(order)">Decline</button>
+            </div>
+          </ul>
+          </div>
       </div>
 
-      <button v-on:click="quit">Quit</button>
+      <button type="btn" v-on:click="quit">Quit</button>
     </div>
   </body>
 
