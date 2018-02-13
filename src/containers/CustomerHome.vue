@@ -46,7 +46,7 @@
           </div>
           <div class='row'>
             <div class='col'>
-              Passengers : <input type="number" id="numberOfPassengers" name="nOP" required="required" placeholder="Meme review">
+              Passengers : <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required'>
             </div>
             <div class='col'>
               Price : {{price}} Kr
@@ -54,21 +54,21 @@
           </div>
           <div class='row'>
             <div class='col'>
-              Bags : <input type="number" id="numberOfBags" name="nOB" required="required" placeholder="1-5">
+              Bags : <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
             </div>
             <div class='col'>
               <div class='checkboxes'>
                   <div class='form-check'>  
-                    <input class='form-check-input' type="checkbox" id='checkdog' value='checkdog'><label class='form-check-label'>Pets</label>
+                    <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'><label class='form-check-label' for='checkPet'>Pets</label>
                   </div>
                   <div class='form-check form-check-inline'>
-                    <input class='form-check-input'  type="checkbox" id='allergies' value='allergies'><label class='form-check-label'>Allergies</label>
+                    <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'><label class='form-check-label' for='checkAllergies'>Allergies</label>
                   </div>
                   <div class='form-check'>
-                    <input class='form-check-input'  type="checkbox" id='wheelchair' value='wheelchair'><label class='form-check-label'>Wheelchair</label>
+                    <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'><label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
                   </div>
                   <div class='form-check form-check-inline'>
-                    <input class='form-check-input' type="checkbox" id='ignoreThis' value='ignoreThis'><label class='form-check-label'>TempCheck</label> 
+                    <input class='form-check-input' type='checkbox' id='checkIgnoreThis' value='checkIgnoreThis'><label class='form-check-label' for='checkIgnoreThis'>TempCheck</label> 
                   </div>
              </div>
               
@@ -125,11 +125,14 @@
           </div>
           <div class='row'>
               <div class='col-sm'>
-                {{passengers}}
-                {{luggage}}
+                {{passengers}} peeps <br>
+                {{luggage}} bags
               </div>
               <div class='col-sm'>
-                {{checkboxes}}
+                Pets: {{bringPet}}
+                Wheelchair: {{bringWheelchair}}
+                Allergies: {{gotAllergies}}
+
               </div>
           </div>
           <div class='row'>
@@ -165,6 +168,7 @@
       <button v-on:click='testButton3'>3</button>
       <button v-on:click='testButton4'>4</button>
       <button v-on:click='backButtonPress'>V-model logger</button>
+      <button v-on:click='loadDataCheckboxes'>check logger</button>
     </div>
   <Map />
 
@@ -235,10 +239,14 @@
     fromSpecifyToSummary(){
       this.specifyView = false;
       this.summaryView = true;
+      this.loadDataCheckboxes();
+      this.checkboxesToText();
     },
     backButtonPress(){
       console.log('YEEET')
       console.log(this.whereTo)
+      console.log(this.checkboxes)
+      this.checkboxesToText();
     },
     backToSpecify(){
       this.summaryView = false;
@@ -247,27 +255,59 @@
     fromSpecifyToMain(){
       this.specifyView = false;
       this.mainView = true;
+    },
+    loadDataCheckboxes(){
+      var listAux = []
+        if (document.getElementById('checkPet').checked){
+                listAux.push('pet');
+            }
+        if (document.getElementById('checkAllergies').checked){
+                listAux.push('allergies');
+        }
+        if (document.getElementById('checkWheelchair').checked){
+                listAux.push('wheelchair');
+        }
+        console.log(listAux);
+        this.checkboxes = listAux;
+
+    },
+    checkboxesToText(){
+      if (document.getElementById('checkPet').checked){
+        this.bringPet = 'yes'
+
+      }
+      if (document.getElementById('checkAllergies').checked){
+        this.gotAllergies = 'yes'
+    } 
+      if (document.getElementById('checkWheelchair').checked){
+        this.bringWheelchair = 'yes'
+      }
     }
     },
     data(){
       return{
         whereTo: 'Where would like to go?',
-        from: "current position",
+        from: 'current position',
         timeToArrival: 'Taxi @ your position',
         timeToDestination: 'Taxi @ Destination',
         logoImg: 'logoIMG',
         orderButtonImg: 'Button Img',
         flagImg: 'if we are to use a flag place it here drop down box?',
-        passengers: 50,
-        luggage: 510,
+        passengers: 0,
+        luggage: 0,
         price: 250,
-        checkboxes: "Enter check value",
-        confirmationCode: "random Code",
+        checkBoxesToText: 'nothing',
+        checkboxes: [],
+        confirmationCode: 'random Code',
         endView: true,
         summaryView: true,
         specifyView: true,
         mainView: true,
-        notEndView: true        }
+        notEndView: true, 
+        bringWheelchair: 'no',
+        gotAllergies: 'no',
+        bringPet: 'no'
+        }
       
       },
     
@@ -447,4 +487,4 @@
 
 </style>
 
-<!-- Instead of left:-200%; use v-if="View" to change between views!! -->
+<!-- Add button Design. Design the info boxes more checkboxes? -->
