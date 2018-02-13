@@ -1,12 +1,12 @@
 <template>
   <div id="container">
-    <Map />
-
     <div id="sidebar">
       <div id="sidebar-container">
         <h1>Jobs</h1>
       </div>
     </div>
+
+    <Map />
   </div>
 </template>
 
@@ -30,18 +30,15 @@
     color: white;
 
     width: 15%;
+    min-width: 150px;
     height: 100%;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 10;
+    z-index: 2
   }
 
   #sidebar-container {
     margin: 30px 30px 30px 30px;
   }
 
-  #map {
-    z-index: -1;
-    position: absolute;
-  }
 </style>
