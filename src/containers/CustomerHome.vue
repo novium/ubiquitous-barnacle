@@ -1,8 +1,172 @@
 <template>
-  <div id="container">
-      <div id="testtext">  {{test}}  </div>
-      <div id="testtext">  {{test2}}  </div>
-    <Map />
+  <div id='container'>
+<!-- MainMainMainMainMainMain -->
+    <button v-on:click='testReset'>ResetResetReset</button>
+    <div class='Main' v-if='mainView'>
+      <div class='logInButtonUp'>
+        <button v-on:click='tologin'>login</button>
+      </div>
+      <div class='whereToUp'>
+        <input v-model='whereTo'>
+      </div>
+      <div class='timeToArrivalUp'>
+        {{timeToArrival}}
+      </div>
+      <div class='timeToDestinationUp'>
+        {{timeToDestination}}
+      </div>
+      <div class='logoUp'>
+        {{logoImg}}
+      </div>
+      <div class='flagImgUp'>
+      </div>
+        <button v-on:click='fromMainToEnd' class='orderButton'>Quick Buy</button>
+        <button v-on:click='fromMainToSpecify' class='orderButtonSpecify'>Specify</button>
+    </div>
+<!-- SpecifySpecifySpecifySpecify -->
+
+    <div class='specifyOrder' v-if='specifyView'>
+      <div class='container'>
+        <div>
+          <div class='row'>
+            <div class='col'>
+              {{from}}
+            </div>
+            <div class='col'>
+              {{whereTo}}
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col'>
+              {{timeToArrival}}
+            </div>
+            <div class='col'>
+              {{timeToDestination}}
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col'>
+              Passengers : <input type="number" id="numberOfPassengers" name="nOP" required="required" placeholder="Meme review">
+            </div>
+            <div class='col'>
+              Price : {{price}} Kr
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col'>
+              Bags : <input type="number" id="numberOfBags" name="nOB" required="required" placeholder="1-5">
+            </div>
+            <div class='col'>
+              <div class='checkboxes'>
+                  <div class='form-check'>  
+                    <input class='form-check-input' type="checkbox" id='checkdog' value='checkdog'><label class='form-check-label'>Pets</label>
+                  </div>
+                  <div class='form-check form-check-inline'>
+                    <input class='form-check-input'  type="checkbox" id='allergies' value='allergies'><label class='form-check-label'>Allergies</label>
+                  </div>
+                  <div class='form-check'>
+                    <input class='form-check-input'  type="checkbox" id='wheelchair' value='wheelchair'><label class='form-check-label'>Wheelchair</label>
+                  </div>
+                  <div class='form-check form-check-inline'>
+                    <input class='form-check-input' type="checkbox" id='ignoreThis' value='ignoreThis'><label class='form-check-label'>TempCheck</label> 
+                  </div>
+             </div>
+              
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col'>
+              
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col'>
+              
+            </div>
+          </div>
+          <div class='col'>
+            <div class='orderButtonSpecify'>
+            <button v-on:click='fromSpecifyToMain'>Back</button>
+            <button v-on:click='fromSpecifyToSummary'>Summary</button>  
+            {{orderButtonImg}}              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+<!-- summarysummarysummarysummary -->
+    <div class='summarised' v-if='summaryView'>
+      <div class='summaryTitle'>
+        Summary
+      </div>
+      <div class='backToSpecify'>
+        <button v-on:click='backToSpecify'>Back</button>
+      </div>
+      <div class='summarisedInfo'>
+        <div class='container'>
+          <div class='row'>
+              <div class='col-sm'>
+                {{from}}
+              </div>
+              <div class='col-sm'>
+                {{whereTo}}
+              </div>
+          </div>
+          <div class='row'>
+              <div class='col-sm'>
+                {{timeToArrival}}
+              </div>
+              <div class='col-sm'>
+                {{timeToDestination}}
+              </div>
+          </div>
+          <div class='row'>
+              <div class='col-sm'>
+                {{passengers}}
+                {{luggage}}
+              </div>
+              <div class='col-sm'>
+                {{checkboxes}}
+              </div>
+          </div>
+          <div class='row'>
+            <div class='col-12'>
+              {{price}} Kr
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='confirm'>
+        <button v-on:click='confirmSummarise'>Confirm</button>
+
+      </div>
+    </div>
+<!--  endendendendendendendendend -->
+    <div class='end' v-if='endView'>
+      <div class='endFromInfo'>
+        {{from}}
+        {{timeToArrival}}
+      </div>
+      <div class='endToInfo'>
+        {{whereTo}}
+        {{timeToDestination}}
+      </div>
+      <div class='confirmationCode'>
+        {{confirmationCode}}
+      
+      </div>
+    </div>
+    <div class='backButton'>
+      <button v-on:click='testButton1'>1</button>
+      <button v-on:click='testButton2'>2</button>
+      <button v-on:click='testButton3'>3</button>
+      <button v-on:click='testButton4'>4</button>
+      <button v-on:click='backButtonPress'>V-model logger</button>
+    </div>
+  <Map />
 
   </div>
 </template>
@@ -14,10 +178,96 @@
   import Map from '../components/Map.vue'
 
   export default {
+    methods: {
+    testButton4(){
+      this.endView = true;
+      this.summaryView = false;
+      this.specifyView = false;
+      this.mainView = false; 
+    },
+    testButton3(){
+      this.endView = false;
+      this.summaryView = true;
+      this.specifyView = false;
+      this.mainView = false; 
+    },
+    testButton2(){
+      this.endView = false;
+      this.summaryView = false;
+      this.specifyView = true;
+      this.mainView = false; 
+    },        
+    testButton1(){
+      this.endView = false;
+      this.summaryView = false;
+      this.specifyView = false;
+      this.mainView = true; 
+    },    
+    testReset(){
+      this.endView = true;
+      this.summaryView = true;
+      this.specifyView = true;
+      this.mainView = true;
+    },
+    tologin(){
+      console.log(this.testTrue)
+      this.mainView = false;
+      this.summaryView = false;
+      this.specifyView = false;
+      this.endView = false;
+    },
+    fromMainToSpecify(){
+      this.mainView = false;
+      this.summaryView = false;
+      this.specifyView = true;
+      this.endView = false;
+    },
+    confirmSummarise(){
+      this.mainView = false;
+      this.summaryView = false;
+      this.specifyView = false;
+      this.endView = true;
+    },
+    fromMainToEnd(){
+      this.mainView = false;
+      this.endView = true;
+    },
+    fromSpecifyToSummary(){
+      this.specifyView = false;
+      this.summaryView = true;
+    },
+    backButtonPress(){
+      console.log('YEEET')
+      console.log(this.whereTo)
+    },
+    backToSpecify(){
+      this.summaryView = false;
+      this.specifyView = true;
+    },
+    fromSpecifyToMain(){
+      this.specifyView = false;
+      this.mainView = true;
+    }
+    },
     data(){
       return{
-        test: "testy",
-        test2: "Testy the testicle"}
+        whereTo: 'Where would like to go?',
+        from: "current position",
+        timeToArrival: 'Taxi @ your position',
+        timeToDestination: 'Taxi @ Destination',
+        logoImg: 'logoIMG',
+        orderButtonImg: 'Button Img',
+        flagImg: 'if we are to use a flag place it here drop down box?',
+        passengers: 50,
+        luggage: 510,
+        price: 250,
+        checkboxes: "Enter check value",
+        confirmationCode: "random Code",
+        endView: true,
+        summaryView: true,
+        specifyView: true,
+        mainView: true,
+        notEndView: true        }
       
       },
     
@@ -28,18 +278,173 @@
 </script>
 
 <style scoped>
+
   #container {
     width: 100%;
     height: 100%;
-    position: absolute;
     z-index: -1;
-  }
-  #testtext {
-  position: absolute;  
-  display: absolute;
-  z-index: 1;
-  
 
 
   }
+  /* Main (ingore the Up it was part of an old View swapping Method) */
+  .logInButtonUp{
+    position: absolute;
+    z-index: inherit;
+    right: 0px;
+    z-index: 1;
+
+  }
+  .whereToUp{
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%,-50%);
+
+  }
+  .timeToArrivalUp{
+    position: absolute;
+    z-index: 1;
+    left: 20%;
+    bottom: 30%;
+
+  }
+  .timeToDestinationUp{
+    position: absolute;
+    z-index: 1;
+    right: 20%;
+    bottom: 30%;
+
+  }
+  .logoUp{
+    position: absolute;
+    z-index: 1;
+
+  }
+  .orderButtonSpecify{
+    position: absolute;
+    z-index: 1; 
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%,-50%);
+
+  }
+  .orderButton{
+    position:absolute;
+    z-index: 1;
+    left:50%;
+    bottom: 40px;
+    transform: translate(-50%,-50%);
+  }
+
+
+  /* specify up/down */
+
+  .specifyOrder {
+    position: absolute;
+    z-index: 1;
+    width: 60%;
+    left: 20%;
+    background-color: White;
+    bottom:0px;
+
+  }
+  .container {
+    background-color: aqua;
+  }
+  .col {
+    background-color: white;
+    padding: 50px;
+    height: 10%;
+  }
+  .row {
+    background-color: black;
+  }
+  .orderButtonSpecify{
+    text-align: center;
+  }
+  .leftCheckboxes {
+    text-align: left;
+  }
+  .rightCheckboxes {
+    text-align: right;
+  }
+  /* order summarise up/down*/
+  .summarised  {
+    left:-200%;
+   
+  }
+  .col-12{
+    background-color:white;
+    padding: 30px;
+    text-align: center;
+  }
+
+  .col-sm{
+    background-color: white;
+    padding: 25px;
+    height: 10%;
+  }
+  .summarisedInfo {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    bottom: 20%;
+  }
+  .backToSpecify {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+  }
+  .confirm {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+    right: 0px;
+  }
+  .summaryTitle {
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    top: 50%;
+  }
+  /* end */
+  .end  {
+    left:-200%;
+  }
+  .endFromInfo{
+    position: absolute;
+    z-index:1;
+    bottom:0px;
+  }
+  .endToInfo{
+    position: absolute;
+    z-index:1;
+    bottom:0px;
+    right:0px;
+
+  }
+  .confirmationCode{
+    position: absolute;
+    z-index:1;
+    bottom:0px;
+    width:100%;
+    text-align: center;
+
+  }
+  .backButton{
+    z-index:1;
+    position:absolute;
+    bottom:50%;
+  }
+
+
+
+
+
+
+
 </style>
+
+<!-- Instead of left:-200%; use v-if="View" to change between views!! -->
