@@ -8,16 +8,21 @@
 
   export default {
     mounted() {
-      map = this.init();
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+        map = this.init(position);
 
-      this.initEventListeners(map);
+        this.initEventListeners(map);
+      });
     },
 
     methods: {
-      init() {
+      init(pos) {
         return new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/mapbox/streets-v10'
+          style: 'mapbox://styles/mapbox/streets-v10',
+          center: pos,
+          zoom: 12
         });
       },
 
