@@ -631,4 +631,4 @@ export default {
 
 </style>
 
-<!-- Add button Design. Design the info boxes more checkboxes? -->
+<!-- Add button Design. Design the info boxes more checkboxes? asdasda-->
