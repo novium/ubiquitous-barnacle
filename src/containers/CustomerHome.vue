@@ -44,7 +44,7 @@
           {{timeToArrival}}
         </div>
         <div class='col'>
-          {{timeToDestination}}
+          {{timeToDestinationHours}} Hours {{timeToDestinationMinutes}} Minutes
         </div>
       </div>
       <div class='row'>
@@ -250,6 +250,8 @@ export default {
       childSeat: 'no',
       medicalTransport: 'no',
       confirmationCode: '',
+      timeToDestinationMinutes: 0,
+      timeToDestinationHours: 0,
 
 
       summary: true,
