@@ -213,7 +213,7 @@
     </div>
 
     <div class="destination">
-      <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo">
+      <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo" disabled>
     </div>
   </div>
 
@@ -229,6 +229,11 @@ import Map from '../components/Map.vue'
 export default {
   mounted() {
     this.$refs.map.$on('click', this.mapClick);
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+      this.$refs.map.addMarker(position);
+    });
   },
 
   methods: {
@@ -354,7 +359,7 @@ export default {
 
     orderMethod() {
       if(window.isLoggedIn) {
-
+        window.router.push("confirmed");
       } else {
         window.router.push('login');
       }
