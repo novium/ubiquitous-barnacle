@@ -1,14 +1,17 @@
 <template>
   <div id='container'>
-<!-- MainMainMainMainMainMain -->
-    <button v-on:click='testReset'>ResetResetReset</button>
+    <!-- Main -->
+    <!--<button v-on:click='testReset'>ResetResetReset</button>-->
+
     <div class='Main' v-if='mainView'>
       <div class='logInButtonUp'>
         <button v-on:click='tologin'>login</button>
       </div>
+
       <div class='whereToUp'>
         <input v-model='whereTo'>
       </div>
+
       <div class='timeToArrivalUp'>
         {{timeToArrival}}
       </div>
@@ -20,10 +23,10 @@
       </div>
       <div class='flagImgUp'>
       </div>
-        <button v-on:click='fromMainToEnd' class='orderButton'>Quick Buy</button>
-        <button v-on:click='fromMainToSpecify' class='orderButtonSpecify'>Specify</button>
+      <button v-on:click='fromMainToEnd' class='orderButton'>Quick Buy</button>
+      <button v-on:click='fromMainToSpecify' class='orderButtonSpecify'>Specify</button>
     </div>
-<!-- SpecifySpecifySpecifySpecify -->
+    <!-- Specify -->
 
     <div class='specifyOrder' v-if='specifyView'>
       <div class='container'>
@@ -58,46 +61,46 @@
             </div>
             <div class='col'>
               <div class='checkboxes'>
-                  <div class='form-check'>  
-                    <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'><label class='form-check-label' for='checkPet'>Pets</label>
-                  </div>
-                  <div class='form-check form-check-inline'>
-                    <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'><label class='form-check-label' for='checkAllergies'>Allergies</label>
-                  </div>
-                  <div class='form-check'>
-                    <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'><label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-                  </div>
-                  <div class='form-check form-check-inline'>
-                    <input class='form-check-input' type='checkbox' id='checkIgnoreThis' value='checkIgnoreThis'><label class='form-check-label' for='checkIgnoreThis'>TempCheck</label> 
-                  </div>
-             </div>
-              
+                <div class='form-check'>
+                  <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'><label class='form-check-label' for='checkPet'>Pets</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'><label class='form-check-label' for='checkAllergies'>Allergies</label>
+                </div>
+                <div class='form-check'>
+                  <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'><label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='checkIgnoreThis' value='checkIgnoreThis'><label class='form-check-label' for='checkIgnoreThis'>TempCheck</label>
+                </div>
+              </div>
+
             </div>
           </div>
           <div class='row'>
             <div class='col'>
-              
+
             </div>
           </div>
           <div class='row'>
             <div class='col'>
-              
+
             </div>
           </div>
-          <div class='col'>
+          <!--<div class='col'>
             <div class='orderButtonSpecify'>
-            <button v-on:click='fromSpecifyToMain'>Back</button>
-            <button v-on:click='fromSpecifyToSummary'>Summary</button>  
-            {{orderButtonImg}}              
+              <button v-on:click='fromSpecifyToMain'>Back</button>
+              <button v-on:click='fromSpecifyToSummary'>Summary</button>
+              {{orderButtonImg}}
             </div>
-          </div>
-          
+          </div>-->
+
         </div>
       </div>
 
     </div>
 
-<!-- summarysummarysummarysummary -->
+    <!-- summarysummarysummarysummary -->
     <div class='summarised' v-if='summaryView'>
       <div class='summaryTitle'>
         Summary
@@ -108,32 +111,32 @@
       <div class='summarisedInfo'>
         <div class='container'>
           <div class='row'>
-              <div class='col-sm'>
-                {{from}}
-              </div>
-              <div class='col-sm'>
-                {{whereTo}}
-              </div>
+            <div class='col-sm'>
+              {{from}}
+            </div>
+            <div class='col-sm'>
+              {{whereTo}}
+            </div>
           </div>
           <div class='row'>
-              <div class='col-sm'>
-                {{timeToArrival}}
-              </div>
-              <div class='col-sm'>
-                {{timeToDestination}}
-              </div>
+            <div class='col-sm'>
+              {{timeToArrival}}
+            </div>
+            <div class='col-sm'>
+              {{timeToDestination}}
+            </div>
           </div>
           <div class='row'>
-              <div class='col-sm'>
-                {{passengers}} peeps <br>
-                {{luggage}} bags
-              </div>
-              <div class='col-sm'>
-                Pets: {{bringPet}}
-                Wheelchair: {{bringWheelchair}}
-                Allergies: {{gotAllergies}}
+            <div class='col-sm'>
+              {{passengers}} peeps <br>
+              {{luggage}} bags
+            </div>
+            <div class='col-sm'>
+              Pets: {{bringPet}}
+              Wheelchair: {{bringWheelchair}}
+              Allergies: {{gotAllergies}}
 
-              </div>
+            </div>
           </div>
           <div class='row'>
             <div class='col-12'>
@@ -147,7 +150,7 @@
 
       </div>
     </div>
-<!--  endendendendendendendendend -->
+    <!--  endendendendendendendendend -->
     <div class='end' v-if='endView'>
       <div class='endFromInfo'>
         {{from}}
@@ -159,54 +162,93 @@
       </div>
       <div class='confirmationCode'>
         {{confirmationCode}}
-      
+
       </div>
     </div>
-    <div class='backButton'>
-      <button v-on:click='testButton1'>1</button>
-      <button v-on:click='testButton2'>2</button>
-      <button v-on:click='testButton3'>3</button>
-      <button v-on:click='testButton4'>4</button>
-      <button v-on:click='backButtonPress'>V-model logger</button>
-      <button v-on:click='loadDataCheckboxes'>check logger</button>
-    </div>
-  <Map />
+    <!--<div class='backButton'>
+    <button v-on:click='testButton1'>1</button>
+    <button v-on:click='testButton2'>2</button>
+    <button v-on:click='testButton3'>3</button>
+    <button v-on:click='testButton4'>4</button>
+    <button v-on:click='backButtonPress'>V-model logger</button>
+    <button v-on:click='loadDataCheckboxes'>check logger</button>
+  </div>-->
+  <Map ref="map" />
 
+  <div class="controls">
+    <div class="orderBtnContainer" v-bind:class="{ orderBtnContainerUp: specify }">
+      <div class="orderBtn" v-if="destination"><div class="orderBtnClick" v-on:click="orderMethod"></div><div class="specifyBtnClick" v-on:click="specifyMethod"></div></div>
+    </div>
+
+    <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
+      <div class='row'>
+        <div class='col'>
+          Bags : <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
+        </div>
+        <div class='col'>
+          <div class='checkboxes'>
+            <div class='form-check'>
+              <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'><label class='form-check-label' for='checkPet'>Pets</label>
+            </div>
+            <div class='form-check form-check-inline'>
+              <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'><label class='form-check-label' for='checkAllergies'>Allergies</label>
+            </div>
+            <div class='form-check'>
+              <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'><label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
+            </div>
+            <div class='form-check form-check-inline'>
+              <input class='form-check-input' type='checkbox' id='checkIgnoreThis' value='checkIgnoreThis'><label class='form-check-label' for='checkIgnoreThis'>TempCheck</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="destination">
+      <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo">
+    </div>
   </div>
+
+</div>
 </template>
 
 <script>
 
-  
 
-  import Map from '../components/Map.vue'
 
-  export default {
-    methods: {
+import Map from '../components/Map.vue'
+
+export default {
+  mounted() {
+    this.$refs.map.$on('click', this.mapClick);
+  },
+
+  methods: {
     testButton4(){
       this.endView = true;
       this.summaryView = false;
       this.specifyView = false;
-      this.mainView = false; 
+      this.mainView = false;
     },
     testButton3(){
       this.endView = false;
       this.summaryView = true;
       this.specifyView = false;
-      this.mainView = false; 
+      this.mainView = false;
     },
     testButton2(){
       this.endView = false;
       this.summaryView = false;
       this.specifyView = true;
-      this.mainView = false; 
-    },        
+      this.mainView = false;
+    },
     testButton1(){
       this.endView = false;
       this.summaryView = false;
       this.specifyView = false;
-      this.mainView = true; 
-    },    
+      this.mainView = true;
+    },
     testReset(){
       this.endView = true;
       this.summaryView = true;
@@ -258,17 +300,17 @@
     },
     loadDataCheckboxes(){
       var listAux = []
-        if (document.getElementById('checkPet').checked){
-                listAux.push('pet');
-            }
-        if (document.getElementById('checkAllergies').checked){
-                listAux.push('allergies');
-        }
-        if (document.getElementById('checkWheelchair').checked){
-                listAux.push('wheelchair');
-        }
-        console.log(listAux);
-        this.checkboxes = listAux;
+      if (document.getElementById('checkPet').checked){
+        listAux.push('pet');
+      }
+      if (document.getElementById('checkAllergies').checked){
+        listAux.push('allergies');
+      }
+      if (document.getElementById('checkWheelchair').checked){
+        listAux.push('wheelchair');
+      }
+      console.log(listAux);
+      this.checkboxes = listAux;
 
     },
     checkboxesToText(){
@@ -278,210 +320,312 @@
       }
       if (document.getElementById('checkAllergies').checked){
         this.gotAllergies = 'yes'
-    } 
+      }
       if (document.getElementById('checkWheelchair').checked){
         this.bringWheelchair = 'yes'
       }
-    }
     },
-    data(){
-      return{
-        whereTo: 'Where would like to go?',
-        from: 'current position',
-        timeToArrival: 'Taxi @ your position',
-        timeToDestination: 'Taxi @ Destination',
-        logoImg: 'logoIMG',
-        orderButtonImg: 'Button Img',
-        flagImg: 'if we are to use a flag place it here drop down box?',
-        passengers: 0,
-        luggage: 0,
-        price: 250,
-        checkBoxesToText: 'nothing',
-        checkboxes: [],
-        confirmationCode: 'random Code',
-        endView: true,
-        summaryView: true,
-        specifyView: true,
-        mainView: true,
-        notEndView: true, 
-        bringWheelchair: 'no',
-        gotAllergies: 'no',
-        bringPet: 'no'
-        }
-      
-      },
-    
-    components: {
-      Map 
+
+    mapClick(lngLat) {
+      this.$refs.map.clearMarkers();
+      this.$refs.map.addMarker(lngLat.lngLat);
+
+      $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="
+      + lngLat.lngLat.lat + ","
+      + lngLat.lngLat.lng + "&key=AIzaSyDPs9zgpdfe7ZhmVm71EjFTs3IgQZjbm1w", (data, status) => {
+        console.log(data);
+        this.$data.whereTo = data.results[0].formatted_address;
+      });
+
+      this.$data.destination = lngLat.lngLat;
+    },
+
+    specifyMethod() {
+      this.$data.specify = !this.$data.specify;
+      console.log("Specify!");
+    },
+
+    orderMethod() {
+      if(window.isLoggedIn) {
+
+      } else {
+        window.router.push('login');
+      }
     }
+  },
+  data(){
+    return{
+      whereTo: '',
+      from: 'current position',
+      timeToArrival: 'Taxi @ your position',
+      timeToDestination: 'Taxi @ Destination',
+      logoImg: 'logoIMG',
+      orderButtonImg: 'Button Img',
+      flagImg: 'if we are to use a flag place it here drop down box?',
+      passengers: 0,
+      luggage: 0,
+      price: 250,
+      checkBoxesToText: 'nothing',
+      checkboxes: [],
+      confirmationCode: 'random Code',
+      endView: false,
+      summaryView: false,
+      specifyView: false,
+      mainView: false,
+      notEndView: false,
+      bringWheelchair: 'no',
+      gotAllergies: 'no',
+      bringPet: 'no',
+
+      destination: undefined,
+      specify: false
+    }
+
+  },
+
+  components: {
+    Map
   }
+}
 </script>
 
 <style scoped>
 
-  #container {
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+#container {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#map {
+  pointer-events: all;
+}
+
+/* Main (ingore the Up it was part of an old View swapping Method) */
+.logInButtonUp{
+  position: absolute;
+  z-index: inherit;
+  right: 0px;
+  z-index: 1;
+
+}
+.whereToUp{
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%,-50%);
+
+}
+.timeToArrivalUp{
+  position: absolute;
+  z-index: 1;
+  left: 20%;
+  bottom: 30%;
+
+}
+.timeToDestinationUp{
+  position: absolute;
+  z-index: 1;
+  right: 20%;
+  bottom: 30%;
+
+}
+.logoUp{
+  position: absolute;
+  z-index: 1;
+
+}
+.orderButtonSpecify{
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%,-50%);
+
+}
+.orderButton{
+  position:absolute;
+  z-index: 1;
+  left:50%;
+  bottom: 40px;
+  transform: translate(-50%,-50%);
+}
 
 
-  }
-  /* Main (ingore the Up it was part of an old View swapping Method) */
-  .logInButtonUp{
-    position: absolute;
-    z-index: inherit;
-    right: 0px;
-    z-index: 1;
+/* specify up/down */
 
-  }
-  .whereToUp{
-    position: absolute;
-    z-index: 1;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%,-50%);
+.specifyOrder {
+  position: absolute;
+  z-index: 1;
+  width: 60%;
+  left: 20%;
+  background-color: White;
+  bottom:0px;
 
-  }
-  .timeToArrivalUp{
-    position: absolute;
-    z-index: 1;
-    left: 20%;
-    bottom: 30%;
+}
+.container {
+  background-color: aqua;
+}
 
-  }
-  .timeToDestinationUp{
-    position: absolute;
-    z-index: 1;
-    right: 20%;
-    bottom: 30%;
+.orderButtonSpecify{
+  text-align: center;
+}
+.leftCheckboxes {
+  text-align: left;
+}
+.rightCheckboxes {
+  text-align: right;
+}
+/* order summarise up/down*/
+.summarised  {
+  left:-200%;
 
-  }
-  .logoUp{
-    position: absolute;
-    z-index: 1;
+}
 
-  }
-  .orderButtonSpecify{
-    position: absolute;
-    z-index: 1; 
-    left: 50%;
-    bottom: 0px;
-    transform: translate(-50%,-50%);
+.summarisedInfo {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  bottom: 20%;
+}
+.backToSpecify {
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+}
+.confirm {
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  right: 0px;
+}
+.summaryTitle {
+  position: absolute;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+}
+/* end */
+.end  {
+  left:-200%;
+}
+.endFromInfo{
+  position: absolute;
+  z-index:1;
+  bottom:0px;
+}
+.endToInfo{
+  position: absolute;
+  z-index:1;
+  bottom:0px;
+  right:0px;
 
-  }
-  .orderButton{
-    position:absolute;
-    z-index: 1;
-    left:50%;
-    bottom: 40px;
-    transform: translate(-50%,-50%);
-  }
+}
+.confirmationCode{
+  position: absolute;
+  z-index:1;
+  bottom:0px;
+  width:100%;
+  text-align: center;
 
+}
+.backButton{
+  z-index:1;
+  position:absolute;
+  bottom:50%;
+}
 
-  /* specify up/down */
+.controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
-  .specifyOrder {
-    position: absolute;
-    z-index: 1;
-    width: 60%;
-    left: 20%;
-    background-color: White;
-    bottom:0px;
+.orderBtn {
+  width: 120px;
+  height: 200px;
 
-  }
-  .container {
-    background-color: aqua;
-  }
-  .col {
-    background-color: white;
-    padding: 50px;
-    height: 10%;
-  }
-  .row {
-    background-color: black;
-  }
-  .orderButtonSpecify{
-    text-align: center;
-  }
-  .leftCheckboxes {
-    text-align: left;
-  }
-  .rightCheckboxes {
-    text-align: right;
-  }
-  /* order summarise up/down*/
-  .summarised  {
-    left:-200%;
-   
-  }
-  .col-12{
-    background-color:white;
-    padding: 30px;
-    text-align: center;
-  }
+  bottom: 0;
 
-  .col-sm{
-    background-color: white;
-    padding: 25px;
-    height: 10%;
-  }
-  .summarisedInfo {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    bottom: 20%;
-  }
-  .backToSpecify {
-    position: absolute;
-    z-index: 1;
-    bottom: 0px;
-  }
-  .confirm {
-    position: absolute;
-    z-index: 1;
-    bottom: 0px;
-    right: 0px;
-  }
-  .summaryTitle {
-    position: absolute;
-    z-index: 1;
-    text-align: center;
-    width: 100%;
-    top: 50%;
-  }
-  /* end */
-  .end  {
-    left:-200%;
-  }
-  .endFromInfo{
-    position: absolute;
-    z-index:1;
-    bottom:0px;
-  }
-  .endToInfo{
-    position: absolute;
-    z-index:1;
-    bottom:0px;
-    right:0px;
+  margin: 0 auto;
 
-  }
-  .confirmationCode{
-    position: absolute;
-    z-index:1;
-    bottom:0px;
-    width:100%;
-    text-align: center;
+  background: url("/public/img/Order.png");
+  pointer-events: all;
+  z-index: 100;
+}
 
-  }
-  .backButton{
-    z-index:1;
-    position:absolute;
-    bottom:50%;
-  }
+.destination {
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  right: 10%;
+}
 
+.destination input {
+  pointer-events: all;
+  width: 100%;
+}
 
+.orderBtnContainer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  pointer-events: none;
+}
 
+.orderBtnContainerUp {
+  bottom: 40%;
+}
 
+.orderBtnClick {
+  position: relative;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  height: 100px;
+}
+
+.specifyBtnClick {
+  position: relative;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+}
+
+.specifyContainer {
+  visibility: hidden;
+  display: none;
+  pointer-events: none;
+
+  position: absolute;
+  height: 40%;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  background: rgb(242, 242, 242);
+}
+
+.specifyContainer .row {
+  margin-right: 0 !important;
+}
+
+.specifyContainerUp {
+  visibility: visible;
+  display: block;
+  pointer-events: all;
+}
 
 
 

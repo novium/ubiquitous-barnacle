@@ -14,10 +14,13 @@ import CustomerHome from './containers/CustomerHome.vue';
 import Dispatcher from './containers/Dispatcher.vue';
 import DispatcherHome from './containers/DispatcherHome.vue';
 
+import Login from './containers/Login.vue';
+
 import Home from './components/Home.vue';
 
 Vue.use(VueRouter);
 
+window.isLoggedIn = false;
 
 const routes = [
   { path: '', component: Home },
@@ -29,10 +32,11 @@ const routes = [
   { path: '/dispatcher', component: Dispatcher,
     children: [
       { path: '', component: DispatcherHome }
-    ]}
+  ]},
+  { path: '/login', component: Login }
 ];
 
-const router = new VueRouter({
+window.router = new VueRouter({
   routes
 });
 
