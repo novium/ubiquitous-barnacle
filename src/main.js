@@ -23,7 +23,7 @@ import Home from './components/Home.vue';
 
 Vue.use(VueRouter);
 
-window.isLoggedIn = false;
+window.isLoggedIn = true;
 
 const routes = [
   { path: '', component: Home },

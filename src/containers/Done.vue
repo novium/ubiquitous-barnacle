@@ -24,6 +24,12 @@
         theme: 'fontawesome-stars',
         initialRating: 3
       });
+
+      $(".br-selected").each(function(i) {
+        $( this ).on('click', function() {
+          window.router.push("customer");
+        });
+      });
     }
   }
 </script>
