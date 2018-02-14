@@ -1,24 +1,151 @@
 <template>
-  <div class="login">
+  <form action="action_page.php">
+  <div class="loginScreen">
+    <div id="loginText">
+      <h1>
+    WAIT UP
+    </h1> Cool that you decided to
+      <br> order a taxi with us.
+      <br> Before you continue on your
+      <br> journey we need some more info.
+    </div>
 
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit" id="loginButton">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+
+      <div class="container" id="reg">
+        <button type="create" id="regButton">Register</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+    </div>
   </div>
-</template>
+</form>
 
-<script>
-  export default {
-
-  }
-</script>
-
-<style scoped>
-  .login {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    background: url("/public/img/login.png");
-    background-size: cover;
   }
 </style>
+form {
+  border: 3px solid #f1f1f1;
+  background-color: orange;
+}
+
+.loginScreen {
+  margin: 60px;
+  height: 800px;
+}
+
+
+/* Full-width inputs */
+
+input[type=text],
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+
+/* Set a style for all buttons */
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+#loginButton {
+  width: 40%;
+  float: right;
+}
+
+
+/* Add a hover effect for buttons */
+
+button:hover {
+  opacity: 0.8;
+}
+
+#regButton {
+  width: 100%;
+  float: center;
+}
+
+
+/* Extra style for the cancel button (red) */
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+
+/* Center the avatar image inside this container */
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+
+/* Avatar image */
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+
+/* Add padding to containers */
+
+.container {
+  margin: 30px;
+  ;
+}
+
+#reg {
+  position: relative;
+  top: 100px;
+}
+
+#loginText {
+  color: white;
+  margin: 30px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+
+/* The "Forgot password" text */
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+
+/* Change styles for span and cancel button on extra small screens */
+
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
