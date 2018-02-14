@@ -14,7 +14,7 @@
   export default {
     mounted() {
       setTimeout(function() {
-        window.router.push("done");
+        //window.router.push("done");
       }, 4000);
     }
   }
@@ -46,14 +46,16 @@
     width: 100%;
     text-align: center;
     font-size: 4em;
-    margin-top: 50%;
-    margin-bottom: 50%;
+    margin-top: 10%;
     text-shadow: 0 0 20px rgba(0,0,0,0.5);
   }
 
   .cancel {
-    width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
     text-align: center;
+    bottom: 10%;
   }
 
   .cancelLink {

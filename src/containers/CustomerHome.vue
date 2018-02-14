@@ -3,176 +3,6 @@
     <!-- Main -->
     <!--<button v-on:click='testReset'>ResetResetReset</button>-->
 
-    <div class='Main' v-if='mainView'>
-      <div class='logInButtonUp'>
-        <button v-on:click='tologin'>login</button>
-      </div>
-
-      <div class='whereToUp'>
-        <input v-model='whereTo'>
-      </div>
-
-      <div class='timeToArrivalUp'>
-        {{timeToArrival}}
-      </div>
-      <div class='timeToDestinationUp'>
-        {{timeToDestination}}
-      </div>
-      <div class='logoUp'>
-        {{logoImg}}
-      </div>
-      <div class='flagImgUp'>
-      </div>
-      <button v-on:click='fromMainToEnd' class='orderButton'>Quick Buy</button>
-      <button v-on:click='fromMainToSpecify' class='orderButtonSpecify'>Specify</button>
-    </div>
-    <!-- Specify -->
-
-    <div class='specifyOrder' v-if='specifyView'>
-      <div class='container'>
-        <div>
-          <div class='row'>
-            <div class='col'>
-              {{from}}
-            </div>
-            <div class='col'>
-              {{whereTo}}
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col'>
-              {{timeToArrival}}
-            </div>
-            <div class='col'>
-              {{timeToDestination}}
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col'>
-              Passengers : <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required'>
-            </div>
-            <div class='col'>
-              Price : {{price}} Kr
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col'>
-              Bags : <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
-            </div>
-            <div class='col'>
-              <div class='checkboxes'>
-                <div class='form-check'>
-                  <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'><label class='form-check-label' for='checkPet'>Pets</label>
-                </div>
-                <div class='form-check form-check-inline'>
-                  <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'><label class='form-check-label' for='checkAllergies'>Allergies</label>
-                </div>
-                <div class='form-check'>
-                  <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'><label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-                </div>
-                <div class='form-check form-check-inline'>
-                  <input class='form-check-input' type='checkbox' id='checkIgnoreThis' value='checkIgnoreThis'><label class='form-check-label' for='checkIgnoreThis'>TempCheck</label>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col'>
-
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col'>
-
-            </div>
-          </div>
-          <!--<div class='col'>
-            <div class='orderButtonSpecify'>
-              <button v-on:click='fromSpecifyToMain'>Back</button>
-              <button v-on:click='fromSpecifyToSummary'>Summary</button>
-              {{orderButtonImg}}
-            </div>
-          </div>-->
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- summarysummarysummarysummary -->
-    <div class='summarised' v-if='summaryView'>
-      <div class='summaryTitle'>
-        Summary
-      </div>
-      <div class='backToSpecify'>
-        <button v-on:click='backToSpecify'>Back</button>
-      </div>
-      <div class='summarisedInfo'>
-        <div class='container'>
-          <div class='row'>
-            <div class='col-sm'>
-              {{from}}
-            </div>
-            <div class='col-sm'>
-              {{whereTo}}
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col-sm'>
-              {{timeToArrival}}
-            </div>
-            <div class='col-sm'>
-              {{timeToDestination}}
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col-sm'>
-              {{passengers}} peeps <br>
-              {{luggage}} bags
-            </div>
-            <div class='col-sm'>
-              Pets: {{bringPet}}
-              Wheelchair: {{bringWheelchair}}
-              Allergies: {{gotAllergies}}
-
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col-12'>
-              {{price}} Kr
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class='confirm'>
-        <button v-on:click='confirmSummarise'>Confirm</button>
-
-      </div>
-    </div>
-    <!--  endendendendendendendendend -->
-    <div class='end' v-if='endView'>
-      <div class='endFromInfo'>
-        {{from}}
-        {{timeToArrival}}
-      </div>
-      <div class='endToInfo'>
-        {{whereTo}}
-        {{timeToDestination}}
-      </div>
-      <div class='confirmationCode'>
-        {{confirmationCode}}
-
-      </div>
-    </div>
-    <!--<div class='backButton'>
-    <button v-on:click='testButton1'>1</button>
-    <button v-on:click='testButton2'>2</button>
-    <button v-on:click='testButton3'>3</button>
-    <button v-on:click='testButton4'>4</button>
-    <button v-on:click='backButtonPress'>V-model logger</button>
-    <button v-on:click='loadDataCheckboxes'>check logger</button>
-  </div>-->
   <Map ref="map" />
 
   <div class="controls">
@@ -189,27 +19,61 @@
 
     <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
       <div class='row'>
-        <div class='col'>
-          Bags : <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
-        </div>
-        <div class='col'>
-          <div class='checkboxes'>
-            <div class='form-check'>
-              <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'><label class='form-check-label' for='checkPet'>Pets</label>
+              <div class='col text-right'>
+                <label class='form-check-label' for='checkPet'>Pets :</label>
+              </div>
+              <div class='col'>
+                <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'>
+              </div>
+              </div>
+            <div class='row'>
+              <div class='col text-right'>
+                <label class='form-check-label' for='checkAllergies'>Allergies :</label>
+              </div>
+              <div class='col'>
+                <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'>
+              </div>
             </div>
-            <div class='form-check form-check-inline'>
-              <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'><label class='form-check-label' for='checkAllergies'>Allergies</label>
+            <div class='row'>
+              <div class='col text-right'>
+                <label class='form-check-label' for='checkWheelchair'>Wheelchair :</label>
+              </div>
+              <div class='col'>
+                <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'>
+              </div>
             </div>
-            <div class='form-check'>
-              <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'><label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-            </div>
-            <div class='form-check form-check-inline'>
-              <input class='form-check-input' type='checkbox' id='checkIgnoreThis' value='checkIgnoreThis'><label class='form-check-label' for='checkIgnoreThis'>TempCheck</label>
-            </div>
-          </div>
-
-        </div>
-      </div>
+              <div class='row'>
+                <div class='col text-right'>
+                  <label class='form-check-label' for='checkChildSeat'>Child seat :</label>
+                </div>
+                <div class='col'>
+                  <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat'>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col text-right'>
+                  <label class='form-check-label' for='checkMedicalTransport'>Medical transport :</label>
+                </div>
+                <div class='col'>
+                  <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport'>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col text-right'>
+                  Bags :
+                </div>
+                <div class='col'>
+                  <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col text-right'>
+                  Seats :
+                </div>
+                <div class='col'>
+                  <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required'>
+                </div>
+              </div>
     </div>
 
     <div class="destination">
@@ -476,6 +340,21 @@ export default {
   bottom:0px;
 
 }
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+input[type='checkbox']:checked {
+    background: #abd;
+}
+
+
 .container {
   background-color: aqua;
 }
