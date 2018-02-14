@@ -1,4 +1,3 @@
-<template>
   <form action="action_page.php">
   <div class="loginScreen">
     <div id="loginText">
@@ -29,9 +28,9 @@
     </div>
   </div>
 </form>
+}
 
-  }
-</style>
+
 form {
   border: 3px solid #f1f1f1;
   background-color: orange;
@@ -83,34 +82,6 @@ button:hover {
   width: 100%;
   float: center;
 }
-
-
-/* Extra style for the cancel button (red) */
-
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-
-/* Center the avatar image inside this container */
-
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-
-/* Avatar image */
-
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-
-/* Add padding to containers */
 
 .container {
   margin: 30px;
