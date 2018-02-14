@@ -17,13 +17,13 @@
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
 
-      <button type="submit" id="loginButton">Login</button>
+      <button v-on:click="submit" id="loginButton">Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
 
       <div class="container" id="reg">
-        <button type="create" id="regButton">Register</button>
+        <button v-on:click="create" id="regButton">Register</button>
         <span class="psw">Forgot <a href="#">password?</a></span>
       </div>
     </div>
