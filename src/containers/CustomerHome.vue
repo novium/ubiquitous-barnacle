@@ -125,29 +125,6 @@ export default {
   },
 
   methods: {
-    tologin(){
-      console.log(this.testTrue)
-      this.mainView = false;
-      this.summaryView = false;
-      this.specifyView = false;
-      this.endView = false;
-    },
-    fromMainToSpecify(){
-      this.mainView = false;
-      this.summaryView = false;
-      this.specifyView = true;
-      this.endView = false;
-    },
-    confirmSummarise(){
-      this.mainView = false;
-      this.summaryView = false;
-      this.specifyView = false;
-      this.endView = true;
-    },
-    fromMainToEnd(){
-      this.mainView = false;
-      this.endView = true;
-    },
     fromSpecifyToSummary(){
       this.specifyView = false;
       this.summaryView = true;
@@ -238,8 +215,12 @@ export default {
     randomTimeGenerator(){
       this.timeToArrival = Math.floor((Math.random() * 20) + 1);
       this.timeToDestination = this.timeToArrival + Math.floor((Math.random() * 150) + 1);
+      this.timeToDestinationMinutes = this.timeToDestination%60 
+      this.timeToDestinationHours = Math.round(this.timeToDestination/60);
       this.price = Math.floor((Math.random() * 200) + 1);
       this.confirmationCode = Math.random().toString(36).substring(7).toUpperCase();
+      console.log(this.timeToDestinationMinutes);
+      console.log(this.timeToDestinationHours);
 
     }
   },
@@ -296,175 +277,6 @@ export default {
 
 #map {
   pointer-events: all;
-}
-
-/* Main (ingore the Up it was part of an old View swapping Method) */
-.logInButtonUp{
-  position: absolute;
-  z-index: inherit;
-  right: 0px;
-  z-index: 1;
-
-}
-.whereToUp{
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%,-50%);
-
-}
-.timeToArrivalUp{
-  position: absolute;
-  z-index: 1;
-  left: 20%;
-  bottom: 30%;
-
-}
-.timeToDestinationUp{
-  position: absolute;
-  z-index: 1;
-  right: 20%;
-  bottom: 30%;
-
-}
-.logoUp{
-  position: absolute;
-  z-index: 1;
-
-}
-.orderButtonSpecify{
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 0px;
-  transform: translate(-50%,-50%);
-
-}
-.orderButton{
-  position:absolute;
-  z-index: 1;
-  left:50%;
-  bottom: 40px;
-  transform: translate(-50%,-50%);
-}
-
-
-/* specify up/down */
-
-.specifyOrder {
-  position: absolute;
-  z-index: 1;
-  width: 60%;
-  left: 20%;
-  background-color: White;
-  bottom:0px;
-
-}
-.container {
-  background-color: aqua;
-}
-
-.orderButtonSpecify{
-  text-align: center;
-}
-.leftCheckboxes {
-  text-align: left;
-}
-.rightCheckboxes {
-  text-align: right;
-}
-/* SummarySummarySummarySummarySummary */
-.summary{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-
-  visibility: visible;
-  display: block;
-  pointer-events: all;
-}
-
-.summaryContainer{
-  visibility: hidden;
-  display: none;
-  pointer-events: none;
-
-  position: absolute;
-  height: 40%;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  right: 0;
-  background: rgb(242, 242, 242);
-  font-size: 2em;
-  border-color: rgb(222, 222, 222);
-  border-style: solid;
-}
-
-.summaryUp {
-  visibility: visible;
-  display: block;
-  pointer-events: all;
-}
-
-.summarisedInfo {
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  bottom: 20%;
-}
-.backToSpecify {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
-}
-.confirm {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
-  right: 0px;
-}
-.summaryTitle {
-  position: absolute;
-  z-index: 1;
-  text-align: center;
-  width: 100%;
-  top: 50%;
-}
-/* end */
-.end  {
-  left:-200%;
-}
-.endFromInfo{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-}
-.endToInfo{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-  right:0px;
-
-}
-.confirmationCode{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-  width:100%;
-  text-align: center;
-
-}
-.backButton{
-  z-index:1;
-  position:absolute;
-  bottom:50%;
 }
 
 .controls {
@@ -576,17 +388,7 @@ input[type='checkbox']:checked {
 
 </style>
 
-<!-- Add button Design. Design the info boxes more checkboxes?
-Summary Info boxdesign, remake with specify as a template
-Log In button, through router use.
-random number gen for time to destination add that to taxi arrival time. if that does not work
-just make a function that calculates a random time whenever you order. using departure time listening.
-add something to TempCheck or remove it
-place passenger next to bags
-end view design
-
-
-TIDEN
+<!-- 
 -->
 
 
