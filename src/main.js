@@ -16,6 +16,9 @@ import DispatcherHome from './containers/DispatcherHome.vue';
 
 import Login from './containers/Login.vue';
 
+import Confirmed from './containers/Confirmed.vue';
+import Done from './containers/Done.vue';
+
 import Home from './components/Home.vue';
 
 Vue.use(VueRouter);
@@ -33,7 +36,9 @@ const routes = [
     children: [
       { path: '', component: DispatcherHome }
   ]},
-  { path: '/login', component: Login }
+  { path: '/login', component: Login },
+  { path: '/confirmed', component: Confirmed },
+  { path: '/done', component: Done }
 ];
 
 window.router = new VueRouter({

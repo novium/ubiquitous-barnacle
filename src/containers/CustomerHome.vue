@@ -177,7 +177,14 @@
 
   <div class="controls">
     <div class="orderBtnContainer" v-bind:class="{ orderBtnContainerUp: specify }">
-      <div class="orderBtn" v-if="destination"><div class="orderBtnClick" v-on:click="orderMethod"></div><div class="specifyBtnClick" v-on:click="specifyMethod"></div></div>
+      <div class="orderBtn" v-if="destination">
+        <div class="orderBtnClick" v-on:click="orderMethod">order</div>
+        <div class="specifyBtnClick" v-on:click="specifyMethod">specify order</div>
+      </div>
+    </div>
+
+    <div class="infoContainer" v-bind:class="{ infoContainerUp: specify }" v-if="destination">
+      <p>We'll arrive in 7min and the trip will take about 19min and cost 94kr.</p>
     </div>
 
     <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
@@ -549,14 +556,12 @@ export default {
 }
 
 .orderBtn {
-  width: 120px;
-  height: 200px;
+  width: 100%;
 
   bottom: 0;
 
   margin: 0 auto;
 
-  background: url("/public/img/Order.png");
   pointer-events: all;
   z-index: 100;
 }
@@ -577,30 +582,44 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 200px;
+  height: 6em;
   pointer-events: none;
+
+  font-family: "Catamaran", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  font-weight: 900;
+
+  text-align: center;
+  line-height: 4em;
+
+  z-index: 201;
 }
 
 .orderBtnContainerUp {
-  bottom: 40%;
+  bottom: 20em;
 }
 
 .orderBtnClick {
-  position: relative;
-  top: 10px;
-  left: 0;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
   right: 0;
-  bottom: 50%;
-  height: 100px;
+  height: 4em;
+  background: rgb(255, 149, 13);
+  border-top: 5px solid rgb(245, 139, 3);
+  color: rgb(215, 119, 3);
 }
 
 .specifyBtnClick {
-  position: relative;
-  top: 10px;
-  left: 0;
-  right: 0;
+  position: absolute;
   bottom: 0;
-  height: 90px;
+  left: 0;
+  right: 50%;
+  height: 4em;
+  background: rgb(242, 242, 242);
+  border-top: 5px solid rgb(222, 222, 222);
+  color: rgb(182, 182, 182);
 }
 
 .specifyContainer {
@@ -609,7 +628,7 @@ export default {
   pointer-events: none;
 
   position: absolute;
-  height: 40%;
+  height: 25em;
   bottom: 0;
   width: 100%;
   left: 0;
@@ -627,7 +646,38 @@ export default {
   pointer-events: all;
 }
 
+.infoContainer {
+  position: absolute;
+  bottom: 4em;
+  width: 100%;
+  height: 6em;
+  pointer-events: none;
 
+  background: rgb(234, 234, 234);
+  border-top: 5px solid rgb(214, 214, 214);
+
+  font-family: "Catamaran", sans-serif;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: 900;
+  color: rgb(150,150,150);
+
+  text-align: center;
+  line-height: 1em;
+  padding-left: 10%;
+  padding-right: 10%;
+
+  z-index: 200;
+}
+
+.infoContainer p {
+  word-wrap: normal;
+  padding-top: 1.5em;
+}
+
+.infoContainerUp {
+  bottom: 29em;
+}
 
 </style>
 
