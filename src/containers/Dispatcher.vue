@@ -5,7 +5,26 @@
 </template>
 
 <script>
+
   export default {
+    data () {
+      return {
+        orders: [],
+        taxis: []
+      }
+    },
+    mounted () {
+      socket.on('connect', function () {
+        console.log("Connected to socket.");
+      });
+
+      socket.on('initialize', (data) => {
+        this.orders = data.orders;
+        this.taxis = data.taxis;
+        console.log(this.orders);
+        console.log(this.taxis);
+      })
+    },
 
   }
 </script>
