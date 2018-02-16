@@ -22,7 +22,7 @@
 	    TAXI DRIVER # {{ taxiId }}
       </h3>
       <div>
-      <button class="btn Sig" name="buttonSig" Style v-on:click="optionPopup">Sign out</button>  
+      <button class="btn Sig" name="buttonSig" Style v-on:click="signOut">Sign out</button>  
       </div>
           </div>
      <button class="btn Opt" name="buttonOpt" Style v-on:click="optionPopup">Option</button>
@@ -65,7 +65,7 @@
                   {{ item }}
                 </li>
               </ul>
-              <button class="btn Sta" name="buttonSta" v-on:click="StartNextOrder(order.orderId)">Start job</button>
+              <button class="btn Sta" name="buttonSta" v-on:click="startNextOrder(order.orderId)">Start job</button>
             </div>
           </ul>
         </div>
