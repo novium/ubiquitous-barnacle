@@ -1,0 +1,26 @@
+acceptOrder(order) function
+removes the job request from jobRequest box sends a message to the dipatcher that the job has been accepted and adds the order to the job queue if there is one.
+ If not then it's added directly to current job.
+
+declineOrder(order) function
+removes the job request from jobRequest box and sends a message that the job has been declined.
+
+
+startNextOrder(order.orderId) (kan vara fel inparameter) 
+checks if current job is finished if yes then the job from next job will be placed in the box for current job.
+
+
+finishOrder(order.orderId) (kan vara fel inparameter)
+removes the current job and sets the current job to empty. Also a message is sent to the dispatcher saying that the job is finished.
+
+
+signOut() 
+logs out the driver if all the accepted jobs are finished and goes to the login view
+
+
+optionPopup() (implementera om vi har tid)
+a popup with the option menu is placed on the screen
+
+
+jobRequest() function (handles a message from the dispatcher)
+gets an order from the dispatcher and adds the order to the job request box.
