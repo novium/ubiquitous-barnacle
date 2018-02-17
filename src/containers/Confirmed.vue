@@ -14,7 +14,7 @@
   export default {
     mounted() {
       setTimeout(function() {
-        //window.router.push("done");
+        window.router.push("done");
       }, 4000);
     }
   }
