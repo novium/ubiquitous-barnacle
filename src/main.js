@@ -17,11 +17,16 @@ import CustomerHome from './containers/CustomerHome.vue';
 import Dispatcher from './containers/Dispatcher.vue';
 import DispatcherHome from './containers/DispatcherHome.vue';
 
-import Home from './components/Home.vue';
+import Login from './containers/Login.vue';
 
+import Confirmed from './containers/Confirmed.vue';
+import Done from './containers/Done.vue';
+
+import Home from './components/Home.vue';
 
 Vue.use(VueRouter);
 
+window.isLoggedIn = true;
 
 const routes = [
   { path: '', component: Home },
@@ -33,10 +38,13 @@ const routes = [
   { path: '/dispatcher', component: Dispatcher,
     children: [
       { path: '', component: DispatcherHome }
-    ]}
+  ]},
+  { path: '/login', component: Login },
+  { path: '/confirmed', component: Confirmed },
+  { path: '/done', component: Done }
 ];
 
-const router = new VueRouter({
+window.router = new VueRouter({
   routes
 });
 

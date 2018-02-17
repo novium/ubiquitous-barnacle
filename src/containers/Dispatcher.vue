@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
   export default {
     data () {
       return {
@@ -25,7 +24,6 @@
         console.log(this.taxis);
       })
     },
-
   }
 </script>
 

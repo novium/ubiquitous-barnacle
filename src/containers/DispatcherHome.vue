@@ -57,5 +57,4 @@
   #sidebar-container>div {
     margin-bottom: 20px;
   }
-
 </style>
