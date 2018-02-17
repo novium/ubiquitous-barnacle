@@ -8,16 +8,21 @@
 
   export default {
     mounted() {
-      map = this.init();
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+        map = this.init(position);
 
-      this.initEventListeners(map);
+        this.initEventListeners(map);
+      });
     },
 
     methods: {
-      init() {
+      init(pos) {
         return new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/mapbox/streets-v10'
+          style: 'mapbox://styles/mapbox/streets-v10',
+          center: pos,
+          zoom: 12
         });
       },
 
@@ -33,7 +38,7 @@
         map.on('mouseup', (e) => {
           this.$emit('mouseup', e);
         });
-
+        
         map.on('mousemove', (e) => {
           this.$emit('mousemove', e);
         });
@@ -47,7 +52,9 @@
       },
 
       addMarker(lngLat) {
-        markers.push(new mapboxgl.Marker().setLngLat([lngLat.lng, lngLat.lat]).addTo(map));
+        const marker = new mapboxgl.Marker().setLngLat([lngLat.lng, lngLat.lat]).addTo(map);
+        markers.push(marker);
+        return marker;
       },
 
       removeMarker(map, lngLat) {

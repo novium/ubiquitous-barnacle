@@ -1,18 +1,29 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import BootstrapVue from 'bootstrap-vue';
 
 window.mapboxgl = require('mapbox-gl');
 mapboxgl.accessToken = 'pk.eyJ1Ijoibm92aXVtIiwiYSI6ImNpeGFmMzl5MzAwMTkydG54Nmw0N3Z6eGoifQ.awDpSy43luwX5rm1W8RSKA';
 
-import App from './App.vue'
+import App from './App.vue';
 
-import Customer from './containers/Customer.vue'
-import CustomerHome from './containers/CustomerHome.vue'
+import Customer from './containers/Customer.vue';
+import CustomerHome from './containers/CustomerHome.vue';
 
-import Home from './components/Home.vue'
+import Dispatcher from './containers/Dispatcher.vue';
+import DispatcherHome from './containers/DispatcherHome.vue';
 
-Vue.use(VueRouter)
+import Login from './containers/Login.vue';
 
+import Confirmed from './containers/Confirmed.vue';
+import Done from './containers/Done.vue';
+
+import Home from './components/Home.vue';
+
+Vue.use(VueRouter);
+
+window.isLoggedIn = true;
 
 const routes = [
   { path: '', component: Home },
@@ -20,16 +31,23 @@ const routes = [
     children: [
       { path: '', component: CustomerHome }
     ]
-  }
-]
+  },
+  { path: '/dispatcher', component: Dispatcher,
+    children: [
+      { path: '', component: DispatcherHome }
+  ]},
+  { path: '/login', component: Login },
+  { path: '/confirmed', component: Confirmed },
+  { path: '/done', component: Done }
+];
 
-const router = new VueRouter({
+window.router = new VueRouter({
   routes
-})
+});
 
 
 new Vue({
   el: '#app',
   router,
   render: h => h(App)
-})
+});

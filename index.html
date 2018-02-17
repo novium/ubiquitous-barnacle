@@ -2,10 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ubiquitous-barnacle</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:400,900|Oxygen:300" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <style>
+    .br-theme-fontawesome-stars .br-widget {
+  height: 28px;
+  white-space: nowrap;
+}
+.br-theme-fontawesome-stars .br-widget a {
+  font: normal normal normal 1em FontAwesome;
+  margin-right: 10px !important;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+}
+.br-theme-fontawesome-stars .br-widget a:after {
+  content: '\f005';
+  color: #d2d2d2;
+}
+.br-theme-fontawesome-stars .br-widget a.br-active:after {
+  color: #EDB867;
+}
+.br-theme-fontawesome-stars .br-widget a.br-selected:after {
+  color: #EDB867;
+}
+.br-theme-fontawesome-stars .br-widget .br-current-rating {
+  display: none;
+}
+.br-theme-fontawesome-stars .br-readonly a {
+  cursor: default;
+}
+@media print {
+  .br-theme-fontawesome-stars .br-widget a:after {
+    content: '\f006';
+    color: black;
+  }
+  .br-theme-fontawesome-stars .br-widget a.br-active:after,
+  .br-theme-fontawesome-stars .br-widget a.br-selected:after {
+    content: '\f005';
+    color: black;
+}
+</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   </head>
   <body>
     <div id="app"></div>

@@ -13,7 +13,7 @@
   <script src="/leaflet/leaflet.js"></script>
   <script src="/esri-leaflet/esri-leaflet.js"></script>
   <script src="/esri-leaflet-geocoder/esri-leaflet-geocoder.js"></script>
-  <!--<script src="js/customer.js" defer></script>-->
+  <script src="js/customer.js" defer></script>
 </head>
 <body>
   <!--<h1>
@@ -25,9 +25,55 @@
     <button v-on:click="orderTaxi">ORDER TAXI</button>
     Your order number is {{ orderId }}
   </div>-->
-
   <div id="app">
-    
+  
   </div>
 </body>
 </html>
+
+
+<!--
+  Todo :
+
+
+  (Lägg till UI)
+  (Lägg till bilder uppe på kartan)
+
+
+  1:st view :: - Main View For Customer
+
+  logo
+  Log in (as containter? )
+  Sök fält - adress (not bound yet but maybe v-model it so that we can alter this later to respond to an api that converts our (x,y) into an adress
+  current location and time untill taxi arrives - destination location and time untill taxi arrives at destination (to and from)
+  gör knappen till component (Specify/Order) Confirm on Order
+  Language knapp som kör function ( change language )
+
+
+  2:nd view :: Specify order button press opens this (don't focus on log in to begin with! Not the most important part :)  
+  keep to and from info represented (refer to the data that was added with our v-model in previous part)
+  Amount of passangers v model radio
+  Amount of Baggage v model radio
+  Price display. Make static for the time being (500 "kr" as a data in view. Since we can later apply functions to edit the data.)
+  Taxi choice type also v model radio
+  order button again. Hopefully you can apply this as a component. Learn about components first I guess.
+
+  3:rd view :: When order is pressed on the specify order screen, actually might work as a generic order button press view.
+  Summarised Information
+  Confirm or Deny button.
+  Deny -> back to view 1 or 2 (depends on if I can just close the current window so that I kind of return to the previous page)
+  Accept -> Confirm instantly. (you've had your change m8)
+
+  4:th view :: View when waiting 
+  Map (static? we dont want the customer to be able to click on the map anymore!!! at most drag to move arround but that should be included in the API)
+  Bottom of screen includes: {
+  content1:   From info as usual + taxiarrival,
+  content2:   Confirmation code (random Number / Letter generator)
+  content3:   To info + ETA }
+
+  5:th view :: Log in (Ref="Pic 58")
+  
+
+
+
+ -->
