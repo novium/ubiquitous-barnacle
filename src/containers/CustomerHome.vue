@@ -90,11 +90,6 @@ import Map from '../components/Map.vue'
 export default {
   mounted() {
     this.$refs.map.$on('click', this.mapClick);
-
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
-      this.$refs.map.addMarker(position);
-    });
   },
 
   methods: {
