@@ -1,6 +1,6 @@
 <template>
   <div id="dispatcher">
-    <router-view></router-view>
+    <router-view v-bind:orders="this.orders" v-bind:taxis="this.taxis"></router-view>
   </div>
 </template>
 

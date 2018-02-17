@@ -3,6 +3,18 @@
     <div id="sidebar">
       <div id="sidebar-container">
         <h1>Jobs</h1>
+        <div>
+          <div v-for="order in orders">
+            {{order.id}}: (Location here)
+          </div>
+        </div>
+
+        <h1>Drivers</h1>
+        <div>
+          <div v-for="driver in taxis">
+            {{driver.id}}: (Info here)
+          </div>
+        </div>
       </div>
     </div>
 
@@ -16,7 +28,9 @@
   export default {
     components: {
       Map
-    }
+    },
+
+    props: ['orders', 'taxis']
   }
 </script>
 
@@ -39,6 +53,9 @@
 
   #sidebar-container {
     margin: 30px 30px 30px 30px;
+  }
+  #sidebar-container>div {
+    margin-bottom: 20px;
   }
 
 </style>
