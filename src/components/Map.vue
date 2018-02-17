@@ -38,7 +38,7 @@
         map.on('mouseup', (e) => {
           this.$emit('mouseup', e);
         });
-        
+
         map.on('mousemove', (e) => {
           this.$emit('mousemove', e);
         });
