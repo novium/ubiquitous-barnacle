@@ -13,15 +13,13 @@
       }
     },
     mounted () {
-      socket.on('connect', function () {
+      socket.on('connect', () => {
         console.log("Connected to socket.");
       });
 
       socket.on('initialize', (data) => {
         this.orders = data.orders;
         this.taxis = data.taxis;
-        console.log(this.orders);
-        console.log(this.taxis);
       })
     },
   }

@@ -11,26 +11,74 @@
 
         <h1>Drivers</h1>
         <div>
-          <div v-for="driver in taxis">
-            {{driver.id}}: (Info here)
+          <div v-for="taxi in taxis">
+            {{taxi.id}}: (Info here)
           </div>
         </div>
       </div>
     </div>
 
-    <Map />
+    <Map v-on:click="addTaxi" v-on:load="initMap"></Map>
   </div>
 </template>
 
 <script>
   import Map from '../components/Map.vue'
 
+  var geojson = {
+    type: "FeatureCollection",
+    features: []
+  }
+
   export default {
     components: {
       Map
     },
 
-    props: ['orders', 'taxis']
+    data: () => {
+      return {
+      }
+    },
+
+    props: ['orders', 'taxis'],
+
+    methods: {
+      initMap (e) {
+
+      },
+      addTaxi (e) {
+        //var elem = $('<img>');
+        var elem = document.createElement('img');
+        elem.className = 'taxi';
+        elem.src = require('../../public/img/taxi.png');
+
+        // geojson (detta gör ingenting än men jag tror man måste använda det för att göra de draggable)
+        var feature = {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [e.lngLat.lng, e.lngLat.lat]
+          },
+          properties: {
+            name: 'taxi'
+          }
+        };
+        geojson.features.push(feature);
+
+
+        const taxi = new mapboxgl.Marker(elem).setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
+        this.taxis.push({
+          x: e.lngLat.lng,
+          x: e.lngLat.lat,
+          elem: elem
+        });
+
+        map.on('mouseenter', 'taxi')
+      }
+    },
+
+    mounted() {
+    }
   }
 </script>
 
@@ -56,5 +104,12 @@
   }
   #sidebar-container>div {
     margin-bottom: 20px;
+  }
+</style>
+
+<style>
+  .taxi {
+    width: 40px;
+    height: 40px;
   }
 </style>

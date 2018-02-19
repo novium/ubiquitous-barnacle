@@ -11,9 +11,15 @@
       navigator.geolocation.getCurrentPosition((pos) => {
         const position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
         map = this.init(position);
+        window.map = map; // map has to be global so that it's reachable by other components
 
         this.initEventListeners(map);
       });
+    },
+
+    data: () => {
+      return {
+      }
     },
 
     methods: {
@@ -41,6 +47,10 @@
 
         map.on('mousemove', (e) => {
           this.$emit('mousemove', e);
+        });
+
+        map.on('load', (e) => {
+          this.$emit('mapload', e);
         });
       },
 
