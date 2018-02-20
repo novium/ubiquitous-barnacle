@@ -11,26 +11,86 @@
 
         <h1>Drivers</h1>
         <div>
-          <div v-for="taxi in taxis">
+          <!--<div v-for="taxi in taxis">
             {{taxi.id}}: (Info here)
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
 
-    <Map v-on:click="addTaxi" v-on:load="initMap"></Map>
+    <Map ref="map" />
   </div>
 </template>
 
 <script>
   import Map from '../components/Map.vue'
 
-  var geojson = {
-    type: "FeatureCollection",
-    features: []
+  let isCursorOverPoint = false;
+  let isDragging = false;
+  let canvas;
+
+  let currentMarker;
+  let mousePos;
+  let taxis = [];
+
+  let geojson = {
+    "type": "FeatureCollection",
+    "features": [{
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates": [18.01635407255256, 59.281649371543324]
+      },
+      "properties": {
+        "title": "taxi-02304"
+      }
+    }]
+  }
+
+  function onMove(e) {
+    if (!isDragging) return;
+    var coords = e.lngLat;
+    console.log("coolio!")
+    // Set a UI indicator for dragging.
+    canvas.style.cursor = 'grabbing';
+
+    // Update the Point feature in `geojson` coordinates
+    // and call setData to the source layer `point` on it.
+    geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
+    map.getSource('taxis').setData(geojson);
+  }
+
+  function mouseDown() {
+    if (!isCursorOverPoint) return;
+
+    isDragging = true;
+
+    // Set a cursor indicator
+    canvas.style.cursor = 'grab';
+
+    // Mouse events
+    map.on('mousemove', onMove);
+    map.once('mouseup', onUp);
+  }
+
+  function onUp(e) {
+    if (!isDragging) return;
+    var coords = e.lngLat;
+
+    canvas.style.cursor = '';
+    isDragging = false;
+
+    // Unbind mouse events
+    map.off('mousemove', onMove);
   }
 
   export default {
+    mounted() {
+      console.log("HELLO!");
+      this.$refs.map.$on('click', this.mapClick);
+      this.$refs.map.$on('mapload', this.initMap);
+    },
+
     components: {
       Map
     },
@@ -40,44 +100,62 @@
       }
     },
 
-    props: ['orders', 'taxis'],
+    props: ['orders'],
 
     methods: {
-      initMap (e) {
+      initMap () {
+        /*map.on('mousemove', function (e) {
+            mousePos = e.lngLat;
+        })*/
 
-      },
-      addTaxi (e) {
-        //var elem = $('<img>');
-        var elem = document.createElement('img');
-        elem.className = 'taxi';
-        elem.src = require('../../public/img/taxi.png');
-
-        // geojson (detta gör ingenting än men jag tror man måste använda det för att göra de draggable)
-        var feature = {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [e.lngLat.lng, e.lngLat.lat]
+        window.map.addLayer({
+          "id": "taxis",
+          "type": "symbol",
+          "source": {
+            "type": "geojson",
+            "data": geojson
           },
-          properties: {
-            name: 'taxi'
+          "layout": {
+            "icon-image": "car-15",
+            "text-field": "{title}",
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
           }
-        };
-        geojson.features.push(feature);
-
-
-        const taxi = new mapboxgl.Marker(elem).setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
-        this.taxis.push({
-          x: e.lngLat.lng,
-          x: e.lngLat.lat,
-          elem: elem
         });
 
-        map.on('mouseenter', 'taxi')
-      }
-    },
+        canvas = map.getCanvasContainer();
 
-    mounted() {
+        map.on('mouseenter', 'taxis', function() {
+          canvas.style.cursor = 'move';
+          isCursorOverPoint = true;
+          map.dragPan.disable();
+        });
+
+        map.on('mouseleave', 'taxis', function() {
+          canvas.style.cursor = '';
+          isCursorOverPoint = false;
+          map.dragPan.enable();
+        });
+
+        map.on('mousedown', mouseDown);
+      },
+
+      mapClick(lngLat) {
+        if(!overTaxi) {
+
+
+          taxis.push({
+            lng: lngLat.lngLat.lng,
+            lat: lngLat.lngLat.lat,
+            marker: taxi
+          });
+
+        }
+      },
+
+      moveTaxi(e) {
+
+      }
     }
   }
 </script>

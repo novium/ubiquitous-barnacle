@@ -45,9 +45,9 @@
           this.$emit('mouseup', e);
         });
 
-        map.on('mousemove', (e) => {
+        /*map.on('mousemove', (e) => {
           this.$emit('mousemove', e);
-        });
+        });*/
 
         map.on('load', (e) => {
           this.$emit('mapload', e);
