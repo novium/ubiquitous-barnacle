@@ -24,6 +24,9 @@ import Done from './containers/Done.vue';
 
 import Home from './components/Home.vue';
 
+import Driver from './containers/Driver.vue';
+import DriverHome from './containers/DriverHome.vue';
+
 Vue.use(VueRouter);
 
 window.isLoggedIn = true;
@@ -38,10 +41,17 @@ const routes = [
   { path: '/dispatcher', component: Dispatcher,
     children: [
       { path: '', component: DispatcherHome }
-  ]},
+    ]
+  },
   { path: '/login', component: Login },
   { path: '/confirmed', component: Confirmed },
-  { path: '/done', component: Done }
+  { path: '/done', component: Done },
+
+  { path: '/driver', component: Driver,
+    children: [
+      { path: '', component: DriverHome }
+    ]
+  }
 ];
 
 window.router = new VueRouter({
