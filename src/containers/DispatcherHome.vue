@@ -36,6 +36,7 @@
   window.geojson = {
     "type": "FeatureCollection",
     "features": [{
+      "id": 1,
       "type": "Feature",
       "geometry": {
           "type": "Point",
@@ -46,6 +47,7 @@
       }
     },
     {
+      "id": 2,
       "type": "Feature",
       "geometry": {
           "type": "Point",
@@ -56,6 +58,7 @@
       }
     },
     {
+      "id": 3,
       "type": "Feature",
       "geometry": {
           "type": "Point",
@@ -66,6 +69,7 @@
       }
     },
     {
+      "id": 4,
       "type": "Feature",
       "geometry": {
           "type": "Point",
@@ -88,7 +92,7 @@
     // Update the Point feature in `geojson` coordinates
     // and call setData to the source layer `point` on it.
     currentMarker.geometry.coordinates = [coords.lng, coords.lat];
-    console.log(currentMarker);
+
     map.getSource('taxis').setData(geojson);
   }
 
@@ -101,11 +105,14 @@
     // Set a cursor indicator
     canvas.style.cursor = 'grab';
 
-    let bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
-    let features = map.queryRenderedFeatures(bbox, { layers: ['taxis'] });
+    var features = map.queryRenderedFeatures(e.point);
 
-    currentMarker = features[0];
-console.log(features);
+    // Seeks out the marker with the ID of the clicked marker
+    // CAUTION: markers with ID 0 are map-markers!
+    currentMarker = window.geojson.features.find((elem) => {
+      return elem.id == features[0].id;
+    });
+
     // Mouse events
     map.on('mousemove', onMove);
     map.once('mouseup', onUp);
