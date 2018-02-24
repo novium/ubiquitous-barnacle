@@ -4,9 +4,9 @@
       <div id="sidebar-container">
         <h1>Jobs</h1>
         <div>
-          <div v-for="order in orders">
+          <!--<div v-for="order in orders">
             {{order.id}}: (Location here)
-          </div>
+          </div>-->
         </div>
 
         <h1>Drivers</h1>
@@ -33,9 +33,39 @@
   let mousePos;
   let taxis = [];
 
-  let geojson = {
+  window.geojson = {
     "type": "FeatureCollection",
     "features": [{
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates": [18.01635407255256, 59.281649371543324]
+      },
+      "properties": {
+        "title": "taxi-02304"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates": [18.01635407255256, 59.281649371543324]
+      },
+      "properties": {
+        "title": "taxi-02304"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates": [18.01635407255256, 59.281649371543324]
+      },
+      "properties": {
+        "title": "taxi-02304"
+      }
+    },
+    {
       "type": "Feature",
       "geometry": {
           "type": "Point",
@@ -49,25 +79,33 @@
 
   function onMove(e) {
     if (!isDragging) return;
+    e.originalEvent.preventDefault();
     var coords = e.lngLat;
-    console.log("coolio!")
+    //console.log(e)
     // Set a UI indicator for dragging.
     canvas.style.cursor = 'grabbing';
 
     // Update the Point feature in `geojson` coordinates
     // and call setData to the source layer `point` on it.
-    geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
+    currentMarker.geometry.coordinates = [coords.lng, coords.lat];
+    console.log(currentMarker);
     map.getSource('taxis').setData(geojson);
   }
 
-  function mouseDown() {
+  function mouseDown(e) {
     if (!isCursorOverPoint) return;
 
+    e.originalEvent.preventDefault();
     isDragging = true;
 
     // Set a cursor indicator
     canvas.style.cursor = 'grab';
 
+    let bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
+    let features = map.queryRenderedFeatures(bbox, { layers: ['taxis'] });
+
+    currentMarker = features[0];
+console.log(features);
     // Mouse events
     map.on('mousemove', onMove);
     map.once('mouseup', onUp);
@@ -119,7 +157,12 @@
             "icon-image": "car-15",
             "text-field": "{title}",
             "text-offset": [0, 0.6],
-            "text-anchor": "top"
+            "text-anchor": "top",
+            "icon-allow-overlap": true,
+            "icon-ignore-placement": true,
+            "text-allow-overlap": true,
+            "text-ignore-placement": true,
+
           }
         });
 
@@ -141,16 +184,7 @@
       },
 
       mapClick(lngLat) {
-        if(!overTaxi) {
 
-
-          taxis.push({
-            lng: lngLat.lngLat.lng,
-            lat: lngLat.lngLat.lat,
-            marker: taxi
-          });
-
-        }
       },
 
       moveTaxi(e) {
@@ -169,7 +203,7 @@
   #sidebar {
     color: white;
 
-    width: 15%;
+    width: 15em;
     min-width: 150px;
     height: 100%;
     position: absolute;
