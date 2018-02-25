@@ -166,6 +166,7 @@ export default {
         this.$refs.map.clearMarkers();
         this.$refs.map.addMarker(data.results[0].geometry.location);
         this.$refs.map.flyTo(data.results[0].geometry.location);
+        this.$data.destination = data.results[0].geometry.location;
       });
     }
   },
