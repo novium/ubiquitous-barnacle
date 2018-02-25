@@ -68,7 +68,7 @@
               </div>
               <div class='row specifyRow'>
                 <div class='col text-right'>
-                  Seats
+                  Passengers
                 </div>
                 <div class='col'>
                   <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
@@ -76,7 +76,7 @@
               </div>
               <div class='row specifyRow'>
                 <div class='col text-center'>
-                  <p>3 Seats are included at the price of one!</p>
+                  <p>3 Passengers are included in standard price!</p>
                   <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;">Save to profile</button>
                 </div>
               </div>
