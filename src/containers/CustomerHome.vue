@@ -77,7 +77,12 @@
     </div>
 
     <div class="destination">
-      <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo" disabled>
+      <div class="input-group mb-3">
+        <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo">
+        <div class="input-group-append">
+          <button style="pointer-events: all" class="btn btn-dark" type="button" v-on:click="search">Search</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -98,79 +103,6 @@ export default {
   },
 
   methods: {
-    testButton4(){
-      this.endView = true;
-      this.summaryView = false;
-      this.specifyView = false;
-      this.mainView = false;
-    },
-    testButton3(){
-      this.endView = false;
-      this.summaryView = true;
-      this.specifyView = false;
-      this.mainView = false;
-    },
-    testButton2(){
-      this.endView = false;
-      this.summaryView = false;
-      this.specifyView = true;
-      this.mainView = false;
-    },
-    testButton1(){
-      this.endView = false;
-      this.summaryView = false;
-      this.specifyView = false;
-      this.mainView = true;
-    },
-    testReset(){
-      this.endView = true;
-      this.summaryView = true;
-      this.specifyView = true;
-      this.mainView = true;
-    },
-    tologin(){
-      console.log(this.testTrue)
-      this.mainView = false;
-      this.summaryView = false;
-      this.specifyView = false;
-      this.endView = false;
-    },
-    fromMainToSpecify(){
-      this.mainView = false;
-      this.summaryView = false;
-      this.specifyView = true;
-      this.endView = false;
-    },
-    confirmSummarise(){
-      this.mainView = false;
-      this.summaryView = false;
-      this.specifyView = false;
-      this.endView = true;
-    },
-    fromMainToEnd(){
-      this.mainView = false;
-      this.endView = true;
-    },
-    fromSpecifyToSummary(){
-      this.specifyView = false;
-      this.summaryView = true;
-      this.loadDataCheckboxes();
-      this.checkboxesToText();
-    },
-    backButtonPress(){
-      console.log('YEEET')
-      console.log(this.whereTo)
-      console.log(this.checkboxes)
-      this.checkboxesToText();
-    },
-    backToSpecify(){
-      this.summaryView = false;
-      this.specifyView = true;
-    },
-    fromSpecifyToMain(){
-      this.specifyView = false;
-      this.mainView = true;
-    },
     loadDataCheckboxes(){
       var listAux = []
       if (document.getElementById('checkPet').checked){
@@ -224,6 +156,17 @@ export default {
       } else {
         window.router.push('login');
       }
+    },
+
+    search() {
+      $.get("https://maps.googleapis.com/maps/api/geocode/json?address="
+      + this.$data.whereTo
+      + "&key=AIzaSyDPs9zgpdfe7ZhmVm71EjFTs3IgQZjbm1w", (data, status) => {
+        this.$data.whereTo = data.results[0].formatted_address;
+        this.$refs.map.clearMarkers();
+        this.$refs.map.addMarker(data.results[0].geometry.location);
+        this.$refs.map.flyTo(data.results[0].geometry.location);
+      });
     }
   },
   data(){
@@ -558,6 +501,11 @@ input[type='checkbox']:checked {
 
 .infoContainerUp {
   bottom: 29em;
+}
+
+.destination button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 </style>
