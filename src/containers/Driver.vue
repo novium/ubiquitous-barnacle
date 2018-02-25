@@ -2,16 +2,10 @@
 <template>
   <html>
 
-  <head>
+   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TAXI DRIVER</title>
-    <link rel="stylesheet" href="leaflet/leaflet.css">
-    <link rel="stylesheet" href="css/taxi.css">
-    <script src="/vue/vue.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/leaflet/leaflet.js"></script>
-    <script src="js/driver.js" defer></script>
+    <title>TAXI DRIVER</title>   
   </head>
 
   <body>
@@ -31,14 +25,12 @@
 
       <!--Bar where current job, next job and outside conditions aswell as clock shows-->
       <div class="orderBar">
+      
         <div class="column leftleft">
-        <ul>
-        
-        
+        <ul> 
         <h2>
         Current job
         </h2>
-          
             <div v-for="order in orders" v-if="order.taxiId == taxiId">
               # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
               <ul>
@@ -50,14 +42,13 @@
             </div>
           </ul>
         </div>
+	
+	
         <div class="column left">
-        <ul>
-        
-     
+        <ul>  
         <h2>
         Next job
         </h2>
-     
             <div v-for="order in orders" v-if="order.taxiId == taxiId">
               # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
               <ul>
@@ -69,22 +60,24 @@
             </div>
           </ul>
         </div>
-        <div class="column right">
+        
+	
+	<div class="column right">
           <ul>
           <h2>
           Trip info
           </h2>
             #clock time untill arrival 
             time to destination etc
-
           </ul>
         </div>
+	
+	
         <div class="column rightright">
         <ul>
         <h2>
         Job request
-        </h2>
-     
+        </h2>  
             <div v-for="order in orders" v-if="order.taxiId == taxiId">
               # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
               <ul>
@@ -100,7 +93,6 @@
       </div>
     </div>
   </body>
-
 </html>
 </template>
 
