@@ -18,60 +18,66 @@
     </div>
 
     <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
-      <div class='row'>
+      <div class='row specifyRow'>
               <div class='col text-right'>
-                <label class='form-check-label' for='checkPet'>Pets :</label>
+                <label class='form-check-label' for='checkPet'>Pets</label>
               </div>
               <div class='col'>
                 <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'>
               </div>
               </div>
-            <div class='row'>
+            <div class='row specifyRow'>
               <div class='col text-right'>
-                <label class='form-check-label' for='checkAllergies'>Allergies :</label>
+                <label class='form-check-label' for='checkAllergies'>Allergies</label>
               </div>
               <div class='col'>
                 <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'>
               </div>
             </div>
-            <div class='row'>
+            <div class='row specifyRow'>
               <div class='col text-right'>
-                <label class='form-check-label' for='checkWheelchair'>Wheelchair :</label>
+                <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
               </div>
               <div class='col'>
                 <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'>
               </div>
             </div>
-              <div class='row'>
+              <div class='row specifyRow'>
                 <div class='col text-right'>
-                  <label class='form-check-label' for='checkChildSeat'>Child seat :</label>
+                  <label class='form-check-label' for='checkChildSeat'>Child seat</label>
                 </div>
                 <div class='col'>
                   <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat'>
                 </div>
               </div>
-              <div class='row'>
+              <div class='row specifyRow'>
                 <div class='col text-right'>
-                  <label class='form-check-label' for='checkMedicalTransport'>Medical transport :</label>
+                  <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
                 </div>
                 <div class='col'>
                   <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport'>
                 </div>
               </div>
-              <div class='row'>
+              <div class='row specifyRow'>
                 <div class='col text-right'>
-                  Bags :
+                  Bags
                 </div>
                 <div class='col'>
                   <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
                 </div>
               </div>
-              <div class='row'>
+              <div class='row specifyRow'>
                 <div class='col text-right'>
-                  Seats :
+                  Seats
                 </div>
                 <div class='col'>
-                  <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required'>
+                  <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
+                </div>
+              </div>
+              <div class='row specifyRow'>
+                <div class='col text-center'>
+                  <p>3 Seats are included at the price of one!</p>
+                  <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;">Save to profile</button>
                 </div>
               </div>
     </div>
@@ -80,7 +86,7 @@
       <div class="input-group mb-3">
         <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo">
         <div class="input-group-append">
-          <button style="pointer-events: all" class="btn btn-dark" type="button" v-on:click="search">Search</button>
+          <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="search">Search</button>
         </div>
       </div>
     </div>
@@ -179,7 +185,7 @@ export default {
       logoImg: 'logoIMG',
       orderButtonImg: 'Button Img',
       flagImg: 'if we are to use a flag place it here drop down box?',
-      passengers: 0,
+      passengers: 3,
       luggage: 0,
       price: 250,
       checkBoxesToText: 'nothing',
@@ -285,14 +291,18 @@ export default {
 input[type='checkbox'] {
     -webkit-appearance:none;
     -moz-appearance: none;
-    width:30px;
-    height:30px;
-    background:white;
+    width: 25px;
+    height: 25px;
+    background:transparent;
     border-radius:5px;
     border:2px solid #555;
 }
 input[type='checkbox']:checked {
-    background: #abd;
+    background: #ffa023;
+}
+
+.specifyRow {
+  margin-bottom: 15px;
 }
 
 
@@ -400,7 +410,6 @@ input[type='checkbox']:checked {
 
 .destination input {
   pointer-events: all;
-  width: 100%;
 }
 
 .orderBtnContainer {
@@ -451,6 +460,7 @@ input[type='checkbox']:checked {
   visibility: hidden;
   display: none;
   pointer-events: none;
+  font-family: 'Oxygen';
 
   position: absolute;
   height: 25em;
@@ -504,10 +514,7 @@ input[type='checkbox']:checked {
   bottom: 29em;
 }
 
-.destination button {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
+
 
 </style>
 
