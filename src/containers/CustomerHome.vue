@@ -76,7 +76,7 @@
               </div>
               <div class='row specifyRow'>
                 <div class='col text-right'>
-                  Seats
+                  Passengers
                 </div>
                 <div class='col'>
                   <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
@@ -516,5 +516,3 @@ input[type='checkbox']:checked {
 
 
 </style>
-
-<!-- Add button Design. Design the info boxes more checkboxes? -->
