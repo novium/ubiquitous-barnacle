@@ -23,7 +23,7 @@
                 <label class='form-check-label' for='checkPet'>Pets</label>
               </div>
               <div class='col'>
-                <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet'>
+                <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
               </div>
               </div>
             <div class='row specifyRow'>
@@ -31,7 +31,7 @@
                 <label class='form-check-label' for='checkAllergies'>Allergies</label>
               </div>
               <div class='col'>
-                <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies'>
+                <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
               </div>
             </div>
             <div class='row specifyRow'>
@@ -39,7 +39,7 @@
                 <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
               </div>
               <div class='col'>
-                <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair'>
+                <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
               </div>
             </div>
               <div class='row specifyRow'>
@@ -47,7 +47,7 @@
                   <label class='form-check-label' for='checkChildSeat'>Child seat</label>
                 </div>
                 <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat'>
+                  <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
                 </div>
               </div>
               <div class='row specifyRow'>
@@ -55,7 +55,15 @@
                   <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
                 </div>
                 <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport'>
+                  <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
+                </div>
+              </div>
+              <div class='row specifyRow'>
+                <div class='col text-right'>
+                  <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
+                </div>
+                <div class='col'>
+                  <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst'>
                 </div>
               </div>
               <div class='row specifyRow'>
@@ -76,8 +84,8 @@
               </div>
               <div class='row specifyRow'>
                 <div class='col text-center'>
-                  <p>3 Passengers are included in standard price!</p>
-                  <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;">Save to profile</button>
+                  <p>3 Seats are included at the price of one!</p>
+                  <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;" v-on:click="saveSpecify">Save to profile</button>
                 </div>
               </div>
     </div>
@@ -97,8 +105,15 @@
 
 <script>
 import Map from '../components/Map.vue'
+import Vue from 'vue'
 
 export default {
+  created() {
+    let profile = JSON.parse(localStorage.getItem("profile"));
+    if(profile != undefined)
+      this.$data.profile = profile;
+  },
+
   mounted() {
     this.$refs.map.$on('click', this.mapClick);
 
@@ -109,34 +124,6 @@ export default {
   },
 
   methods: {
-    loadDataCheckboxes(){
-      var listAux = []
-      if (document.getElementById('checkPet').checked){
-        listAux.push('pet');
-      }
-      if (document.getElementById('checkAllergies').checked){
-        listAux.push('allergies');
-      }
-      if (document.getElementById('checkWheelchair').checked){
-        listAux.push('wheelchair');
-      }
-      console.log(listAux);
-      this.checkboxes = listAux;
-
-    },
-    checkboxesToText(){
-      if (document.getElementById('checkPet').checked){
-        this.bringPet = 'yes'
-
-      }
-      if (document.getElementById('checkAllergies').checked){
-        this.gotAllergies = 'yes'
-      }
-      if (document.getElementById('checkWheelchair').checked){
-        this.bringWheelchair = 'yes'
-      }
-    },
-
     mapClick(lngLat) {
       this.$refs.map.clearMarkers();
       this.$refs.map.addMarker(lngLat.lngLat);
@@ -174,8 +161,13 @@ export default {
         this.$refs.map.flyTo(data.results[0].geometry.location);
         this.$data.destination = data.results[0].geometry.location;
       });
+    },
+
+    saveSpecify() {
+      localStorage.setItem("profile", JSON.stringify(this.profile));
     }
   },
+
   data(){
     return{
       whereTo: '',
@@ -196,9 +188,15 @@ export default {
       specifyView: false,
       mainView: false,
       notEndView: false,
-      bringWheelchair: 'no',
-      gotAllergies: 'no',
-      bringPet: 'no',
+
+      profile: {
+        pets: false,
+        allergies: false,
+        wheelchair: false,
+        childseating: false,
+        medicaltransport: false,
+        fardtjanst: true
+      },
 
       destination: undefined,
       specify: false
@@ -431,7 +429,7 @@ input[type='checkbox']:checked {
 }
 
 .orderBtnContainerUp {
-  bottom: 20em;
+  bottom: 22em;
 }
 
 .orderBtnClick {
@@ -463,7 +461,8 @@ input[type='checkbox']:checked {
   font-family: 'Oxygen';
 
   position: absolute;
-  height: 25em;
+  height: 27.5em;
+  padding-top: 1em;
   bottom: 0;
   width: 100%;
   left: 0;
@@ -511,11 +510,9 @@ input[type='checkbox']:checked {
 }
 
 .infoContainerUp {
-  bottom: 29em;
+  bottom: 31em;
 }
 
 
 
 </style>
-
-<!-- Add button Design. Design the info boxes more checkboxes? -->
