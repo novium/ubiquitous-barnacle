@@ -116,10 +116,10 @@ export default {
 
   mounted() {
     this.$refs.map.$on('click', this.mapClick);
+    this.$refs.map.$on('load', this.mapLoad);
 
     navigator.geolocation.getCurrentPosition((pos) => {
-      const position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
-      this.$refs.map.addMarker(position);
+      this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
     });
   },
 
@@ -127,6 +127,7 @@ export default {
     mapClick(lngLat) {
       this.$refs.map.clearMarkers();
       this.$refs.map.addMarker(lngLat.lngLat);
+      $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
 
       $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="
       + lngLat.lngLat.lat + ","
@@ -136,6 +137,10 @@ export default {
       });
 
       this.$data.destination = lngLat.lngLat;
+    },
+
+    mapLoad() {
+      $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
     },
 
     specifyMethod() {
@@ -157,6 +162,7 @@ export default {
       + "&key=AIzaSyDPs9zgpdfe7ZhmVm71EjFTs3IgQZjbm1w", (data, status) => {
         this.$data.whereTo = data.results[0].formatted_address;
         this.$refs.map.clearMarkers();
+        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
         this.$refs.map.addMarker(data.results[0].geometry.location);
         this.$refs.map.flyTo(data.results[0].geometry.location);
         this.$data.destination = data.results[0].geometry.location;
@@ -199,6 +205,7 @@ export default {
       },
 
       destination: undefined,
+      position: undefined,
       specify: false
     }
 
@@ -515,4 +522,19 @@ input[type='checkbox']:checked {
 
 
 
+</style>
+
+<style>
+.customer {
+  background-image: linear-gradient(-60deg, rgb(255, 80, 0) 0%, rgb(255, 114, 4) 100%);
+  border-radius: 100%;
+  box-shadow: 0 0 10px rgb(255, 80, 0);
+  width: 42px;
+  height: 42px;
+  color: rgb(240, 240, 240);
+  font-family: "Oxygen";
+  text-align: center;
+  padding-top: 8px;
+  font-size: 16px;
+}
 </style>

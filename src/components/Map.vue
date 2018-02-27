@@ -42,6 +42,10 @@
         map.on('mousemove', (e) => {
           this.$emit('mousemove', e);
         });
+
+        map.on('load', (e) => {
+          this.$emit('load', e);
+        });
       },
 
       clearMarkers() {
