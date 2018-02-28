@@ -14,7 +14,7 @@
     </div>
 
     <div class="infoContainer" v-bind:class="{ infoContainerUp: specify }" v-if="destination">
-      <p>We'll arrive in 7min and the trip will take about 19min and cost 94kr.</p>
+      <p>We'll arrive in 7min and the trip will take about {{ time }}min and cost {{ price }}.</p>
     </div>
 
     <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
@@ -107,6 +107,18 @@
 import Map from '../components/Map.vue'
 import Vue from 'vue'
 
+// From https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
+// Since I'm too lazy to redo the trigonometry I did in excel a few years ago :)
+function distance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;    // Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
+
 export default {
   created() {
     let profile = JSON.parse(localStorage.getItem("profile"));
@@ -137,6 +149,9 @@ export default {
       });
 
       this.$data.destination = lngLat.lngLat;
+      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      this.$data.price = Math.floor(20 * this.$data.distance + 50);
+      this.$data.time = Math.floor(5 * this.$data.distance);
     },
 
     mapLoad() {
@@ -167,6 +182,10 @@ export default {
         this.$refs.map.flyTo(data.results[0].geometry.location);
         this.$data.destination = data.results[0].geometry.location;
       });
+
+      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      this.$data.price = Math.floor(20 * this.$data.distance + 50);
+      this.$data.time = Math.floor(5 * this.$data.distance);
     },
 
     saveSpecify() {
@@ -185,7 +204,7 @@ export default {
       flagImg: 'if we are to use a flag place it here drop down box?',
       passengers: 3,
       luggage: 0,
-      price: 250,
+      price: undefined,
       checkBoxesToText: 'nothing',
       checkboxes: [],
       confirmationCode: 'random Code',
@@ -206,6 +225,8 @@ export default {
 
       destination: undefined,
       position: undefined,
+      distance: undefined,
+      time: undefined,
       specify: false
     }
 
