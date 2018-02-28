@@ -23,6 +23,10 @@
         console.log(this.orders);
         console.log(this.taxis);
       })
+      socket.on('taxiOrdered', (order) => {
+        this.orders.push(order);
+        console.log(order);
+      })
     },
   }
 </script>

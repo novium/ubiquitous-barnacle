@@ -6,6 +6,16 @@
 
 <script>
   export default {
+    mounted() {
+      socket.on('connect', function () {
+        console.log("Connected to socket.");
+      });
+
+      // right now it gets all the data, but does nothing with it
+      socket.on('initialize', (data) => {
+        this.taxis = data.taxis;
+      })
+    }
 
   }
 </script>

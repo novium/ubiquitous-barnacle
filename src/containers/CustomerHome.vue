@@ -149,6 +149,8 @@ export default {
     },
 
     orderMethod() {
+      socket.emit('orderTaxi', this.$data, null);
+
       if(window.isLoggedIn) {
         window.router.push("confirmed");
       } else {

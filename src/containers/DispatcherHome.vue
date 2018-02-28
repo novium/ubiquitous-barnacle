@@ -5,7 +5,7 @@
         <h1>Jobs</h1>
         <div>
           <div v-for="order in orders">
-            {{order.id}}: (Location here)
+            {{order.orderId}}: {{order.whereTo}}
           </div>
         </div>
 
