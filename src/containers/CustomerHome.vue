@@ -137,6 +137,7 @@ export default {
       });
 
       this.$data.destination = lngLat.lngLat;
+      console.log(lngLat.lngLat);
     },
 
     mapLoad() {

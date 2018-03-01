@@ -4,7 +4,7 @@
       <div id="sidebar-container">
         <h1>Jobs</h1>
         <div>
-          <div v-for="order in orders">
+          <div v-for="order in orders" v-if="order">
             {{order.orderId}}: {{order.whereTo}}
           </div>
         </div>
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <Map />
+    <Map ref="map" v-on:load="addWatcher"/>
   </div>
 </template>
 
@@ -30,7 +30,37 @@
       Map
     },
 
-    props: ['orders', 'taxis']
+    props: ['orders', 'taxis'],
+    data: () => {
+      return {
+        counter: 0
+      }
+    },
+
+    mounted() {
+    },
+
+    methods: {
+      addWatcher() {
+        this.$watch('orders', function() {
+          this.addMarkers();
+        }, {immediate: true});
+      },
+
+      addMarkers() {
+        this.$refs.map.clearMarkers();
+        for (let i = 0; i < this.orders.length; i++) {
+          let order = this.orders[i];
+          // if it's defined and not NULL
+          if (order) {
+            this.$refs.map.addMarker(order.position);
+          }
+        }
+
+        console.log(this.orders);
+        console.log(this.$refs.map.getMarkers());
+      }
+    }
   }
 </script>
 
@@ -43,7 +73,7 @@
   #sidebar {
     color: white;
 
-    width: 15%;
+    width: 25%;
     min-width: 150px;
     height: 100%;
     position: absolute;

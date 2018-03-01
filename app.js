@@ -22,7 +22,7 @@ function Data() {
     {id: 1, x: 1, y: 1},
     {id: 2, x: 2, y: 2}
   ];
-  this.currentOrderNumber = 0;
+  this.currentOrderNumber = -1;
 }
 
 

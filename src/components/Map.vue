@@ -68,7 +68,7 @@
       getMarkers() {
         return markers;
       },
-      
+
       flyTo(lngLat) {
         map.flyTo({
           center: lngLat
