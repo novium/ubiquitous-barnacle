@@ -61,8 +61,8 @@
         return marker;
       },
 
-      removeMarker(map, lngLat) {
-
+      removeMarker(marker) {
+        marker.remove();
       },
 
       getMarkers() {

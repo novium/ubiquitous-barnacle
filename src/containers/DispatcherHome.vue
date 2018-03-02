@@ -3,10 +3,10 @@
     <div id="sidebar">
       <div id="sidebar-container">
         <h1>Jobs</h1>
-        <div>
-          <div v-for="order in orders" v-if="order">
-            {{order.orderId}}: {{order.whereTo}}
-          </div>
+        <div class="list-group">
+          <button type="button" class="list-group-item list-group-item-action job" v-for="order in orders" v-if="order" v-on:click="select(order, $event)">
+            <b>{{order.orderId}}</b> {{order.whereTo.substring(0, 20)}}...
+          </button>
         </div>
 
         <h1>Drivers</h1>
@@ -33,7 +33,7 @@
     props: ['orders', 'taxis'],
     data: () => {
       return {
-        counter: 0
+        orderStrings: {}
       }
     },
 
@@ -53,12 +53,32 @@
           let order = this.orders[i];
           // if it's defined and not NULL
           if (order) {
-            this.$refs.map.addMarker(order.position);
+            order.posMarker = this.$refs.map.addMarker(order.position);
+            order.posMarker.setPopup(new mapboxgl.Popup({closeOnClick: false})
+              .setHTML('<h4>From here</h4>'));
           }
         }
+      },
 
-        console.log(this.orders);
-        console.log(this.$refs.map.getMarkers());
+      select(order, event) {
+        if (event.target.classList.toggle("active") === true) {
+          event.target.innerHTML = order.orderId + ' ' + order.whereTo; // The whole text
+
+          order.destMarker = this.$refs.map.addMarker(order.destination);
+          order.destMarker.setPopup(new mapboxgl.Popup({closeOnClick: false})
+            .setHTML('<h4>To here</h4>'));
+
+          order.posMarker.togglePopup();
+          order.destMarker.togglePopup();
+
+        }
+        else {
+          event.target.innerHTML = '<b>' + order.orderId + '</b>' + ' ' + order.whereTo.substring(0, 20) + '...'; // I wish there was a simpler solution...
+          //this.$refs.map.removeMarker(order.marker);
+
+          order.posMarker.togglePopup();
+          order.destMarker.remove();
+        }
       }
     }
   }
@@ -80,11 +100,14 @@
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 2
   }
-
   #sidebar-container {
     margin: 30px 30px 30px 30px;
   }
   #sidebar-container>div {
     margin-bottom: 20px;
+  }
+
+  .job {
+    margin-bottom: 10px;
   }
 </style>
