@@ -63,7 +63,7 @@
                   <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
                 </div>
                 <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst'>
+                  <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst' v-on:click="toggleFardtjanst">
                 </div>
               </div>
               <div class='row specifyRow'>
@@ -95,6 +95,13 @@
         <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo">
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="search">Search</button>
+        </div>
+      </div>
+
+      <div class="input-group mb-3" v-if="profile.fardtjanst">
+        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control" v-model="from">
+        <div class="input-group-append">
+          <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="searchFrom">Search</button>
         </div>
       </div>
     </div>
@@ -160,7 +167,6 @@ export default {
 
     specifyMethod() {
       this.$data.specify = !this.$data.specify;
-      console.log("Specify!");
     },
 
     orderMethod() {
@@ -188,15 +194,45 @@ export default {
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
 
+    searchFrom() {
+      $.get("https://maps.googleapis.com/maps/api/geocode/json?address="
+      + this.$data.from
+      + "&key=AIzaSyDPs9zgpdfe7ZhmVm71EjFTs3IgQZjbm1w", (data, status) => {
+        this.$data.from = data.results[0].formatted_address;
+        this.$data.position = data.results[0].geometry.location;
+        this.$refs.map.clearMarkers();
+        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+        if(this.$data.destination) {
+          this.$refs.map.addMarker(this.$data.destination);
+        }
+      });
+
+      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      this.$data.price = Math.floor(20 * this.$data.distance + 50);
+      this.$data.time = Math.floor(5 * this.$data.distance);
+    },
+
     saveSpecify() {
       localStorage.setItem("profile", JSON.stringify(this.profile));
+    },
+
+    toggleFardtjanst() {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+        
+        this.$refs.map.clearMarkers();
+        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+        if(this.$data.destination) {
+          this.$refs.map.addMarker(this.$data.destination);
+        }
+      });
     }
   },
 
   data(){
     return{
       whereTo: '',
-      from: 'current position',
+      from: '',
       timeToArrival: 'Taxi @ your position',
       timeToDestination: 'Taxi @ Destination',
       logoImg: 'logoIMG',
