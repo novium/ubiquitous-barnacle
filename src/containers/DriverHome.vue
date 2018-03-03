@@ -73,6 +73,9 @@
           </h2>
             #clock time untill arrival 
             time to destination etc
+            
+            <input type="text" id="custnum" name="Customer number">
+            <button class="btn prin" name="buttonPrin">Print receipt</button>
           </ul>
         </div>
   
@@ -219,6 +222,7 @@ button {
 .Sig {background-color: #e7e7e7; color: black; float: right; font-size: 10px; width: 45px; height: 17px; margin: 0px 5px;}
 .Fin {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
 .Sta {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
+.prin {background-color: #e7e7e7; color: black; width: 120px; height: 30px; margin: 5px; position: relative; top: 65px; float: left;}
 .Acc {background-color: #4CAF50; width: 70px; height: 30px; margin: 5px;}
 .Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;} 
 
