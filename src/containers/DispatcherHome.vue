@@ -23,6 +23,10 @@
       <span class="time">15:05</span>
     </div>
 
+    <div class="logo">
+      <span class="ubert">uBert</span>.trfcCTRL
+    </div>
+
     <!-- The cool map costs lots more credits, approx. 5x as many, so use sparingly and enable during the presentation -->
     <!-- <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/> -->
     <Map ref="map" v-on:load="addWatcher"/>
@@ -164,5 +168,24 @@
 
   .clock .time {
     font-size: 2em;
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+
+    font-family: 'Catamaran';
+    font-weight: 700;
+    font-size: 1.5em;
+    text-shadow: 0 0 15px rgb(230,230,230,0.8);
+    color: rgb(230,230,230);
+
+    z-index: 1000;
+  }
+
+  .logo .ubert {
+    font-weight: 100;
+    font-size: 0.75em;
   }
 </style>
