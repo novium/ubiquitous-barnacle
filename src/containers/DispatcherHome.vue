@@ -28,8 +28,8 @@
     </div>
 
     <!-- The cool map costs lots more credits, approx. 5x as many, so use sparingly and enable during the presentation -->
-    <!-- <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/> -->
-    <Map ref="map" v-on:load="addWatcher"/>
+    <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/>
+    <!-- <Map ref="map" v-on:load="addWatcher"/> -->
   </div>
 </template>
 
@@ -104,12 +104,28 @@
   #sidebar {
     color: white;
 
-    width: 25%;
+    width: 25em;
     min-width: 150px;
     height: 100%;
     position: absolute;
-    background-color: rgba(30, 30, 30, 0.6);
+    
+    pointer-events: none;
+
+
+    background: rgba(60,60,60,0.6);
+    background: -moz-linear-gradient(left, rgba(60,60,60,0.8) 0%, rgba(60,60,60,0.6) 28%, rgba(60,60,60,0) 79%, rgba(60,60,60,0) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(60,60,60,0.6)), color-stop(28%, rgba(29,29,29,0.6)), color-stop(79%, rgba(60,60,60,0)), color-stop(100%, rgba(60,60,60,0)));
+    background: -webkit-linear-gradient(left, rgba(60,60,60,0.8) 0%, rgba(60,60,60,0.6) 28%, rgba(60,60,60,0) 79%, rgba(60,60,60,0) 100%);
+    background: -o-linear-gradient(left, rgba(60,60,60,0.8) 0%, rgba(60,60,60,0.6) 28%, rgba(60,60,60,0) 79%, rgba(60,60,60,0) 100%);
+    background: -ms-linear-gradient(left, rgba(60,60,60,0.8) 0%, rgba(60,60,60,0.6) 28%, rgba(60,60,60,0) 79%, rgba(60,60,60,0) 100%);
+    background: linear-gradient(to right, rgba(60,60,60,0.8) 0%, rgba(60,60,60,0.6) 28%, rgba(60,60,60,0) 79%, rgba(60,60,60,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e1e1e', endColorstr='#1c1c1c', GradientType=1 );
+
     z-index: 2
+  }
+
+  #sidebar button {
+    pointer-events: all;
   }
 
   #sidebar h1 {
@@ -149,7 +165,7 @@
     top: 0;
     right: 50%;
     left: 50%;
-    background: rgba(30, 30, 30, 0.6);
+    background: rgba(60, 60, 60, 0.6);
 
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
