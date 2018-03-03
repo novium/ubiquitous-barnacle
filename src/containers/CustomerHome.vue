@@ -180,23 +180,9 @@ export default {
   data(){
     return{
       whereTo: '',
-      from: 'current position',
-      timeToArrival: 'Taxi @ your position',
-      timeToDestination: 'Taxi @ Destination',
-      logoImg: 'logoIMG',
-      orderButtonImg: 'Button Img',
-      flagImg: 'if we are to use a flag place it here drop down box?',
       passengers: 3,
       luggage: 0,
       price: 250,
-      checkBoxesToText: 'nothing',
-      checkboxes: [],
-      confirmationCode: 'random Code',
-      endView: false,
-      summaryView: false,
-      specifyView: false,
-      mainView: false,
-      notEndView: false,
 
       profile: {
         pets: false,

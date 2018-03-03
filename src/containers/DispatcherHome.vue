@@ -3,9 +3,9 @@
     <div id="sidebar">
       <div id="sidebar-container">
         <h1>Jobs</h1>
-        <div class="list-group">
-          <button type="button" class="list-group-item list-group-item-action job" v-for="order in orders" v-if="order" v-on:click="select(order, $event)">
-            <b>{{order.orderId}}</b> {{order.whereTo.substring(0, 20)}}...
+        <div class="btn-group-vertical">
+          <button type="button" class="btn btn-secondary job" v-for="order in orders" v-if="order" v-on:click="select(order, $event)">
+            <b>{{order.orderId}}</b> {{order.whereTo}}
           </button>
         </div>
 
@@ -18,6 +18,13 @@
       </div>
     </div>
 
+    <div class="clock">
+      <span class="head">current time</span>
+      <span class="time">15:05</span>
+    </div>
+
+    <!-- The cool map costs lots more credits, approx. 5x as many, so use sparingly and enable during the presentation -->
+    <!-- <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/> -->
     <Map ref="map" v-on:load="addWatcher"/>
   </div>
 </template>
@@ -73,7 +80,7 @@
 
         }
         else {
-          event.target.innerHTML = '<b>' + order.orderId + '</b>' + ' ' + order.whereTo.substring(0, 20) + '...'; // I wish there was a simpler solution...
+          event.target.innerHTML = '<b>' + order.orderId + '</b>' + ' ' + order.whereTo; // I wish there was a simpler solution...
           //this.$refs.map.removeMarker(order.marker);
 
           order.posMarker.togglePopup();
@@ -97,17 +104,65 @@
     min-width: 150px;
     height: 100%;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(30, 30, 30, 0.6);
     z-index: 2
   }
+
+  #sidebar h1 {
+    font-family: 'Catamaran';
+    font-weight: 100;
+    text-transform: uppercase;
+  }
+
   #sidebar-container {
     margin: 30px 30px 30px 30px;
   }
   #sidebar-container>div {
-    margin-bottom: 20px;
+    margin-bottom: 2em;
   }
 
   .job {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+  }
+
+  .btn-group-vertical {
+    width: 100%;
+  }
+
+  .btn-group-vertical button {
+    width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .clock {
+    position: absolute;
+    width: 10em;
+    top: 0;
+    right: 50%;
+    left: 50%;
+    background: rgba(30, 30, 30, 0.6);
+
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    text-align: center;
+    font-family: 'Oxygen';
+    color: rgb(230,230,230);
+
+
+    z-index: 1000;
+  }
+
+  .clock span {
+    display: block;
+  }
+
+  .clock .time {
+    font-size: 2em;
   }
 </style>
