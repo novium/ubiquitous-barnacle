@@ -17,78 +17,84 @@
       <p>We'll arrive in 7min and the trip will take about {{ time }}min and cost {{ price }}.</p>
     </div>
 
-    <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
-      <div class='row specifyRow'>
-              <div class='col text-right'>
-                <label class='form-check-label' for='checkPet'>Pets</label>
-              </div>
-              <div class='col'>
-                <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
-              </div>
-              </div>
-            <div class='row specifyRow'>
-              <div class='col text-right'>
-                <label class='form-check-label' for='checkAllergies'>Allergies</label>
-              </div>
-              <div class='col'>
-                <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
-              </div>
-            </div>
-            <div class='row specifyRow'>
-              <div class='col text-right'>
-                <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-              </div>
-              <div class='col'>
-                <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
-              </div>
-            </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  <label class='form-check-label' for='checkChildSeat'>Child seat</label>
-                </div>
-                <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
-                </div>
-                <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
-                </div>
-                <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst' v-on:click="toggleFardtjanst">
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  Bags
-                </div>
-                <div class='col'>
-                  <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  Passengers
-                </div>
-                <div class='col'>
-                  <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-center'>
-                  <p>3 Seats are included at the price of one!</p>
-                  <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;" v-on:click="saveSpecify">Save to profile</button>
-                </div>
-              </div>
+<div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkPet'>Pets</label>
+      <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you want to bring pets in the taxi, then we need to know that in advance so we can have pet free cars for those who are allergic.">i</button>
     </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkAllergies'>Allergies</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you are allergic then we can take a cab that haven't been used to transport pets and the driver won't use strong perfume.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have a wheelchair then we need to have a bigger car in order fot it to fit inside.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkChildSeat'>Child seat</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have small kids that require either a baby seat or a car pillow to ride a car we will provide that for the trip.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The drivers will be educated for emergencies that might happen and the will also be prepared to help you in and our from the car.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The cost for the trip will be sent to the kommun and you will have to show your customer card for the ride, the drivers will also help you in and out of the car.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst' v-on:click="toggleFardtjanst">
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      Bags
+    </div>
+    <div class='col'>
+      <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      Passengers
+    </div>
+    <div class='col'>
+      <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-center'>
+      <p>3 Seats are included at the price of one!</p>
+      <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;" v-on:click="saveSpecify">Save to profile</button>
+    </div>
+  </div>
+
 
     <div class="destination">
       <div class="input-group mb-3">
@@ -96,6 +102,7 @@
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="search">Search</button>
         </div>
+      </div>
       </div>
 
       <div class="input-group mb-3" v-if="profile.fardtjanst">
@@ -113,6 +120,11 @@
 <script>
 import Map from '../components/Map.vue'
 import Vue from 'vue'
+
+//init for the popovers in specifyContainer
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 
 // From https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
 // Since I'm too lazy to redo the trigonometry I did in excel a few years ago :)
