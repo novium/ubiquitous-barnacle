@@ -94,6 +94,7 @@
       <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;" v-on:click="saveSpecify">Save to profile</button>
     </div>
   </div>
+  </div>
 
 
     <div class="destination">
@@ -102,7 +103,6 @@
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="search">Search</button>
         </div>
-      </div>
       </div>
 
       <div class="input-group mb-3" v-if="profile.fardtjanst">
