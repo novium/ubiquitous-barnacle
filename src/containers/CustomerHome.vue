@@ -580,6 +580,11 @@ input[type='checkbox']:checked {
   z-index: 200;
 }
 
+.infoSpecify {
+  border-radius: 50%;
+  font-weight: Bold;
+}
+
 .infoContainer p {
   word-wrap: normal;
   padding-top: 1.5em;
