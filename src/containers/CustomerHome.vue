@@ -510,23 +510,31 @@ input[type='checkbox']:checked {
 
 .orderBtnClick {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  right: 0;
+  
+  bottom: 1em;
+  left: 55%;
+  right: 10%;
+  border-radius: .1em;
+
   height: 4em;
   background: rgb(255, 149, 13);
-  border-top: 5px solid rgb(245, 139, 3);
+  box-shadow: 0 0 20px rgb(161, 91, 0);
+  /*border-top: 5px solid rgb(245, 139, 3);*/
   color: rgb(215, 119, 3);
 }
 
 .specifyBtnClick {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 50%;
+  
+  bottom: 1em;
+  left: 10%;
+  right: 55%;
+  border-radius: .1em;
+
   height: 4em;
   background: rgb(242, 242, 242);
-  border-top: 5px solid rgb(222, 222, 222);
+  box-shadow: 0 0 20px rgba(0,0,0, 0.5);
+  /*border-top: 5px solid rgb(222, 222, 222);*/
   color: rgb(182, 182, 182);
 }
 
@@ -544,6 +552,8 @@ input[type='checkbox']:checked {
   left: 0;
   right: 0;
   background: rgb(242, 242, 242);
+
+  box-shadow: 0 0 15px rgba(0,0,0,0.75);
 }
 
 .specifyContainer .row {
@@ -558,19 +568,20 @@ input[type='checkbox']:checked {
 
 .infoContainer {
   position: absolute;
-  bottom: 4em;
+  bottom: 5em;
   width: 100%;
   height: 6em;
   pointer-events: none;
 
-  background: rgb(234, 234, 234);
-  border-top: 5px solid rgb(214, 214, 214);
+  /*background: rgb(234, 234, 234);
+  border-top: 5px solid rgb(214, 214, 214);*/
 
   font-family: "Catamaran", sans-serif;
   text-transform: uppercase;
   font-size: 1em;
   font-weight: 900;
-  color: rgb(150,150,150);
+  color: rgb(240, 240, 240);
+  text-shadow: 0 0 17px rgb(0, 0, 0), 0 0 2px rgb(0, 0, 0);
 
   text-align: center;
   line-height: 1em;
@@ -591,7 +602,7 @@ input[type='checkbox']:checked {
 }
 
 .infoContainerUp {
-  bottom: 31em;
+  bottom: 33em;
 }
 
 
