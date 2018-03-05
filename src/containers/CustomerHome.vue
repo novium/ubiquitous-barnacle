@@ -249,6 +249,7 @@ export default {
       passengers: 3,
       luggage: 0,
       price: 250,
+      status: 0,
 
       profile: {
         pets: false,

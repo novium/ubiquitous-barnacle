@@ -22,6 +22,9 @@ import Login from './containers/Login.vue';
 import Confirmed from './containers/Confirmed.vue';
 import Done from './containers/Done.vue';
 
+import Driver from './containers/Driver.vue';
+import DriverHome from './containers/DriverHome.vue';
+
 import Home from './components/Home.vue';
 
 Vue.use(VueRouter);
@@ -41,7 +44,12 @@ const routes = [
   ]},
   { path: '/login', component: Login },
   { path: '/confirmed', component: Confirmed },
-  { path: '/done', component: Done }
+  { path: '/done', component: Done },
+
+  { path: '/driver', component: Driver,
+    children: [
+      { path: '', component: DriverHome }
+  ]}
 ];
 
 window.router = new VueRouter({

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  
   export default {
     data () {
       return {
@@ -20,10 +22,19 @@
       socket.on('initialize', (data) => {
         this.orders = data.orders;
         this.taxis = data.taxis;
-      })
+      });
+
       socket.on('taxiOrdered', (order) => {
         this.orders.push(order);
-      })
+      });
+
+      socket.on('taxiAdded', (taxi) => {
+        this.taxis.push(taxi);
+      });
+
+      socket.on('orderAccepted', (order) => {
+        Vue.set(this.orders, order.orderId, order);
+      });
     },
   }
 </script>

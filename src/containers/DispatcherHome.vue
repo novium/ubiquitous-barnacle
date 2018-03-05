@@ -3,16 +3,23 @@
     <div id="sidebar">
       <div id="sidebar-container">
         <h1>Jobs</h1>
-        <div class="btn-group-vertical">
-          <button type="button" class="btn btn-secondary job" v-for="order in orders" v-if="order" v-on:click="select(order, $event)">
+        <div class="btn-group-vertical jobs">
+          <button type="button" class="btn btn-secondary job" 
+            v-for="order in orders" v-if="order && !order.taxiId && order.status == 0"  
+            v-bind:class="[(order.orderId == selectedOrder.orderId) ? 'active' : '']" 
+            v-on:click="select(order, $event)">
             <b>{{order.orderId}}</b> {{order.whereTo}}
           </button>
         </div>
 
         <h1>Drivers</h1>
-        <div>
-          <div v-for="driver in taxis">
-            {{driver.id}}: (Info here)
+        <div class="drivers">
+          <div class="btn-group-vertical">
+            <button type="button" class="btn btn-secondary job" v-for="driver in taxis" 
+              v-on:click="assign(driver, $event)"
+              v-if="!driverHasOrder(driver)">
+              {{driver.taxiId}}: {{driver.name}}
+            </button>
           </div>
         </div>
       </div>
@@ -28,8 +35,8 @@
     </div>
 
     <!-- The cool map costs lots more credits, approx. 5x as many, so use sparingly and enable during the presentation -->
-    <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/>
-    <!-- <Map ref="map" v-on:load="addWatcher"/> -->
+    <!-- <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/> -->
+    <Map ref="map" v-on:load="addWatcher"/>
   </div>
 </template>
 
@@ -44,7 +51,8 @@
     props: ['orders', 'taxis'],
     data: () => {
       return {
-        orderStrings: {}
+        orderStrings: {},
+        selectedOrder: { orderId: -1 }
       }
     },
 
@@ -63,7 +71,7 @@
         for (let i = 0; i < this.orders.length; i++) {
           let order = this.orders[i];
           // if it's defined and not NULL
-          if (order) {
+          if (order && !order.taxiId) {
             order.posMarker = this.$refs.map.addMarker(order.position);
             order.posMarker.setPopup(new mapboxgl.Popup({closeOnClick: false})
               .setHTML('<h4>From here</h4>'));
@@ -71,24 +79,46 @@
         }
       },
 
-      select(order, event) {
-        if (event.target.classList.toggle("active") === true) {
-          event.target.innerHTML = order.orderId + ' ' + order.whereTo; // The whole text
+      driverHasOrder(driver) {
+        if(!this.order)
+          return false;
+        
+        if(this.orders.find((order) => { return order.taxiId == driver.taxiId })) {
+          return true;
+        } else {
+          return false;
+        }
+      },
 
+      select(order, event) {
+        if (this.selectedOrder.orderId != order.orderId) {
+        // event.target.innerHTML = order.orderId + ' ' + order.whereTo; // The whole text
+          this.selectedOrder = order;
+
+          this.addMarkers();
+          
           order.destMarker = this.$refs.map.addMarker(order.destination);
           order.destMarker.setPopup(new mapboxgl.Popup({closeOnClick: false})
             .setHTML('<h4>To here</h4>'));
 
           order.posMarker.togglePopup();
           order.destMarker.togglePopup();
-
+        } else {
+          this.selectedOrder = { orderId: -1 };
+          this.addMarkers();
         }
-        else {
-          event.target.innerHTML = '<b>' + order.orderId + '</b>' + ' ' + order.whereTo; // I wish there was a simpler solution...
-          //this.$refs.map.removeMarker(order.marker);
+      },
 
-          order.posMarker.togglePopup();
-          order.destMarker.remove();
+      assign(driver, event) {
+        console.log(this.selectedOrder.orderId);
+        if(this.selectedOrder.orderId != -1) {
+          this.selectedOrder.taxiId = driver.taxiId;
+          this.selectedOrder.status = 1;
+          this.selectedOrder.destMarker = undefined;
+          this.selectedOrder.posMarker = undefined;
+          socket.emit('taxiAssigned', JSON.parse(JSON.stringify(this.selectedOrder)));
+          this.addMarkers();
+          this.$forceUpdate();
         }
       }
     }
@@ -96,17 +126,59 @@
 </script>
 
 <style scoped>
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #4a5158;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: .25rem;
+    border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+::-webkit-scrollbar-thumb {
+  background: #6c757d;
+  border-radius: .25rem;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
   #container {
     width: 100%;
     height: 100%;
   }
 
+  .drivers {
+    pointer-events: all;
+    overflow-y: scroll;
+    max-height: 50%;
+  }
+
+  .jobs {
+    pointer-events: all;
+    overflow-y: scroll;
+    max-height: 25%;
+  }
+
+  .btn-group-vertical>.btn-group:not(:first-child)>.btn, .btn-group-vertical>.btn:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+.btn-group-vertical>.btn-group:not(:last-child)>.btn, .btn-group-vertical>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
   #sidebar {
     color: white;
 
-    width: 25em;
+    width: 22em;
     min-width: 150px;
     height: 100%;
+    max-height: 100%;
     position: absolute;
     
     pointer-events: none;
@@ -135,7 +207,10 @@
   }
 
   #sidebar-container {
-    margin: 30px 30px 30px 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+        height: 100%;
+    max-height: 100%;
   }
   #sidebar-container>div {
     margin-bottom: 2em;
@@ -151,6 +226,7 @@
 
   .btn-group-vertical button {
     width: 100%;
+    height: 58px;
     padding-top: 1em;
     padding-bottom: 1em;
 
