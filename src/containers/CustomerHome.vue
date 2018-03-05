@@ -570,9 +570,10 @@ input[type='checkbox']:checked {
   width: 100%;
   left: 0;
   right: 0;
-  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, 0.75);;
 
-  box-shadow: 0 0 15px rgba(0,0,0,0.75);
+  /* box-shadow: 0 0 15px rgba(0,0,0,0.75); */
+  backdrop-filter: blur(30px);
 }
 
 .specifyContainer .row {
