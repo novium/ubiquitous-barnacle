@@ -6,16 +6,26 @@
 
     <div class="code">DJ72E</div>
 
-    <div class="cancel"><router-link to="/customer" class="cancelLink">cancel</router-link></div>
+    <div class="cancel" @click="cancelRedirect"><router-link to="/customer" class="cancelLink">cancel</router-link></div>
   </div>
 </template>
 
 <script>
   export default {
     mounted() {
-      setTimeout(function() {
+      this.timeOut = setTimeout(function() {
         window.router.push("done");
       }, 4000);
+    },
+    data() {
+      return {
+        timeOut: undefined
+      }
+    },
+    methods: {
+      cancelRedirect() {
+        clearTimeout(this.timeOut);
+      }
     }
   }
 </script>
