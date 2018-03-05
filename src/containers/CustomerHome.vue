@@ -182,6 +182,9 @@ export default {
     },
 
     orderMethod() {
+      socket.on('orderId', (orderId) => {
+        localStorage.setItem('orderId', orderId);
+      });
       socket.emit('orderTaxi', this.$data, null);
 
       if(window.isLoggedIn) {
@@ -246,6 +249,7 @@ export default {
   data(){
     return{
       whereTo: '',
+      from: '',
       passengers: 3,
       luggage: 0,
       price: 250,

@@ -13,9 +13,11 @@
 <script>
   export default {
     mounted() {
-      setTimeout(function() {
-        window.router.push("done");
-      }, 4000);
+      socket.on('orderFinished', (orderId) => {
+        if(orderId == localStorage.getItem('orderId')) {
+          window.router.push("done");
+        }
+      });
     }
   }
 </script>
