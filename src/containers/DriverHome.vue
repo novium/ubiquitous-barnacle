@@ -179,13 +179,13 @@
               <h4>Status</h4>
               <div v-if="order.status == 2">
                 <p>Driving</p>
-                <button class="btn Acc" name="buttonAcc" v-on:click="finish">Finish</button>
+                <button class="btn btn-primary Acc" name="buttonAcc" v-on:click="finish">Finish</button>
               </div>
 
               <div v-if="order.status == 1">
                 <p>Do you want to accept?</p>
-                <button class="btn Acc" name="buttonAcc" v-on:click="accept">Accept</button>
-                <button class="btn Dec" name="buttonDec" v-on:click="decline">Decline</button>
+                <button class="btn btn-success" name="buttonAcc" v-on:click="accept">Accept</button>
+                <button class="btn btn-danger" name="buttonDec" v-on:click="decline">Decline</button>
               </div>
 
               <div v-if="order.status == -1">
@@ -195,7 +195,7 @@
 
             <div class="col-sm-1">
               <button class="btn Fin" name="buttonFin">Option</button>
-              <button class="btn Fin" name="buttonFin">Signout</button>
+              <button class="btn Fin mt-2" name="buttonFin">Signout</button>
             </div>
         </div>
       </div>
@@ -476,9 +476,9 @@ position:relative;
 }
 
 #driverName {
-  color: yellow;
+  color: white;
   margin: 1px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.6);
   float: right;
   font-size: 1.5em;
 }
