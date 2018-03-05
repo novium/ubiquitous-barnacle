@@ -20,8 +20,9 @@
       socket.on('initialize', (data) => {
         this.orders = data.orders;
         this.taxis = data.taxis;
-        console.log(this.orders);
-        console.log(this.taxis);
+      })
+      socket.on('taxiOrdered', (order) => {
+        this.orders.push(order);
       })
     },
   }

@@ -182,6 +182,8 @@ export default {
     },
 
     orderMethod() {
+      socket.emit('orderTaxi', this.$data, null);
+
       if(window.isLoggedIn) {
         window.router.push("confirmed");
       } else {
@@ -244,23 +246,9 @@ export default {
   data(){
     return{
       whereTo: '',
-      from: '',
-      timeToArrival: 'Taxi @ your position',
-      timeToDestination: 'Taxi @ Destination',
-      logoImg: 'logoIMG',
-      orderButtonImg: 'Button Img',
-      flagImg: 'if we are to use a flag place it here drop down box?',
       passengers: 3,
       luggage: 0,
-      price: undefined,
-      checkBoxesToText: 'nothing',
-      checkboxes: [],
-      confirmationCode: 'random Code',
-      endView: false,
-      summaryView: false,
-      specifyView: false,
-      mainView: false,
-      notEndView: false,
+      price: 250,
 
       profile: {
         pets: false,

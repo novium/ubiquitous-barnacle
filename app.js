@@ -16,17 +16,13 @@ app.set('port', (process.env.PORT || port));
 // Store data in an object to keep the global namespace clean and
 // prepare for multiple instances of data if necessary
 function Data() {
-  this.orders = [
-    {id: 0, x: 0, y: 0},
-    {id: 1, x: 1, y: 1},
-    {id: 2, x: 3, y: 3}
-  ];
+  this.orders = [];
   this.taxis = [
     {id: 0, x: 0, y: 0},
     {id: 1, x: 1, y: 1},
     {id: 2, x: 2, y: 2}
   ];
-  this.currentOrderNumber = 1000;
+  this.currentOrderNumber = -1;
 }
 
 

@@ -16,11 +16,19 @@
       });
     },
 
+    props: {
+      mapStyle: {
+        type: String,
+        default: 'mapbox://styles/mapbox/streets-v10'
+      }
+    },
+
     methods: {
       init(pos) {
+        console.log(this.style)
         return new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/mapbox/streets-v10',
+          style: this.$props.mapStyle,
           center: pos,
           zoom: 12
         });
@@ -61,14 +69,14 @@
         return marker;
       },
 
-      removeMarker(map, lngLat) {
-
+      removeMarker(marker) {
+        marker.remove();
       },
 
       getMarkers() {
         return markers;
       },
-      
+
       flyTo(lngLat) {
         map.flyTo({
           center: lngLat
