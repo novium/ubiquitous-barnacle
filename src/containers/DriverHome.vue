@@ -301,6 +301,8 @@
           this.$refs.map.addMarker(this.order.position);
         }
       });
+
+      this.$refs.map.$on('click', this.mapClick);
     },
     methods: {
       initialize(){
@@ -399,6 +401,12 @@ socket.emit('initialize');
       },
       mapLoad() {
         $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+      },
+      mapClick(lngLat) {
+        const pos = lngLat.lngLat;
+        this.taxi.pos = pos;
+
+        socket.emit('moveTaxi', this.taxi);
       }
     },
 

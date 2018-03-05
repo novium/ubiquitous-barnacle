@@ -35,6 +35,12 @@
       socket.on('orderAccepted', (order) => {
         Vue.set(this.orders, order.orderId, order);
       });
+
+      socket.on('taxiMoved', (taxi) => {
+        taxi.marker = this.taxis[taxi.taxiId].marker;
+        taxi.marker.setLngLat(taxi.pos);
+        Vue.set(this.taxis, taxi.taxiId, taxi);
+      });
     },
   }
 </script>

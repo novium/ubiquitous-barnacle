@@ -120,6 +120,7 @@ io.on('connection', function (socket) {
   socket.on('moveTaxi', function (taxi) {
     data.updateTaxiDetails(taxi);
     // send updated info to all connected clients, note the use of io instead of socket
+    console.log("taxi moved");
     io.emit('taxiMoved', taxi);
   });
 

@@ -64,6 +64,10 @@
         this.$watch('orders', function() {
           this.addMarkers();
         }, {immediate: true});
+
+        this.$watch('taxis', function() {
+          this.addMarkers();
+        }, {immediate: true});
       },
 
       addMarkers() {
@@ -76,6 +80,10 @@
             order.posMarker.setPopup(new mapboxgl.Popup({closeOnClick: false})
               .setHTML('<h4>From here</h4>'));
           }
+        }
+
+        for(let i = 0; i < this.taxis.length; i++) {
+          this.taxis[i].marker = this.$refs.map.addMarker(this.taxis[i].pos);
         }
       },
 
