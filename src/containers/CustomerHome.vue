@@ -21,7 +21,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkPet'>Pets</label>
-      <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you want to bring pets in the taxi, then we need to know that in advance so we can have pet free cars for those who are allergic.">i</button>
+      <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you want to bring any pets in the taxi, then we need to know that in advance so we can have pet free cars for those who are allergic.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
@@ -30,7 +30,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkAllergies'>Allergies</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you are allergic then we can take a cab that haven't been used to transport pets and the driver won't use strong perfume.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you are allergic then we will provide a cab that hasen't been used to transport pets and the driver won't use strong perfume.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
@@ -39,7 +39,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have a wheelchair then we need to have a bigger car in order fot it to fit inside.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have a wheelchair then we need to have a bigger car in order for it to fit inside.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
@@ -48,7 +48,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkChildSeat'>Child seat</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have small kids that require either a baby seat or a car pillow to ride a car we will provide that for the trip.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have small kids that requires either a baby seat or a car pillow to ride a car we will provide that for the trip.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
@@ -57,7 +57,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The drivers will be educated for emergencies that might happen and the will also be prepared to help you in and our from the car.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The drivers will be educated for emergencies that might happen and will also be prepared to help you in and out of the car.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
@@ -66,7 +66,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The cost for the trip will be sent to the kommun and you will have to show your customer card for the ride, the drivers will also help you in and out of the car.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The bill for the trip will be sent to the municipality and you will have to show your customer card for the ride, the drivers will also help you in and out of the car.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst' v-on:click="toggleFardtjanst">
@@ -77,7 +77,7 @@
       Bags
     </div>
     <div class='col'>
-      <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
+      <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required' min="0" max="6">
     </div>
   </div>
   <div class='row specifyRow'>
@@ -106,7 +106,7 @@
       </div>
 
       <div class="input-group mb-3" v-if="profile.fardtjanst">
-        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control" v-model="from">
+        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control">
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="searchFrom">Search</button>
         </div>
@@ -131,8 +131,8 @@ $(function () {
 function distance(lat1, lon1, lat2, lon2) {
   var p = 0.017453292519943295;    // Math.PI / 180
   var c = Math.cos;
-  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-          c(lat1 * p) * c(lat2 * p) * 
+  var a = 0.5 - c((lat2 - lat1) * p)/2 +
+          c(lat1 * p) * c(lat2 * p) *
           (1 - c((lon2 - lon1) * p))/2;
 
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
@@ -182,6 +182,9 @@ export default {
     },
 
     orderMethod() {
+      socket.on('orderId', (orderId) => {
+        localStorage.setItem('orderId', orderId);
+      });
       socket.emit('orderTaxi', this.$data, null);
 
       if(window.isLoggedIn) {
@@ -203,7 +206,9 @@ export default {
         this.$data.destination = data.results[0].geometry.location;
       });
 
-      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      if (this.$data.distance && this.$data.destination) {
+        this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      }
       this.$data.price = Math.floor(20 * this.$data.distance + 50);
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
@@ -221,7 +226,9 @@ export default {
         }
       });
 
-      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      if (this.$data.distance && this.$data.destination) {
+        this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      }
       this.$data.price = Math.floor(20 * this.$data.distance + 50);
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
@@ -233,7 +240,7 @@ export default {
     toggleFardtjanst() {
       navigator.geolocation.getCurrentPosition((pos) => {
         this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
-        
+
         this.$refs.map.clearMarkers();
         $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
         if(this.$data.destination) {
@@ -246,9 +253,11 @@ export default {
   data(){
     return{
       whereTo: '',
+      from: '',
       passengers: 3,
       luggage: 0,
       price: 250,
+      status: 0,
 
       profile: {
         pets: false,
@@ -286,70 +295,6 @@ export default {
   pointer-events: all;
 }
 
-/* Main (ingore the Up it was part of an old View swapping Method) */
-.logInButtonUp{
-  position: absolute;
-  z-index: inherit;
-  right: 0px;
-  z-index: 1;
-
-}
-.whereToUp{
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%,-50%);
-
-}
-.timeToArrivalUp{
-  position: absolute;
-  z-index: 1;
-  left: 20%;
-  bottom: 30%;
-
-}
-.timeToDestinationUp{
-  position: absolute;
-  z-index: 1;
-  right: 20%;
-  bottom: 30%;
-
-}
-.logoUp{
-  position: absolute;
-  z-index: 1;
-
-}
-.orderButtonSpecify{
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 0px;
-  transform: translate(-50%,-50%);
-
-}
-.orderButton{
-  position:absolute;
-  z-index: 1;
-  left:50%;
-  bottom: 40px;
-  transform: translate(-50%,-50%);
-}
-
-
-/* specify up/down */
-
-.specifyOrder {
-  position: absolute;
-  z-index: 1;
-  width: 60%;
-  left: 20%;
-  background-color: White;
-  bottom:0px;
-
-}
-
 input[type='checkbox'] {
     -webkit-appearance:none;
     -moz-appearance: none;
@@ -370,75 +315,6 @@ input[type='checkbox']:checked {
 
 .container {
   background-color: aqua;
-}
-
-.orderButtonSpecify{
-  text-align: center;
-}
-.leftCheckboxes {
-  text-align: left;
-}
-.rightCheckboxes {
-  text-align: right;
-}
-/* order summarise up/down*/
-.summarised  {
-  left:-200%;
-
-}
-
-.summarisedInfo {
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  bottom: 20%;
-}
-.backToSpecify {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
-}
-.confirm {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
-  right: 0px;
-}
-.summaryTitle {
-  position: absolute;
-  z-index: 1;
-  text-align: center;
-  width: 100%;
-  top: 50%;
-}
-/* end */
-.end  {
-  left:-200%;
-}
-.endFromInfo{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-}
-.endToInfo{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-  right:0px;
-
-}
-.confirmationCode{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-  width:100%;
-  text-align: center;
-
-}
-.backButton{
-  z-index:1;
-  position:absolute;
-  bottom:50%;
 }
 
 .controls {
@@ -498,7 +374,7 @@ input[type='checkbox']:checked {
 
 .orderBtnClick {
   position: absolute;
-  
+
   bottom: 1em;
   left: 55%;
   right: 10%;
@@ -513,7 +389,7 @@ input[type='checkbox']:checked {
 
 .specifyBtnClick {
   position: absolute;
-  
+
   bottom: 1em;
   left: 10%;
   right: 55%;

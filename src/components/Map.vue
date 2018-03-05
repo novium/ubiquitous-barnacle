@@ -25,7 +25,6 @@
 
     methods: {
       init(pos) {
-        console.log(this.style)
         return new mapboxgl.Map({
           container: 'map',
           style: this.$props.mapStyle,

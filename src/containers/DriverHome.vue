@@ -1,29 +1,28 @@
 <template>
-
-<div id="page">
+<div>
+<!-- <div id="page">
       <div id="my-map" v-on="initializeMaps()">
        <Map ref="map" />
           <div id="driverBox" v-on="initialize()" >
       <div id="driverName">
-        
+        Driver ID: {{ taxi.taxiId }}
       </div>
       <div>
-       
+
       </div>
           </div>
-     
-      
+
+
       </div>
 
-      <!--Bar where current job, next job and outside conditions aswell as clock shows-->
       <div class="orderBar">
-        
+
         <div class="column leftleftleft">
           <ul>
           <th valign="top">
           Rate out of 3
         </th>
-          
+
             <div id="buttons">
               <form v-on:submit="rate">
               <button id="1" class="btn1" name="buttonFin" Style>1</button>
@@ -33,18 +32,18 @@
             </div>
             </ul>
           <ul>
-            
-              
-             
+
+
+
             </ul>
-            
+
         </div>
-          
-        
+
+
 
 
         <div class="column leftleft">
-        <ul> 
+        <ul>
         <th valign="top">
         Current job
         </th>
@@ -59,17 +58,17 @@
                 </li>
               </ul>
             </div>
-        
+
 
         <form v-on:submit="finish">
         <button class="btn Fin" name="buttonFin" >Finish job</button>
         </form>
           </ul>
         </div>
-  
-  
+
+
         <div class="column left">
-        <ul>  
+        <ul>
         <th valign="top">
         Next job
         </th>
@@ -83,13 +82,13 @@
                   {{ item }}
                 </li>
               </ul>
-              
+
             </div>
-            
+
           </ul>
         </div>
-        
-  
+
+
          <div class="column right">
           <ul>
           <th valign="top">
@@ -99,33 +98,34 @@
            <button class="btn prin" name="buttonPrin">Print receipt</button>
           </ul>
         </div>
-  
-  
+
+
         <div class="column rightright">
         <ul>
         <th valign="top">
         Job request
-        </th>  
+        </th>
             <div v-for="order in orders" v-if="order.taxiId == taxiId">
-              # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
-              <ul>
-                <li v-for="item in order.orderItems">
-                  {{ item }}
-                </li>
-                </ul>
+                # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
                 <ul>
-            
-              
-          
-            </ul>
+                  <li v-for="item in order.orderItems">
+                    {{ item }}
+                  </li>
+                  </ul>
+                  <ul>
+
+
+
+              </ul>
             </div>
+
             <div id="order">
 
             </div>
             <div id="buttonmain">
             <div class="floatdiv">
             <form v-on:submit="accept">
-              
+
               <button class="btn Acc" name="buttonAcc" v-on:click="acceptOrder(order)">Accept</button>
               </form>
             </div>
@@ -140,34 +140,125 @@
 
           <div class="column rightrightright">
             <ul>
-            
-     
+
+
               <form v-on:submit="option">
               <button class="btn Fin" name="buttonFin" Style v-on:click="optionPopup">Option</button>
               </form>
-          
+
             </ul>
           <ul>
-            
+
               <form v-on:submit="logout">
               <button class="btn Fin" name="buttonFin" Style v-on:click="optionPopup">Signout</button>
               </form>
             </ul>
-            
+
             </div>
       </div>
+    </div> -->
+
+    <div class="overlay">
+      <div id="driverName">
+        Driver ID: {{ taxi.taxiId }}
+      </div>
+
+      <div class="orderBar">
+        <div class="row orderBarGrid">
+            <div class="col-sm-7">
+              <div v-if="order.status == 1 || order.status == 2">
+                <h3>Order Info</h3>
+                <ul>
+                  <li><b>Destination:</b> {{order.whereTo}}</li>
+                  <li><b>Passengers:</b> {{order.passengers}}</li>
+                  <li><b>Luggage:</b> {{order.luggage}}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <h4>Status</h4>
+              <div v-if="order.status == 2">
+                <p>Driving</p>
+                <button class="btn btn-primary Acc" name="buttonAcc" v-on:click="finish">Finish</button>
+              </div>
+
+              <div v-if="order.status == 1">
+                <p>Do you want to accept?</p>
+                <button class="btn btn-success" name="buttonAcc" v-on:click="accept">Accept</button>
+                <button class="btn btn-danger" name="buttonDec" v-on:click="decline">Decline</button>
+              </div>
+
+              <div v-if="order.status == -1">
+                <p>Waiting for a job</p>
+              </div>
+            </div>
+
+            <div class="col-sm-1">
+              <button class="btn Fin" name="buttonFin">Option</button>
+              <button class="btn Fin mt-2" name="buttonFin">Signout</button>
+            </div>
+        </div>
+      </div>
     </div>
-  
+
+    <Map id="map" ref="map" />
+
+    <div class="modal fade" id="fardtjanstModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Färdtjänst CustomerID</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="text" placeholder="CardID ############">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-block btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
   import Map from '../components/Map.vue'
-import Vue from 'vue'
+  import Vue from 'vue'
+
   export default {
     data () {
       return {
         orders: [],
-        taxis: undefined,
+        taxiId: -1,
+        taxis: [],
+        taxi: {},
+        order: {
+          whereTo: '',
+          passengers: undefined,
+          luggage: undefined,
+          price: undefined,
+          taxiId: undefined,
+          status: -1,
+
+          profile: {
+            pets: undefined,
+            allergies: undefined,
+            wheelchair: undefined,
+            childseating: undefined,
+            medicaltransport: undefined,
+            fardtjanst: undefined
+          },
+
+          destination: undefined,
+          position: undefined,
+          distance: undefined,
+          time: undefined,
+          specify: undefined
+         },
         position: undefined,
         orderID: undefined,
         actualOrder: undefined,
@@ -180,99 +271,130 @@ import Vue from 'vue'
         customerIndex: 0
       }
     },
-    created() {
-    
 
-    socket.on('connect', function () {
-      console.log("Connected to socket.");
-    });
-    },
-    mounted(){
-      this.$refs.map.$on('load', this.mapLoad);
+    created() {
+      socket.emit('initialize');
+
+      socket.on('initialize', function(data) {
+        this.orders = data.orders;
+        this.taxis = data.taxis;
+      });
+
+      socket.on('taxiAddedExtra', (taxi) => {
+        this.$data.taxis[taxi.taxiId] = taxi;
+        this.$data.taxiId = taxi.taxiId;
+        this.$data.taxi = taxi;
+      });
+
       navigator.geolocation.getCurrentPosition((pos) => {
-      this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
-    });
-      
+        this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+        socket.emit('addTaxi', {
+          pos: this.$data.position,
+          name: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+        });
+      });
+    },
+
+    mounted(){
+      //this.$refs.map.$on('load', this.mapLoad);
+      socket.on('currentQueue', (orders) => {
+        this.$data.orders = orders.orders;
+
+
+        let order = orders.orders.find((val) => { return (val.taxiId == this.$data.taxiId) && (val.status == 1 ) });
+
+        if(order) {
+          this.orderID = order.orderId;
+          Vue.set(this, "order", order);
+          this.$refs.map.flyTo(this.order.position);
+          this.$refs.map.addMarker(this.order.position);
+        }
+      });
+
+      this.$refs.map.$on('click', this.mapClick);
     },
     methods: {
       initialize(){
-        var taxiid, orders, taxis;
-        this.$data.taxis = 7;
-        socket.emit('addTaxi', {taxis: this.$data.taxis});
-        var that = this;
-        socket.on('initialize', function(info){
-          
-            
-            that.$data.orders = info.orders;
-          
-            that.$data.orderIndex = 2;
-            that.$data.actualOrder = that.$data.orders[0].id;
-            that.$data.nextOrder = that.$data.orders[1].id;
-            that.$data.suggestedOrder = that.$data.orders[2].id;
-            that.$data.myOrders = [];
-            that.$data.myOrders[that.$data.orderIndex-2] = that.$data.actualOrder;
-            that.$data.myOrders[that.$data.orderIndex-1] = that.$data.nextOrder;
-            
-
-
-            $("#driverName").html("<p> TaxiID: " + that.$data.taxis + "</p>");
-            $("#analyze").html("<p>Ordernumber: " + that.$data.actualOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            $("#job").html("<p>Ordernumber: " + that.$data.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            $("#order").html("<p>Ordernumber: " + that.$data.suggestedOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            
-        });
-        
-        
+            //$("#driverName").html("<p> TaxiID: " +this.taxis.id + "</p>");
+            //$("#analyze").html("<p>Ordernumber: " + this.orderID + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            //$("#job").html("<p>Ordernumber: " + this.orders[1].id + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            //$("#order").html("<p>Ordernumber: " + this.orders[2].id + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
       },
       initializeMaps(){
-        navigator.geolocation.getCurrentPosition((pos) => {
-        this.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
-        
-        this.$refs.map.clearMarkers();
-        $(this.$refs.map.addMarker(this.position).getElement()).html('<div class="customer">you</div>');
+        //this.$refs.map.clearMarkers();
+        //$(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
 
-        if(this.$data.destination) {
-          this.$refs.map.addMarker(this.$data.destination);
-        }
-      });
+        //if(this.$data.destination) {
+        //  this.$refs.map.addMarker(this.$data.destination);
+        //}
       },
       accept(){
-        var suggestedOrder = this.suggestedOrder;
-        socket.emit('orderAccepted', {suggestedOrder: this.$data.suggestedOrder});
-          this.$dataorderIndex = this.$data.orderIndex + 1;
-          this.$data.nextOrder = this.$data.suggestedOrder;
-          if(this.$data.orders[this.$data.orderIndex] != null){
-            this.$datasuggestedOrder = this.$data.orders[this.$data.orderIndex + 1].id;
-          }
-          else{
-            $("#order").html("<p>There is no order available for you</p>");
-          }
-        
+        this.order.status = 2;
+        socket.emit('orderAccepted', this.order);
       },
       decline(){
-        
-        socket.emit('decline', function() {});
-          this.$data.orderIndex = this.$data.orderIndex + 1;
-          if(this.$data.orders[this.$data.orderIndex] != null){
-            this.$data.suggestedOrder = this.$data.orders[this.$data.orderIndex + 1].id;
-          }
-          else{
-            $("#order").html("<p>There is no Job available for you atm</p>");
-          }
-        
+        this.order.status = 0;
+        this.order.taxiId = undefined;
+        socket.emit('orderAccepted', this.order);
+                this.order = {
+          whereTo: '',
+          passengers: undefined,
+          luggage: undefined,
+          price: undefined,
+          taxiId: undefined,
+          status: -1,
+
+          profile: {
+            pets: undefined,
+            allergies: undefined,
+            wheelchair: undefined,
+            childseating: undefined,
+            medicaltransport: undefined,
+            fardtjanst: undefined
+          },
+
+          destination: undefined,
+          position: undefined,
+          distance: undefined,
+          time: undefined,
+          specify: undefined
+         };
+
+         this.orderID = -1;
+socket.emit('initialize');
       },
       finish(){
-        var actualOrder = this.actualOrder;
-        socket.on('finishOrder', {actualOrder: this.$data.actualOrder});
-          if(this.$data.nextOrder==null){
-              $("#job").html("<p>There is no Job available for you atm</p>");
-            }
-            else{
-            this.$data.actualOrder = this.$data.nextOrder;
-            this.$data.nextOrder = this.$data.suggestedOrder;
-            $("#job").html("<p>Ordernumber: " + this.$data.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-          }
-        
+        if(this.order.profile.fardtjanst) {
+          $('#fardtjanstModal').modal();
+        }
+
+        socket.emit('finishOrder', this.order.orderId);
+        this.order = {
+          whereTo: '',
+          passengers: undefined,
+          luggage: undefined,
+          price: undefined,
+          taxiId: undefined,
+          status: -1,
+
+          profile: {
+            pets: undefined,
+            allergies: undefined,
+            wheelchair: undefined,
+            childseating: undefined,
+            medicaltransport: undefined,
+            fardtjanst: undefined
+          },
+
+          destination: undefined,
+          position: undefined,
+          distance: undefined,
+          time: undefined,
+          specify: undefined
+         };
+
+         this.orderID = -1;
+socket.emit('initialize');
       },
       logout(){
         
@@ -309,14 +431,20 @@ import Vue from 'vue'
         console.log("it works");
       },
       mapLoad() {
-      $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
-    }
-    },
-    components: {
-      Map
+        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+      },
+      mapClick(lngLat) {
+        this.taxi.pos = lngLat.lngLat;
+        this.$refs.map.clearMarkers();
+        this.$refs.map.addMarker(this.taxi.pos);
+
+        socket.emit('moveTaxi', this.taxi);
+      }
     },
 
-    props: ['order']
+    components: {
+      Map
+    }
   }
 </script>
 
@@ -325,8 +453,32 @@ import Vue from 'vue'
   margin: 0;
   background-color: DimGray;
   height: 100%
-
 }
+
+  .row {
+    margin-right: 0;
+  }
+
+  .orderBarGrid {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
 
 #buttonmain{
 position:relative;
@@ -336,16 +488,10 @@ position:relative;
   bottom:20px;
 }
 
-th {
-    position:relative;
-  top:-15px;
-    border :1px solid black;
-    font-size: 10px;
-}
+
 #my-map {
-  padding-bottom: 10px;
   width: 100%;
-  height: 90vh;
+  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.4);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
   margin: 1em auto;
@@ -364,19 +510,16 @@ th {
 }
 
 #driverName {
-  font-size: 8px;
-  color: yellow;
-  margin: 1px;
-  background-color: black;
-  width: 150px;
-  height:13px;
+  color: white;
+  padding-top: 3px;
+  padding-left: 8px;
+  padding-right: 20px;
+  padding-bottom: 8px;
+  border-bottom-left-radius: 0.8em;
+  margin: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
   float: right;
-  
-}
-ul, li {
-    top: auto;
-    margin: 8px; 
-    padding: 5px;
+  font-size: 1.5em;
 }
 
 
@@ -428,22 +571,24 @@ ul, li {
 .orderBar {
   content: "";
   display: table;
-  font-size: 8px;
- 
+  pointer-events: all;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  color: white;
+
   clear: both;
-  background-color:black;
+  background-color:rgb(29, 29, 29);
   width: 100%;
-  height:15%;
+  height: 10em;
   bottom: 0;
   position: absolute;
 }
-#custnum {
- width: 90%;
-  position: relative;
-  top: 20px;
-  
+
+.orderBar ul {
+  list-style: none;
+  padding-left: 5px;
 }
-button {
+
+/* button {
     border: none;
     padding: 1px 1px;
     text-align: center;
@@ -454,15 +599,15 @@ button {
     bottom: 10%;
     right: 5%;
     top:2px;
-}
+} */
 
 
-.Opt {background-color: #e7e7e7; color: black; font-size: 10px; width: 45px; height: 17px; margin: 5px;}
+/* .Opt {background-color: #e7e7e7; color: black; font-size: 10px; width: 45px; height: 17px; margin: 5px;}
 .Sig {background-color: #e7e7e7; color: black; float: right; font-size: 10px; width: 45px; height: 17px; margin: 0px 5px;}
 .Fin {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
 .Sta {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
 .Acc {background-color: #4CAF50; width: 70px; height: 30px; margin: 5px;}
-.Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;} 
+.Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;}  */
 .prin {background-color: #e7e7e7; color: black; width: 75px; height: 30px; margin: 2px; position: relative; top: 40px; float: left;}
 
 
