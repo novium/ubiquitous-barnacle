@@ -34,8 +34,8 @@
     </div>
 
     <!-- The cool map costs lots more credits, approx. 5x as many, so use sparingly and enable during the presentation -->
-    <!-- <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/> -->
-    <Map ref="map" v-on:load="addWatcher"/>
+    <Map ref="map" map-style="mapbox://styles/novium/cjebascmb0soj2rsvkpzs8jl0" v-on:load="addWatcher"/>
+    <!-- <Map ref="map" v-on:load="addWatcher"/> -->
   </div>
 </template>
 
