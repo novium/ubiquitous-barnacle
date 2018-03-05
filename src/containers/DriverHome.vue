@@ -17,7 +17,8 @@
 
       <!--Bar where current job, next job and outside conditions aswell as clock shows-->
       <div class="orderBar">
-      <div class="column leftleftleft">
+        
+        <div class="column leftleftleft">
           <ul>
           <th valign="top">
           Rate out of 3
@@ -25,9 +26,9 @@
           
             <div id="buttons">
               <form v-on:submit="rate">
-              <button class="btn Fin" name="buttonFin" Style id="1">1</button>
-              <button class="btn Fin" name="buttonFin" Style id="2">2</button>
-              <button class="btn Fin" name="buttonFin" Style id="3">3</button>
+              <button id="1" class="btn1" name="buttonFin" Style>1</button>
+              <button id="2" class="btn2" name="buttonFin" Style >2</button>
+              <button id="3" class="btn3" name="buttonFin" Style>3</button>
               </form>
             </div>
             </ul>
@@ -38,6 +39,10 @@
             </ul>
             
         </div>
+          
+        
+
+
         <div class="column leftleft">
         <ul> 
         <th valign="top">
@@ -91,7 +96,7 @@
           Trip info
           </th>
             <input type="text" id="custnum" name="Customer number" placeholder="Custumer number">
-            <button class="btn prin" name="buttonPrin">Print receipt</button>
+           <button class="btn prin" name="buttonPrin">Print receipt</button>
           </ul>
         </div>
   
@@ -152,7 +157,7 @@
             </div>
       </div>
     </div>
-    
+  
 </template>
 
 <script>
@@ -164,7 +169,15 @@ import Vue from 'vue'
         orders: [],
         taxis: undefined,
         position: undefined,
-        orderID: undefined
+        orderID: undefined,
+        actualOrder: undefined,
+        nextOrder: undefined,
+        suggestedOrder: undefined,
+        myOrders: [],
+        orderIndex: 1,
+        rateNumber: undefined,
+        customerRating: [],
+        customerIndex: 0
       }
     },
     created() {
@@ -189,13 +202,21 @@ import Vue from 'vue'
           
           
             this.orders = info.orders;
-            this.orderID = info.orders[0].id;
             this.taxis = info.taxis[0];
+            this.actualOrder = this.orders[0].id;
+            this.nextOrder = this.orders[1].id;
+            this.suggestedOrder = this.orders[2].id;
            
+            this.myOrders[orderIndex-1] = this.actualOrder;
+            this.myOrders[orderIndex] = this.nextOrder;
+
             $("#driverName").html("<p> TaxiID: " +this.taxis.id + "</p>");
-            $("#analyze").html("<p>Ordernumber: " + this.orderID + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            $("#job").html("<p>Ordernumber: " + this.orders[1].id + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            $("#order").html("<p>Ordernumber: " + this.orders[2].id + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            $("#analyze").html("<p>Ordernumber: " + this.actualOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            $("#job").html("<p>Ordernumber: " + this.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            $("#order").html("<p>Ordernumber: " + this.suggestedOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+        });
+        socket.on('addTaxi', function(this.taxis.id){
+
         });
       },
       initializeMaps(){
@@ -212,16 +233,40 @@ import Vue from 'vue'
       },
       accept(){
         
-        socket.emit('accept', function() {
+        socket.emit('orderAccepted', function(this.suggestedOrder) {
+          this,orderIndex = this.orderIndex + 1;
+          this.nextOrder = this.suggestedOrder;
+          if(this.orders[this,orderIndex] != null){
+            this.suggestedOrder = this.orders[this.orderIndex + 1].id;
+          }
+          else{
+            $("#order").html("<p>There is no order available for you</p>");
+          }
         });
       },
       decline(){
         
         socket.emit('decline', function() {
+          this,orderIndex = this.orderIndex + 1;
+          if(this.orders[this,orderIndex] != null){
+            this.suggestedOrder = this.orders[this.orderIndex + 1].id;
+          }
+          else{
+            $("#order").html("<p>There is no Job available for you atm</p>");
+          }
         });
       },
       finish(){
-
+        socket.on('finishOrder', function(actualOrder){
+          if(this.nextOrder==null){
+              $("#job").html("<p>There is no Job available for you atm</p>");
+            }
+            else{
+            this.actualOrder = this.nextOrder;
+            this.nextOrder = this.suggestedOrder;
+            $("#job").html("<p>Ordernumber: " + this.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+          }
+        });
       },
       logout(){
         socket.on('taxiQuit', function (taxiid){
@@ -230,7 +275,28 @@ import Vue from 'vue'
       },
       start(){},
       rate(){
-
+        $(document).ready(function(){
+      $(".btn1").click(function(evt){
+          this.rateNumber = $(this).attr("id");
+          
+      });
+     });
+        $(document).ready(function(){
+      $(".btn2").click(function(evt){
+          this.rateNumber = $(this).attr("id");
+          
+      });
+     });
+        $(document).ready(function(){
+      $(".btn3").click(function(evt){
+          this.rateNumber = $(this).attr("id");
+          
+      });
+     });
+          var rate = {this.taxis.id, this.actualOrder, this.rateNumber};
+          this.customerRating = rate;
+          socket.on('transferRatings', function(this.customerRating){
+          });
       },
       option(){
         console.log("it works");
@@ -248,16 +314,18 @@ import Vue from 'vue'
 </script>
 
 <style scoped>
-
-#page {
+  #page {
   margin: 0;
   background-color: DimGray;
-  height: 100%;
+  height: 100%
+
 }
 
 #buttonmain{
-  position: relative;
-  width:210px;
+position:relative;
+    width:210px;
+    position: relative;
+
   bottom:20px;
 }
 
@@ -267,7 +335,6 @@ th {
     border :1px solid black;
     font-size: 10px;
 }
-
 #my-map {
   padding-bottom: 10px;
   width: 100%;
@@ -283,6 +350,7 @@ th {
 #driverBox {
   float: right;
   position:absolute;
+
   top:0;
   display: table;
   margin: 0 auto;
@@ -296,20 +364,23 @@ th {
   width: 150px;
   height:13px;
   float: right;
+  
 }
-
 ul, li {
     top: auto;
     margin: 8px; 
     padding: 5px;
 }
 
+
 .column {
   float: left;
 }
 
 .leftleftleft {
+  margin-right: 2px;
   width: 10%;
+
   color: white;
 }
 
@@ -351,6 +422,7 @@ ul, li {
   content: "";
   display: table;
   font-size: 8px;
+ 
   clear: both;
   background-color:black;
   width: 100%;
@@ -358,7 +430,12 @@ ul, li {
   bottom: 0;
   position: absolute;
 }
-
+#custnum {
+ width: 90%;
+  position: relative;
+  top: 70px;
+  
+}
 button {
     border: none;
     padding: 1px 1px;
@@ -369,31 +446,26 @@ button {
     position: relative;
     bottom: 10%;
     right: 5%;
-    top: 2px;
+    top:2px;
 }
 
-#custnum {
-  width: 90%;
-  position: relative;
-  top: 70px;
-  
-}
 
 .Opt {background-color: #e7e7e7; color: black; font-size: 10px; width: 45px; height: 17px; margin: 5px;}
 .Sig {background-color: #e7e7e7; color: black; float: right; font-size: 10px; width: 45px; height: 17px; margin: 0px 5px;}
-.Fin {background-color: #e7e7e7; color: black; width: 70px; height: 30px; margin: 2px;}
-.Sta {background-color: #e7e7e7; color: black; width: 70px; height: 30px; margin: 5px;}
-.Acc {background-color: #4CAF50; width: 65px; height: 30px; margin: 2px;}
-.Dec {background-color: #f44336; width: 65px; height: 30px; margin: 2px;} 
+.Fin {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
+.Sta {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
+.Acc {background-color: #4CAF50; width: 70px; height: 30px; margin: 5px;}
+.Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;} 
 .prin {background-color: #e7e7e7; color: black; width: 75px; height: 30px; margin: 2px; position: relative; top: 93px; float: left;}
+
 
 form {
   display: inline;
 }
 .popup-list {
   padding-left: 100;
-}
-  
+
+  }
 </style>
 
 <style>
