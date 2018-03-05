@@ -14,87 +14,101 @@
     </div>
 
     <div class="infoContainer" v-bind:class="{ infoContainerUp: specify }" v-if="destination">
-      <p>We'll arrive in 7min and the trip will take about 19min and cost 94kr.</p>
+      <p>We'll arrive in 7min and the trip will take about {{ time }}min and cost {{ price }}.</p>
     </div>
 
-    <div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
-      <div class='row specifyRow'>
-              <div class='col text-right'>
-                <label class='form-check-label' for='checkPet'>Pets</label>
-              </div>
-              <div class='col'>
-                <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
-              </div>
-              </div>
-            <div class='row specifyRow'>
-              <div class='col text-right'>
-                <label class='form-check-label' for='checkAllergies'>Allergies</label>
-              </div>
-              <div class='col'>
-                <input class='form-check-input'  type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
-              </div>
-            </div>
-            <div class='row specifyRow'>
-              <div class='col text-right'>
-                <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-              </div>
-              <div class='col'>
-                <input class='form-check-input'  type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
-              </div>
-            </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  <label class='form-check-label' for='checkChildSeat'>Child seat</label>
-                </div>
-                <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
-                </div>
-                <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
-                </div>
-                <div class='col'>
-                  <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  Bags
-                </div>
-                <div class='col'>
-                  <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-right'>
-                  Passengers
-                </div>
-                <div class='col'>
-                  <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
-                </div>
-              </div>
-              <div class='row specifyRow'>
-                <div class='col text-center'>
-                  <p>3 Seats are included at the price of one!</p>
-                  <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;" v-on:click="saveSpecify">Save to profile</button>
-                </div>
-              </div>
+<div class="specifyContainer" v-bind:class="{ specifyContainerUp: specify }">
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkPet'>Pets</label>
+      <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you want to bring pets in the taxi, then we need to know that in advance so we can have pet free cars for those who are allergic.">i</button>
     </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkAllergies'>Allergies</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you are allergic then we can take a cab that haven't been used to transport pets and the driver won't use strong perfume.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have a wheelchair then we need to have a bigger car in order fot it to fit inside.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkChildSeat'>Child seat</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have small kids that require either a baby seat or a car pillow to ride a car we will provide that for the trip.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The drivers will be educated for emergencies that might happen and the will also be prepared to help you in and our from the car.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The cost for the trip will be sent to the kommun and you will have to show your customer card for the ride, the drivers will also help you in and out of the car.">i</button>
+    </div>
+    <div class='col'>
+      <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst' v-on:click="toggleFardtjanst">
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      Bags
+    </div>
+    <div class='col'>
+      <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-right'>
+      Passengers
+    </div>
+    <div class='col'>
+      <input v-model='passengers' type='number' id='numberOfPassengers' name='nOP' required='required' min="3" max="8">
+    </div>
+  </div>
+  <div class='row specifyRow'>
+    <div class='col text-center'>
+      <p>3 Seats are included at the price of one!</p>
+      <button class="btn btn-outline-secondary btn-block" style="margin-left: 7.5px;" v-on:click="saveSpecify">Save to profile</button>
+    </div>
+  </div>
+  </div>
+
 
     <div class="destination">
       <div class="input-group mb-3">
         <input type="text" placeholder="Where to?" class="form-control" v-model="whereTo">
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="search">Search</button>
+        </div>
+      </div>
+
+      <div class="input-group mb-3" v-if="profile.fardtjanst">
+        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control" v-model="from">
+        <div class="input-group-append">
+          <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="searchFrom">Search</button>
         </div>
       </div>
     </div>
@@ -106,6 +120,23 @@
 <script>
 import Map from '../components/Map.vue'
 import Vue from 'vue'
+
+//init for the popovers in specifyContainer
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+// From https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
+// Since I'm too lazy to redo the trigonometry I did in excel a few years ago :)
+function distance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;    // Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
 
 export default {
   created() {
@@ -137,7 +168,9 @@ export default {
       });
 
       this.$data.destination = lngLat.lngLat;
-      console.log(lngLat.lngLat);
+      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      this.$data.price = Math.floor(20 * this.$data.distance + 50);
+      this.$data.time = Math.floor(5 * this.$data.distance);
     },
 
     mapLoad() {
@@ -146,7 +179,6 @@ export default {
 
     specifyMethod() {
       this.$data.specify = !this.$data.specify;
-      console.log("Specify!");
     },
 
     orderMethod() {
@@ -170,10 +202,44 @@ export default {
         this.$refs.map.flyTo(data.results[0].geometry.location);
         this.$data.destination = data.results[0].geometry.location;
       });
+
+      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      this.$data.price = Math.floor(20 * this.$data.distance + 50);
+      this.$data.time = Math.floor(5 * this.$data.distance);
+    },
+
+    searchFrom() {
+      $.get("https://maps.googleapis.com/maps/api/geocode/json?address="
+      + this.$data.from
+      + "&key=AIzaSyDPs9zgpdfe7ZhmVm71EjFTs3IgQZjbm1w", (data, status) => {
+        this.$data.from = data.results[0].formatted_address;
+        this.$data.position = data.results[0].geometry.location;
+        this.$refs.map.clearMarkers();
+        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+        if(this.$data.destination) {
+          this.$refs.map.addMarker(this.$data.destination);
+        }
+      });
+
+      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      this.$data.price = Math.floor(20 * this.$data.distance + 50);
+      this.$data.time = Math.floor(5 * this.$data.distance);
     },
 
     saveSpecify() {
       localStorage.setItem("profile", JSON.stringify(this.profile));
+    },
+
+    toggleFardtjanst() {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+        
+        this.$refs.map.clearMarkers();
+        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+        if(this.$data.destination) {
+          this.$refs.map.addMarker(this.$data.destination);
+        }
+      });
     }
   },
 
@@ -195,6 +261,8 @@ export default {
 
       destination: undefined,
       position: undefined,
+      distance: undefined,
+      time: undefined,
       specify: false
     }
 
@@ -430,23 +498,31 @@ input[type='checkbox']:checked {
 
 .orderBtnClick {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  right: 0;
+  
+  bottom: 1em;
+  left: 55%;
+  right: 10%;
+  border-radius: .1em;
+
   height: 4em;
   background: rgb(255, 149, 13);
-  border-top: 5px solid rgb(245, 139, 3);
+  box-shadow: 0 0 20px rgb(161, 91, 0);
+  /*border-top: 5px solid rgb(245, 139, 3);*/
   color: rgb(215, 119, 3);
 }
 
 .specifyBtnClick {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 50%;
+  
+  bottom: 1em;
+  left: 10%;
+  right: 55%;
+  border-radius: .1em;
+
   height: 4em;
   background: rgb(242, 242, 242);
-  border-top: 5px solid rgb(222, 222, 222);
+  box-shadow: 0 0 20px rgba(0,0,0, 0.5);
+  /*border-top: 5px solid rgb(222, 222, 222);*/
   color: rgb(182, 182, 182);
 }
 
@@ -464,6 +540,8 @@ input[type='checkbox']:checked {
   left: 0;
   right: 0;
   background: rgb(242, 242, 242);
+
+  box-shadow: 0 0 15px rgba(0,0,0,0.75);
 }
 
 .specifyContainer .row {
@@ -478,19 +556,20 @@ input[type='checkbox']:checked {
 
 .infoContainer {
   position: absolute;
-  bottom: 4em;
+  bottom: 5em;
   width: 100%;
   height: 6em;
   pointer-events: none;
 
-  background: rgb(234, 234, 234);
-  border-top: 5px solid rgb(214, 214, 214);
+  /*background: rgb(234, 234, 234);
+  border-top: 5px solid rgb(214, 214, 214);*/
 
   font-family: "Catamaran", sans-serif;
   text-transform: uppercase;
   font-size: 1em;
   font-weight: 900;
-  color: rgb(150,150,150);
+  color: rgb(240, 240, 240);
+  text-shadow: 0 0 17px rgb(0, 0, 0), 0 0 2px rgb(0, 0, 0);
 
   text-align: center;
   line-height: 1em;
@@ -500,13 +579,18 @@ input[type='checkbox']:checked {
   z-index: 200;
 }
 
+.infoSpecify {
+  border-radius: 50%;
+  font-weight: Bold;
+}
+
 .infoContainer p {
   word-wrap: normal;
   padding-top: 1.5em;
 }
 
 .infoContainerUp {
-  bottom: 31em;
+  bottom: 33em;
 }
 
 
