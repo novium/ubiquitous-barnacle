@@ -10,6 +10,8 @@
       <div class="orderBtn" v-if="destination">
         <div class="orderBtnClick" v-on:click="orderMethod">order</div>
         <div class="specifyBtnClick" v-on:click="specifyMethod">specify order</div>
+        <div class="orderBtnClickShadow"></div>
+        <div class="specifyBtnClickShadow"></div>
       </div>
     </div>
 
@@ -376,15 +378,31 @@ input[type='checkbox']:checked {
   position: absolute;
 
   bottom: 1em;
-  left: 55%;
+  left: 52%;
   right: 10%;
   border-radius: .1em;
 
   height: 4em;
-  background: rgb(255, 149, 13);
-  box-shadow: 0 0 20px rgb(161, 91, 0);
-  /*border-top: 5px solid rgb(245, 139, 3);*/
-  color: rgb(215, 119, 3);
+  
+  background: rgba(255, 177, 72, 0.57);
+  /* box-shadow: 0 0 20px rgb(161, 91, 0); */
+  /* border-top: 5px solid rgb(245, 139, 3); */
+  color: rgb(49, 42, 27);
+  backdrop-filter: blur(10px);
+  z-index: 101;
+}
+
+.orderBtnClickShadow {
+  position: absolute;
+  
+  bottom: 1em;
+  left: 52%;
+  right: 10%;
+  border-radius: .1em;
+
+  height: 4em;
+  box-shadow: 0 5px 15px rgba(87, 46, 0, 0.25);
+    z-index: 100;
 }
 
 .specifyBtnClick {
@@ -392,14 +410,27 @@ input[type='checkbox']:checked {
 
   bottom: 1em;
   left: 10%;
-  right: 55%;
+  right: 52%;
   border-radius: .1em;
 
   height: 4em;
-  background: rgb(242, 242, 242);
-  box-shadow: 0 0 20px rgba(0,0,0, 0.5);
-  /*border-top: 5px solid rgb(222, 222, 222);*/
-  color: rgb(182, 182, 182);
+  background: rgba(242, 242, 242, 0.57);
+  color: rgb(44, 44, 44);
+  backdrop-filter: blur(10px);
+  z-index: 101;
+}
+
+.specifyBtnClickShadow {
+  position: absolute;
+  
+  bottom: 1em;
+  left: 10%;
+  right: 52%;
+  border-radius: .1em;
+
+  height: 4em;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 .specifyContainer {
@@ -415,9 +446,10 @@ input[type='checkbox']:checked {
   width: 100%;
   left: 0;
   right: 0;
-  background: rgb(242, 242, 242);
+  background: rgba(242, 242, 242, 0.75);;
 
-  box-shadow: 0 0 15px rgba(0,0,0,0.75);
+  /* box-shadow: 0 0 15px rgba(0,0,0,0.75); */
+  backdrop-filter: blur(30px);
 }
 
 .specifyContainer .row {
