@@ -3,9 +3,7 @@
 
 ![Image of Taxis](https://github.com/novium/ubiquitous-barnacle/blob/instructions/extra/taxi.jpg)
 
-**Welcome** to our humble repository. It currently contains three of the many views to come. uBert is in its heart a ride-hailing service but we aspire for much, much more. We're also hard at work implementing the next-generation of färdtjänst ride-hailing to disrupt the stale industry it is now to make the world a better place.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nisl lacus, dignissim sit amet magna commodo, commodo dictum nulla. Ut scelerisque tempus justo sit amet aliquet. In quis fermentum neque. Curabitur rhoncus vulputate risus, quis faucibus arcu tincidunt a. Aenean eu sem non nisl tristique aliquet. In auctor nulla molestie tortor tempor elementum. Aenean in pharetra velit. Vestibulum sagittis molestie aliquet. Nulla faucibus tincidunt dui, vel ultricies odio. Etiam vehicula et lacus eu tristique. Curabitur vel tellus lacus. In elit odio, scelerisque eleifend accumsan nec, posuere ac neque. Morbi mollis congue leo, ac ultricies dui pulvinar a. Praesent ultrices fermentum placerat. Aenean tortor ante, lobortis sit amet sem porttitor, vulputate porta magna. Duis non eros volutpat, auctor dui eget, mollis erat. 
+**Welcome** to our humble repository. It currently contains three of the many views to come. uBert is in its heart a ride-hailing service but we aspire for much, much more. We're also hard at work implementing the next-generation of färdtjänst ride-hailing to disrupt the stale industry it is now to make the world a better place. 
 
 ![Image of People](https://github.com/novium/ubiquitous-barnacle/blob/instructions/extra/blur.jpg)
 
