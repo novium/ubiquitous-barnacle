@@ -19,6 +19,7 @@
     "normalize.css": "^7.0.0",
     "socket.io": "^2.0.4",
     "vue": "^2.5.2",
+    "vue-digital-clock": "^1.5.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

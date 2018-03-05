@@ -39,7 +39,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkWheelchair'>Wheelchair</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have a wheelchair then we need to have a bigger car in order fot it to fit inside.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have a wheelchair then we need to have a bigger car in order for it to fit inside.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkWheelchair' value='checkWheelchair' v-model='profile.wheelchair'>
@@ -48,7 +48,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkChildSeat'>Child seat</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have small kids that require either a baby seat or a car pillow to ride a car we will provide that for the trip.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you have small kids that requires either a baby seat or a car pillow to ride a car we will provide that for the trip.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkChildSeat' value='checkChildSeat' v-model='profile.childseating'>
@@ -106,7 +106,7 @@
       </div>
 
       <div class="input-group mb-3" v-if="profile.fardtjanst">
-        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control" v-model="from">
+        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control">
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="searchFrom">Search</button>
         </div>

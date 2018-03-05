@@ -26,8 +26,7 @@
     </div>
 
     <div class="clock">
-      <span class="head">current time</span>
-      <span class="time">15:05</span>
+      <Clock class="time" :blink='true' />
     </div>
 
     <div class="logo">
@@ -42,15 +41,18 @@
 
 <script>
   import Map from '../components/Map.vue'
+  import Clock from 'vue-digital-clock'
 
   export default {
     components: {
-      Map
+      Map,
+      Clock
     },
 
     props: ['orders', 'taxis'],
     data: () => {
       return {
+        time: '',
         orderStrings: {},
         selectedOrder: { orderId: -1 }
       }
@@ -245,29 +247,30 @@
   
   .clock {
     position: absolute;
-    width: 10em;
+    width: 5em;
     top: 0;
-    right: 50%;
-    left: 50%;
-    background: rgba(60, 60, 60, 0.6);
+    right: 54%;
+    left: 46%;
+    background: rgba(65, 65, 65, 0.822);
 
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 1.5em;
+    border-bottom-right-radius: 1.5em;
 
     text-align: center;
     font-family: 'Oxygen';
-    color: rgb(230,230,230);
-
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 20px rgb(197, 247, 195),  0 0 20px rgb(109, 233, 241);
 
     z-index: 1000;
   }
 
-  .clock span {
-    display: block;
-  }
+  /* .clock span {
+
+  } */
 
   .clock .time {
     font-size: 2em;
+    display: block;
   }
 
   .logo {
@@ -278,8 +281,8 @@
     font-family: 'Catamaran';
     font-weight: 700;
     font-size: 1.5em;
-    text-shadow: 0 0 15px rgb(230,230,230,0.8);
-    color: rgb(230,230,230);
+    text-shadow: 0 0 20px rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 
     z-index: 1000;
   }
