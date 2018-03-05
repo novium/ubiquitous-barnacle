@@ -106,7 +106,7 @@
       </div>
 
       <div class="input-group mb-3" v-if="profile.fardtjanst">
-        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control">
+        <input type="text" placeholder="From where? (Only with Färdtjänst)" class="form-control" v-model="from">
         <div class="input-group-append">
           <button style="pointer-events: all" class="btn btn-secondary" type="button" v-on:click="searchFrom">Search</button>
         </div>
@@ -203,7 +203,9 @@ export default {
         this.$data.destination = data.results[0].geometry.location;
       });
 
-      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      if (this.$data.distance && this.$data.destination) {
+        this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      }
       this.$data.price = Math.floor(20 * this.$data.distance + 50);
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
@@ -221,7 +223,9 @@ export default {
         }
       });
 
-      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      if (this.$data.distance && this.$data.destination) {
+        this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      }
       this.$data.price = Math.floor(20 * this.$data.distance + 50);
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
@@ -246,6 +250,7 @@ export default {
   data(){
     return{
       whereTo: '',
+      from: '',
       passengers: 3,
       luggage: 0,
       price: 250,
