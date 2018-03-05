@@ -25,9 +25,9 @@
 
             <div id="buttons">
               <form v-on:submit="rate">
-              <button class="btn Fin" name="buttonFin" Style id="1">1</button>
-              <button class="btn Fin" name="buttonFin" Style id="2">2</button>
-              <button class="btn Fin" name="buttonFin" Style id="3">3</button>
+              <button id="1" class="btn1" name="buttonFin" Style>1</button>
+              <button id="2" class="btn2" name="buttonFin" Style >2</button>
+              <button id="3" class="btn3" name="buttonFin" Style>3</button>
               </form>
             </div>
             </ul>
@@ -94,7 +94,8 @@
           <th valign="top">
           Trip info
           </th>
-
+            <input type="text" id="custnum" name="Customer number" placeholder="Custumer number">
+           <button class="btn prin" name="buttonPrin">Print receipt</button>
           </ul>
         </div>
 
@@ -259,7 +260,15 @@
           specify: undefined
          },
         position: undefined,
-        orderID: undefined
+        orderID: undefined,
+        actualOrder: undefined,
+        nextOrder: undefined,
+        suggestedOrder: undefined,
+        myOrders: undefined,
+        orderIndex: undefined,
+        rateNumber: undefined,
+        customerRating: [],
+        customerIndex: 0
       }
     },
 
@@ -388,13 +397,35 @@ socket.emit('initialize');
 socket.emit('initialize');
       },
       logout(){
-        socket.on('taxiQuit', function (taxiid){
+        
+        socket.on('taxiQuit', {taxis: this.$data.taxiid}
 
-        });
+        );
       },
       start(){},
       rate(){
-
+        $(document).ready(function(){
+      $(".btn1").click(function(evt){
+          this.$data.rateNumber = $(this).attr("id");
+          
+      });
+     });
+        $(document).ready(function(){
+      $(".btn2").click(function(evt){
+          this.$data.rateNumber = $(this).attr("id");
+          
+      });
+     });
+        $(document).ready(function(){
+      $(".btn3").click(function(evt){
+          this.$data.rateNumber = $(this).attr("id");
+          
+      });
+     });
+          var rate = {taxis: this.taxis.id, actualOrder: this.actualOrder, rateNumber: this.rateNumber};
+          
+          socket.emit('transferRatings', function(rate){
+          });
       },
       option(){
         console.log("it works");
@@ -452,6 +483,9 @@ socket.emit('initialize');
 #buttonmain{
 position:relative;
     width:210px;
+    position: relative;
+
+  bottom:20px;
 }
 
 
@@ -495,19 +529,19 @@ position:relative;
 
 .leftleftleft {
   margin-right: 2px;
-  width: 15%;
+  width: 10%;
 
   color: white;
 }
 
 .leftleft {
-  width: 14%;
+  width: 20%;
 
   color: white;
 }
 
 .left {
-  width: 14%;
+  width: 20%;
 
   color: white;
 }
@@ -518,7 +552,7 @@ position:relative;
   color: white;
 }
 .rightright {
-  width: 26%;
+  width: 22%;
 
   color: white;
 }
@@ -530,7 +564,7 @@ position:relative;
 }
 .floatdiv{
   float:left;
-  width:100px;
+  width:70px;
 }
 /* Clear floats after the columns */
 
@@ -574,6 +608,7 @@ position:relative;
 .Sta {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
 .Acc {background-color: #4CAF50; width: 70px; height: 30px; margin: 5px;}
 .Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;}  */
+.prin {background-color: #e7e7e7; color: black; width: 75px; height: 30px; margin: 2px; position: relative; top: 40px; float: left;}
 
 
 form {

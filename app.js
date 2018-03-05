@@ -146,6 +146,15 @@ io.on('connection', function (socket) {
     data.updateOrderDetails(order);
     io.emit('orderAccepted', order );
   });
+  socket.on('decline', function(order) {
+    
+    console.log("order accepted");
+  });
+  socket.on('accept', function(order) {
+    
+    console.log("order accepted");
+    
+  });
 });
 
 var server = http.listen(app.get('port'), function () {
