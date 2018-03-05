@@ -11,7 +11,7 @@
 
 Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas rhoncus leo vitae ex interdum dictum. Fusce cursus quam ac sodales vestibulum. Aenean mollis lorem elit, non finibus lorem tincidunt at. Vivamus feugiat bibendum nulla non rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi eu imperdiet velit. Cras euismod leo quis nulla accumsan luctus. Cras fermentum justo ac sollicitudin molestie. Nulla facilisi. Nam eget lobortis sem. Phasellus eu erat neque. Vestibulum quis sodales dolor. Maecenas sed arcu ornare, vehicula leo vel, sollicitudin turpis. Cras pellentesque sapien sit amet massa fringilla luctus. 
 
-![Image of person](https://github.com/novium/ubiquitous-barnacle/blob/instructions/extra/work.jpg)
+![Image of person working](https://github.com/novium/ubiquitous-barnacle/blob/master/extra/work.jpg)
 
 ## Getting started
 You'll need a few things to get started hacking, the only pre-requisite is nodejs. To install and start the development:
