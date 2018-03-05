@@ -20,4 +20,6 @@ You'll need a few things to get started hacking, the only pre-requisite is nodej
 * Run `npm start` in one, and `node app.js` in the other one
 * Go to `http://localhost:8080` in a browser and get cracking!
 
+**PS**: The customer view uses experimental web platform features, specifically some features only available in Chrome (I feel bad even talking about this as a firefox user). These features are available in Microsoft Edge and are stable there, but since testing was done on Firefox and Chrome it doesn't work for some reason. So stick to chrome, or firefox for a slightly lesser experience. Enabling experimental features in Chrome can be done by going to `chrome://flags/` and enabling "Experimental Web Platform features".
+
 ![Image of space](https://github.com/novium/ubiquitous-barnacle/blob/instructions/extra/space.jpg)
