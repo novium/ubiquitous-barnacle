@@ -4,11 +4,7 @@
     <p>Please rate your experience with your driver</p>
     <div class="stars">
       <select id="star">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+        <option v-for="n in 5" v-bind:value="n">{{n}}</option>
       </select>
     </div>
   </div>
@@ -25,7 +21,7 @@
         initialRating: 3
       });
 
-      $(".br-selected").each(function(i) {
+      $(".br-widget a").each(function(i) {
         $( this ).on('click', function() {
           window.router.push("customer");
         });
