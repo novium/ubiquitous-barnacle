@@ -21,7 +21,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkPet'>Pets</label>
-      <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you want to bring pets in the taxi, then we need to know that in advance so we can have pet free cars for those who are allergic.">i</button>
+      <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you want to bring any pets in the taxi, then we need to know that in advance so we can have pet free cars for those who are allergic.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkPet' value='checkPet' v-model='profile.pets'>
@@ -30,7 +30,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkAllergies'>Allergies</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you are allergic then we can take a cab that haven't been used to transport pets and the driver won't use strong perfume.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="If you are allergic then we will provide a cab that hasen't been used to transport pets and the driver won't use strong perfume.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkAllergies' value='checkAllergies' v-model='profile.allergies'>
@@ -57,7 +57,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkMedicalTransport'>Medical transport</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The drivers will be educated for emergencies that might happen and the will also be prepared to help you in and our from the car.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The drivers will be educated for emergencies that might happen and will also be prepared to help you in and out of the car.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkMedicalTransport' value='checkMedicalTransport' v-model='profile.medicaltransport'>
@@ -66,7 +66,7 @@
   <div class='row specifyRow'>
     <div class='col text-right'>
       <label class='form-check-label' for='checkFardtjanst'>Färdtjänst</label>
-            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The cost for the trip will be sent to the kommun and you will have to show your customer card for the ride, the drivers will also help you in and out of the car.">i</button>
+            <button type="button" class="infoSpecify" data-toggle="popover" title="What does this mean?" data-content="The bill for the trip will be sent to the municipality and you will have to show your customer card for the ride, the drivers will also help you in and out of the car.">i</button>
     </div>
     <div class='col'>
       <input class='form-check-input' type='checkbox' id='checkFardtjanst' value='checkFardtjanst' v-model='profile.fardtjanst' v-on:click="toggleFardtjanst">
@@ -77,7 +77,7 @@
       Bags
     </div>
     <div class='col'>
-      <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required'>
+      <input v-model='luggage' type='number' id='numberOfBags' name='nOB' required='required' min="0" max="6">
     </div>
   </div>
   <div class='row specifyRow'>
@@ -295,70 +295,6 @@ export default {
   pointer-events: all;
 }
 
-/* Main (ingore the Up it was part of an old View swapping Method) */
-.logInButtonUp{
-  position: absolute;
-  z-index: inherit;
-  right: 0px;
-  z-index: 1;
-
-}
-.whereToUp{
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%,-50%);
-
-}
-.timeToArrivalUp{
-  position: absolute;
-  z-index: 1;
-  left: 20%;
-  bottom: 30%;
-
-}
-.timeToDestinationUp{
-  position: absolute;
-  z-index: 1;
-  right: 20%;
-  bottom: 30%;
-
-}
-.logoUp{
-  position: absolute;
-  z-index: 1;
-
-}
-.orderButtonSpecify{
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 0px;
-  transform: translate(-50%,-50%);
-
-}
-.orderButton{
-  position:absolute;
-  z-index: 1;
-  left:50%;
-  bottom: 40px;
-  transform: translate(-50%,-50%);
-}
-
-
-/* specify up/down */
-
-.specifyOrder {
-  position: absolute;
-  z-index: 1;
-  width: 60%;
-  left: 20%;
-  background-color: White;
-  bottom:0px;
-
-}
-
 input[type='checkbox'] {
     -webkit-appearance:none;
     -moz-appearance: none;
@@ -379,75 +315,6 @@ input[type='checkbox']:checked {
 
 .container {
   background-color: aqua;
-}
-
-.orderButtonSpecify{
-  text-align: center;
-}
-.leftCheckboxes {
-  text-align: left;
-}
-.rightCheckboxes {
-  text-align: right;
-}
-/* order summarise up/down*/
-.summarised  {
-  left:-200%;
-
-}
-
-.summarisedInfo {
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  bottom: 20%;
-}
-.backToSpecify {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
-}
-.confirm {
-  position: absolute;
-  z-index: 1;
-  bottom: 0px;
-  right: 0px;
-}
-.summaryTitle {
-  position: absolute;
-  z-index: 1;
-  text-align: center;
-  width: 100%;
-  top: 50%;
-}
-/* end */
-.end  {
-  left:-200%;
-}
-.endFromInfo{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-}
-.endToInfo{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-  right:0px;
-
-}
-.confirmationCode{
-  position: absolute;
-  z-index:1;
-  bottom:0px;
-  width:100%;
-  text-align: center;
-
-}
-.backButton{
-  z-index:1;
-  position:absolute;
-  bottom:50%;
 }
 
 .controls {

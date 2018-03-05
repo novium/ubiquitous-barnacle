@@ -477,7 +477,12 @@ position:relative;
 
 #driverName {
   color: white;
-  margin: 1px;
+  padding-top: 3px;
+  padding-left: 8px;
+  padding-right: 20px;
+  padding-bottom: 8px;
+  border-bottom-left-radius: 0.8em;
+  margin: 0px;
   background-color: rgba(0, 0, 0, 0.6);
   float: right;
   font-size: 1.5em;
