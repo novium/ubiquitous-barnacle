@@ -182,6 +182,9 @@ export default {
     },
 
     orderMethod() {
+      socket.on('orderId', (orderId) => {
+        localStorage.setItem('orderId', orderId);
+      });
       socket.emit('orderTaxi', this.$data, null);
 
       if(window.isLoggedIn) {
