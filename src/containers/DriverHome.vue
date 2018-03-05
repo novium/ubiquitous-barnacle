@@ -17,8 +17,7 @@
 
       <!--Bar where current job, next job and outside conditions aswell as clock shows-->
       <div class="orderBar">
-        
-        <div class="column leftleftleft">
+      <div class="column leftleftleft">
           <ul>
           <th valign="top">
           Rate out of 3
@@ -39,10 +38,6 @@
             </ul>
             
         </div>
-          
-        
-
-
         <div class="column leftleft">
         <ul> 
         <th valign="top">
@@ -95,7 +90,8 @@
           <th valign="top">
           Trip info
           </th>
-            
+            <input type="text" id="custnum" name="Customer number" placeholder="Custumer number">
+            <button class="btn prin" name="buttonPrin">Print receipt</button>
           </ul>
         </div>
   
@@ -156,7 +152,7 @@
             </div>
       </div>
     </div>
-  
+    
 </template>
 
 <script>
@@ -252,16 +248,17 @@ import Vue from 'vue'
 </script>
 
 <style scoped>
-  #page {
+
+#page {
   margin: 0;
   background-color: DimGray;
-  height: 100%
-
+  height: 100%;
 }
 
 #buttonmain{
-position:relative;
-    width:210px;
+  position: relative;
+  width:210px;
+  bottom:20px;
 }
 
 th {
@@ -270,6 +267,7 @@ th {
     border :1px solid black;
     font-size: 10px;
 }
+
 #my-map {
   padding-bottom: 10px;
   width: 100%;
@@ -285,7 +283,6 @@ th {
 #driverBox {
   float: right;
   position:absolute;
-
   top:0;
   display: table;
   margin: 0 auto;
@@ -299,34 +296,31 @@ th {
   width: 150px;
   height:13px;
   float: right;
-  
 }
+
 ul, li {
     top: auto;
     margin: 8px; 
-    padding: 8px;
+    padding: 5px;
 }
-
 
 .column {
   float: left;
 }
 
 .leftleftleft {
-  margin-right: 2px;
-  width: 15%;
-
+  width: 10%;
   color: white;
 }
 
 .leftleft {
-  width: 14%;
+  width: 20%;
 
   color: white;
 }
 
 .left {
-  width: 14%;
+  width: 20%;
 
   color: white;
 }
@@ -337,7 +331,7 @@ ul, li {
   color: white;
 }
 .rightright {
-  width: 26%;
+  width: 22%;
 
   color: white;
 }
@@ -349,7 +343,7 @@ ul, li {
 }
 .floatdiv{
   float:left;
-  width:100px;
+  width:70px;
 }
 /* Clear floats after the columns */
 
@@ -357,11 +351,10 @@ ul, li {
   content: "";
   display: table;
   font-size: 8px;
- 
   clear: both;
   background-color:black;
   width: 100%;
-  height:11%;
+  height:15%;
   bottom: 0;
   position: absolute;
 }
@@ -376,25 +369,31 @@ button {
     position: relative;
     bottom: 10%;
     right: 5%;
-    top:2px;
+    top: 2px;
 }
 
+#custnum {
+  width: 90%;
+  position: relative;
+  top: 70px;
+  
+}
 
 .Opt {background-color: #e7e7e7; color: black; font-size: 10px; width: 45px; height: 17px; margin: 5px;}
 .Sig {background-color: #e7e7e7; color: black; float: right; font-size: 10px; width: 45px; height: 17px; margin: 0px 5px;}
-.Fin {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
-.Sta {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
-.Acc {background-color: #4CAF50; width: 70px; height: 30px; margin: 5px;}
-.Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;} 
-
+.Fin {background-color: #e7e7e7; color: black; width: 70px; height: 30px; margin: 2px;}
+.Sta {background-color: #e7e7e7; color: black; width: 70px; height: 30px; margin: 5px;}
+.Acc {background-color: #4CAF50; width: 65px; height: 30px; margin: 2px;}
+.Dec {background-color: #f44336; width: 65px; height: 30px; margin: 2px;} 
+.prin {background-color: #e7e7e7; color: black; width: 75px; height: 30px; margin: 2px; position: relative; top: 93px; float: left;}
 
 form {
   display: inline;
 }
 .popup-list {
   padding-left: 100;
-
-  }
+}
+  
 </style>
 
 <style>
