@@ -16,13 +16,19 @@ app.set('port', (process.env.PORT || port));
 // Store data in an object to keep the global namespace clean and
 // prepare for multiple instances of data if necessary
 function Data() {
-  this.orders = [];
+  this.orders = [
+    {id: 0, x: 0, y: 0},
+    {id: 1, x: 1, y: 1},
+    {id: 2, x: 2, y: 2},
+    {id: 2, x: 2, y: 2},
+  ];
   this.taxis = [
     {id: 0, x: 0, y: 0},
     {id: 1, x: 1, y: 1},
     {id: 2, x: 2, y: 2}
   ];
-  this.currentOrderNumber = -1;
+  this.currentOrderNumber = 1000;
+  this.rate = [];
 }
 
 
@@ -98,6 +104,9 @@ io.on('connection', function (socket) {
     // send the orderId back to the customer who ordered
     socket.emit('orderId', orderId);
   });
+  socket.emit('transferRatings', function(ratings){
+    this.ratings = ratings;
+  });
   socket.on('addTaxi', function (taxi) {
     data.addTaxi(taxi);
     // send updated info to all connected clients, note the use of io instead of socket
@@ -127,6 +136,15 @@ io.on('connection', function (socket) {
   socket.on('orderAccepted', function(order) {
     data.updateOrderDetails(order);
     io.emit('orderAccepted', order );
+  });
+  socket.on('decline', function(order) {
+    
+    console.log("order accepted");
+  });
+  socket.on('accept', function(order) {
+    
+    console.log("order accepted");
+    
   });
 });
 
