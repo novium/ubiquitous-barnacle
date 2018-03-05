@@ -131,8 +131,8 @@ $(function () {
 function distance(lat1, lon1, lat2, lon2) {
   var p = 0.017453292519943295;    // Math.PI / 180
   var c = Math.cos;
-  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-          c(lat1 * p) * c(lat2 * p) * 
+  var a = 0.5 - c((lat2 - lat1) * p)/2 +
+          c(lat1 * p) * c(lat2 * p) *
           (1 - c((lon2 - lon1) * p))/2;
 
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
@@ -182,6 +182,9 @@ export default {
     },
 
     orderMethod() {
+      socket.on('orderId', (orderId) => {
+        localStorage.setItem('orderId', orderId);
+      });
       socket.emit('orderTaxi', this.$data, null);
 
       if(window.isLoggedIn) {
@@ -203,7 +206,9 @@ export default {
         this.$data.destination = data.results[0].geometry.location;
       });
 
-      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      if (this.$data.distance && this.$data.destination) {
+        this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      }
       this.$data.price = Math.floor(20 * this.$data.distance + 50);
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
@@ -221,7 +226,9 @@ export default {
         }
       });
 
-      this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      if (this.$data.distance && this.$data.destination) {
+        this.$data.distance = distance(this.$data.destination.lat, this.$data.destination.lng, this.$data.position.lat, this.$data.position.lng);
+      }
       this.$data.price = Math.floor(20 * this.$data.distance + 50);
       this.$data.time = Math.floor(5 * this.$data.distance);
     },
@@ -233,7 +240,7 @@ export default {
     toggleFardtjanst() {
       navigator.geolocation.getCurrentPosition((pos) => {
         this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
-        
+
         this.$refs.map.clearMarkers();
         $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
         if(this.$data.destination) {
@@ -246,6 +253,7 @@ export default {
   data(){
     return{
       whereTo: '',
+      from: '',
       passengers: 3,
       luggage: 0,
       price: 250,
@@ -499,7 +507,7 @@ input[type='checkbox']:checked {
 
 .orderBtnClick {
   position: absolute;
-  
+
   bottom: 1em;
   left: 55%;
   right: 10%;
@@ -514,7 +522,7 @@ input[type='checkbox']:checked {
 
 .specifyBtnClick {
   position: absolute;
-  
+
   bottom: 1em;
   left: 10%;
   right: 55%;

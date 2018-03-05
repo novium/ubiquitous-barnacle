@@ -8,21 +8,21 @@
         Driver ID: {{ taxi.taxiId }}
       </div>
       <div>
-       
+
       </div>
           </div>
-     
-      
+
+
       </div>
 
       <div class="orderBar">
-        
+
         <div class="column leftleftleft">
           <ul>
           <th valign="top">
           Rate out of 3
         </th>
-          
+
             <div id="buttons">
               <form v-on:submit="rate">
               <button class="btn Fin" name="buttonFin" Style id="1">1</button>
@@ -32,18 +32,18 @@
             </div>
             </ul>
           <ul>
-            
-              
-             
+
+
+
             </ul>
-            
+
         </div>
-          
-        
+
+
 
 
         <div class="column leftleft">
-        <ul> 
+        <ul>
         <th valign="top">
         Current job
         </th>
@@ -58,17 +58,17 @@
                 </li>
               </ul>
             </div>
-        
+
 
         <form v-on:submit="finish">
         <button class="btn Fin" name="buttonFin" >Finish job</button>
         </form>
           </ul>
         </div>
-  
-  
+
+
         <div class="column left">
-        <ul>  
+        <ul>
         <th valign="top">
         Next job
         </th>
@@ -82,28 +82,28 @@
                   {{ item }}
                 </li>
               </ul>
-              
+
             </div>
-            
+
           </ul>
         </div>
-        
-  
+
+
          <div class="column right">
           <ul>
           <th valign="top">
           Trip info
           </th>
-            
+
           </ul>
         </div>
-  
-  
+
+
         <div class="column rightright">
         <ul>
         <th valign="top">
         Job request
-        </th>  
+        </th>
             <div v-for="order in orders" v-if="order.taxiId == taxiId">
                 # {{ order.orderId}} From: {{ order.fromLatLong[0].toFixed(3) }}, {{ order.fromLatLong[1].toFixed(3) }} Destination: {{ order.destLatLong[0].toFixed(3) }}, {{ order.destLatLong[1].toFixed(3) }}
                 <ul>
@@ -112,9 +112,9 @@
                   </li>
                   </ul>
                   <ul>
-              
-                
-            
+
+
+
               </ul>
             </div>
 
@@ -124,7 +124,7 @@
             <div id="buttonmain">
             <div class="floatdiv">
             <form v-on:submit="accept">
-              
+
               <button class="btn Acc" name="buttonAcc" v-on:click="acceptOrder(order)">Accept</button>
               </form>
             </div>
@@ -139,20 +139,20 @@
 
           <div class="column rightrightright">
             <ul>
-            
-     
+
+
               <form v-on:submit="option">
               <button class="btn Fin" name="buttonFin" Style v-on:click="optionPopup">Option</button>
               </form>
-          
+
             </ul>
           <ul>
-            
+
               <form v-on:submit="logout">
               <button class="btn Fin" name="buttonFin" Style v-on:click="optionPopup">Signout</button>
               </form>
             </ul>
-            
+
             </div>
       </div>
     </div> -->
@@ -179,23 +179,23 @@
               <h4>Status</h4>
               <div v-if="order.status == 2">
                 <p>Driving</p>
-                <button class="btn Acc" name="buttonAcc" v-on:click="finish">Finish</button>
+                <button class="btn btn-primary Acc" name="buttonAcc" v-on:click="finish">Finish</button>
               </div>
 
               <div v-if="order.status == 1">
                 <p>Do you want to accept?</p>
-                <button class="btn Acc" name="buttonAcc" v-on:click="accept">Accept</button>
-                <button class="btn Dec" name="buttonDec" v-on:click="decline">Decline</button>
+                <button class="btn btn-success" name="buttonAcc" v-on:click="accept">Accept</button>
+                <button class="btn btn-danger" name="buttonDec" v-on:click="decline">Decline</button>
               </div>
 
               <div v-if="order.status == -1">
                 <p>Waiting for a job</p>
               </div>
             </div>
-          
+
             <div class="col-sm-1">
               <button class="btn Fin" name="buttonFin">Option</button>
-              <button class="btn Fin" name="buttonFin">Signout</button>
+              <button class="btn Fin mt-2" name="buttonFin">Signout</button>
             </div>
         </div>
       </div>
@@ -235,7 +235,7 @@
         taxiId: -1,
         taxis: [],
         taxi: {},
-        order: { 
+        order: {
           whereTo: '',
           passengers: undefined,
           luggage: undefined,
@@ -266,7 +266,7 @@
     created() {
       socket.emit('initialize');
 
-      socket.on('initialize', function(data) { 
+      socket.on('initialize', function(data) {
         this.orders = data.orders;
         this.taxis = data.taxis;
       });
@@ -293,7 +293,7 @@
 
 
         let order = orders.orders.find((val) => { return (val.taxiId == this.$data.taxiId) && (val.status == 1 ) });
-        
+
         if(order) {
           this.orderID = order.orderId;
           Vue.set(this, "order", order);
@@ -311,7 +311,7 @@
             //$("#job").html("<p>Ordernumber: " + this.orders[1].id + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
             //$("#order").html("<p>Ordernumber: " + this.orders[2].id + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
       },
-      initializeMaps(){        
+      initializeMaps(){
         //this.$refs.map.clearMarkers();
         //$(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
 
@@ -327,7 +327,7 @@
         this.order.status = 0;
         this.order.taxiId = undefined;
         socket.emit('orderAccepted', this.order);
-                this.order = { 
+                this.order = {
           whereTo: '',
           passengers: undefined,
           luggage: undefined,
@@ -358,9 +358,9 @@ socket.emit('initialize');
         if(this.order.profile.fardtjanst) {
           $('#fardtjanstModal').modal();
         }
-        
+
         socket.emit('finishOrder', this.order.orderId);
-        this.order = { 
+        this.order = {
           whereTo: '',
           passengers: undefined,
           luggage: undefined,
@@ -403,8 +403,9 @@ socket.emit('initialize');
         $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
       },
       mapClick(lngLat) {
-        const pos = lngLat.lngLat;
-        this.taxi.pos = pos;
+        this.taxi.pos = lngLat.lngLat;
+        this.$refs.map.clearMarkers();
+        this.$refs.map.addMarker(this.taxi.pos);
 
         socket.emit('moveTaxi', this.taxi);
       }
@@ -475,9 +476,9 @@ position:relative;
 }
 
 #driverName {
-  color: yellow;
+  color: white;
   margin: 1px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.6);
   float: right;
   font-size: 1.5em;
 }
@@ -534,7 +535,7 @@ position:relative;
   pointer-events: all;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   color: white;
- 
+
   clear: both;
   background-color:rgb(29, 29, 29);
   width: 100%;
