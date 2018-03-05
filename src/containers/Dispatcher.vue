@@ -41,6 +41,13 @@
         taxi.marker.setLngLat(taxi.pos);
         Vue.set(this.taxis, taxi.taxiId, taxi);
       });
+
+      socket.on('orderFinished', (orderId) => {
+        let order = this.orders[orderId];
+        order.status = 2;
+        order.taxiId = -1;
+        Vue.set(this.orders, orderId, order);
+      });
     },
   }
 </script>

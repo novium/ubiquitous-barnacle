@@ -69,6 +69,7 @@
 
         this.$watch('taxis', function() {
           this.addMarkers();
+          this.$forceUpdate();
         }, {immediate: true});
       },
 
@@ -90,10 +91,10 @@
       },
 
       driverHasOrder(driver) {
-        if(!this.order)
+        if(this.orders.length == 0)
           return false;
         
-        if(this.orders.find((order) => { return order.taxiId == driver.taxiId })) {
+        if(this.orders.find((order) => { return (order.taxiId == driver.taxiId) && order.status != 3 })) {
           return true;
         } else {
           return false;
