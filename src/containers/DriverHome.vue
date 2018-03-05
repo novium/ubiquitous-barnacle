@@ -173,15 +173,15 @@ import Vue from 'vue'
         actualOrder: undefined,
         nextOrder: undefined,
         suggestedOrder: undefined,
-        myOrders: [],
-        orderIndex: 1,
+        myOrders: undefined,
+        orderIndex: undefined,
         rateNumber: undefined,
         customerRating: [],
         customerIndex: 0
       }
     },
     created() {
-    var socket = io('http://localhost:3000');
+    
 
     socket.on('connect', function () {
       console.log("Connected to socket.");
@@ -196,35 +196,40 @@ import Vue from 'vue'
     },
     methods: {
       initialize(){
-        
+        var taxiid, orders, taxis;
+        this.$data.taxis = 7;
+        socket.emit('addTaxi', {taxis: this.$data.taxis});
+        var that = this;
         socket.on('initialize', function(info){
-          //console.log(info.orders[0]);
           
+            
+            that.$data.orders = info.orders;
           
-            this.orders = info.orders;
-            this.taxis = info.taxis[0];
-            this.actualOrder = this.orders[0].id;
-            this.nextOrder = this.orders[1].id;
-            this.suggestedOrder = this.orders[2].id;
-           
-            this.myOrders[orderIndex-1] = this.actualOrder;
-            this.myOrders[orderIndex] = this.nextOrder;
+            that.$data.orderIndex = 2;
+            that.$data.actualOrder = that.$data.orders[0].id;
+            that.$data.nextOrder = that.$data.orders[1].id;
+            that.$data.suggestedOrder = that.$data.orders[2].id;
+            that.$data.myOrders = [];
+            that.$data.myOrders[that.$data.orderIndex-2] = that.$data.actualOrder;
+            that.$data.myOrders[that.$data.orderIndex-1] = that.$data.nextOrder;
+            
 
-            $("#driverName").html("<p> TaxiID: " +this.taxis.id + "</p>");
-            $("#analyze").html("<p>Ordernumber: " + this.actualOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            $("#job").html("<p>Ordernumber: " + this.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-            $("#order").html("<p>Ordernumber: " + this.suggestedOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
-        });
-        socket.on('addTaxi', function(this.taxis.id){
 
+            $("#driverName").html("<p> TaxiID: " + that.$data.taxis + "</p>");
+            $("#analyze").html("<p>Ordernumber: " + that.$data.actualOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            $("#job").html("<p>Ordernumber: " + that.$data.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            $("#order").html("<p>Ordernumber: " + that.$data.suggestedOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            
         });
+        
+        
       },
       initializeMaps(){
         navigator.geolocation.getCurrentPosition((pos) => {
-        this.$data.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
+        this.position = { lng: pos.coords.longitude, lat: pos.coords.latitude };
         
         this.$refs.map.clearMarkers();
-        $(this.$refs.map.addMarker(this.$data.position).getElement()).html('<div class="customer">you</div>');
+        $(this.$refs.map.addMarker(this.position).getElement()).html('<div class="customer">you</div>');
 
         if(this.$data.destination) {
           this.$refs.map.addMarker(this.$data.destination);
@@ -232,70 +237,72 @@ import Vue from 'vue'
       });
       },
       accept(){
-        
-        socket.emit('orderAccepted', function(this.suggestedOrder) {
-          this,orderIndex = this.orderIndex + 1;
-          this.nextOrder = this.suggestedOrder;
-          if(this.orders[this,orderIndex] != null){
-            this.suggestedOrder = this.orders[this.orderIndex + 1].id;
+        var suggestedOrder = this.suggestedOrder;
+        socket.emit('orderAccepted', {suggestedOrder: this.$data.suggestedOrder});
+          this.$dataorderIndex = this.$data.orderIndex + 1;
+          this.$data.nextOrder = this.$data.suggestedOrder;
+          if(this.$data.orders[this.$data.orderIndex] != null){
+            this.$datasuggestedOrder = this.$data.orders[this.$data.orderIndex + 1].id;
           }
           else{
             $("#order").html("<p>There is no order available for you</p>");
           }
-        });
+        
       },
       decline(){
         
-        socket.emit('decline', function() {
-          this,orderIndex = this.orderIndex + 1;
-          if(this.orders[this,orderIndex] != null){
-            this.suggestedOrder = this.orders[this.orderIndex + 1].id;
+        socket.emit('decline', function() {});
+          this.$data.orderIndex = this.$data.orderIndex + 1;
+          if(this.$data.orders[this.$data.orderIndex] != null){
+            this.$data.suggestedOrder = this.$data.orders[this.$data.orderIndex + 1].id;
           }
           else{
             $("#order").html("<p>There is no Job available for you atm</p>");
           }
-        });
+        
       },
       finish(){
-        socket.on('finishOrder', function(actualOrder){
-          if(this.nextOrder==null){
+        var actualOrder = this.actualOrder;
+        socket.on('finishOrder', {actualOrder: this.$data.actualOrder});
+          if(this.$data.nextOrder==null){
               $("#job").html("<p>There is no Job available for you atm</p>");
             }
             else{
-            this.actualOrder = this.nextOrder;
-            this.nextOrder = this.suggestedOrder;
-            $("#job").html("<p>Ordernumber: " + this.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
+            this.$data.actualOrder = this.$data.nextOrder;
+            this.$data.nextOrder = this.$data.suggestedOrder;
+            $("#job").html("<p>Ordernumber: " + this.$data.nextOrder + "</p> <p>From: somewhere</p> <p>To: nowhere</p>");
           }
-        });
+        
       },
       logout(){
-        socket.on('taxiQuit', function (taxiid){
+        
+        socket.on('taxiQuit', {taxis: this.$data.taxiid}
 
-        });
+        );
       },
       start(){},
       rate(){
         $(document).ready(function(){
       $(".btn1").click(function(evt){
-          this.rateNumber = $(this).attr("id");
+          this.$data.rateNumber = $(this).attr("id");
           
       });
      });
         $(document).ready(function(){
       $(".btn2").click(function(evt){
-          this.rateNumber = $(this).attr("id");
+          this.$data.rateNumber = $(this).attr("id");
           
       });
      });
         $(document).ready(function(){
       $(".btn3").click(function(evt){
-          this.rateNumber = $(this).attr("id");
+          this.$data.rateNumber = $(this).attr("id");
           
       });
      });
-          var rate = {this.taxis.id, this.actualOrder, this.rateNumber};
-          this.customerRating = rate;
-          socket.on('transferRatings', function(this.customerRating){
+          var rate = {taxis: this.taxis.id, actualOrder: this.actualOrder, rateNumber: this.rateNumber};
+          
+          socket.emit('transferRatings', function(rate){
           });
       },
       option(){
@@ -309,7 +316,7 @@ import Vue from 'vue'
       Map
     },
 
-    props: ['order', 'taxis', 'data']
+    props: ['order']
   }
 </script>
 
@@ -433,7 +440,7 @@ ul, li {
 #custnum {
  width: 90%;
   position: relative;
-  top: 70px;
+  top: 20px;
   
 }
 button {
@@ -456,7 +463,7 @@ button {
 .Sta {background-color: #e7e7e7; color: black; width: 80px; height: 30px; margin: 5px;}
 .Acc {background-color: #4CAF50; width: 70px; height: 30px; margin: 5px;}
 .Dec {background-color: #f44336; width: 70px; height: 30px; margin: 5px;} 
-.prin {background-color: #e7e7e7; color: black; width: 75px; height: 30px; margin: 2px; position: relative; top: 93px; float: left;}
+.prin {background-color: #e7e7e7; color: black; width: 75px; height: 30px; margin: 2px; position: relative; top: 40px; float: left;}
 
 
 form {
